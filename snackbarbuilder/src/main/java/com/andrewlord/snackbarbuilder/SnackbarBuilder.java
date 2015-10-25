@@ -38,16 +38,8 @@ public class SnackbarBuilder {
         this.parentView = view;
         context = view.getContext();
 
-        if (actionTextColor != 0) {
-            actionTextColor = ThemeAttr.resolveColor(context,
-                    R.attr.snackbarBuilder_actionTextColor,
-                    R.attr.colorPrimary);
-        }
-        if (messageTextColor != 0) {
-            messageTextColor = ThemeAttr.resolveColor(context,
-                    R.attr.snackbarBuilder_messageTextColor,
-                    android.R.attr.textColorPrimary);
-        }
+        setDefaultActionTextColor();
+        setDefaultMessageTextColor();
     }
 
     public SnackbarBuilder(Activity activity) {
@@ -125,7 +117,7 @@ public class SnackbarBuilder {
             snackbar.setActionTextColor(actionTextColor);
         }
 
-        if (hasAction()) {
+        if (actionText != null) {
             snackbar.setAction(actionText, actionClickListener);
         }
 
@@ -138,10 +130,6 @@ public class SnackbarBuilder {
         return snackbar;
     }
 
-    private boolean hasAction() {
-        return actionText != null && actionClickListener != null;
-    }
-
     public void buildAndShow() {
         build().show();
     }
@@ -152,6 +140,22 @@ public class SnackbarBuilder {
 
     private static int getColor(Context context, @ColorRes int color) {
         return ContextCompat.getColor(context, color);
+    }
+
+    private void setDefaultMessageTextColor() {
+        if (messageTextColor == 0) {
+            messageTextColor = ThemeAttr.resolveColor(context,
+                    R.attr.snackbarBuilder_messageTextColor,
+                    getColor(R.color.default_message));
+        }
+    }
+
+    private void setDefaultActionTextColor() {
+        if (actionTextColor == 0) {
+            int fallback = ThemeAttr.resolveColor(context, R.attr.colorAccent);
+            actionTextColor = ThemeAttr.resolveColor(context,
+                    R.attr.snackbarBuilder_actionTextColor, fallback);
+        }
     }
 
     public static void setDefaultActionTextColor(int defaultActionTextColor) {
