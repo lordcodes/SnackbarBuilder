@@ -3,9 +3,9 @@ package com.andrewlord.snackbarbuilder;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
-public class SnackbarActionCallback {
+public class SnackbarCallback {
 
-    private static final String TAG = SnackbarActionCallback.class.getSimpleName();
+    private static final String TAG = SnackbarCallback.class.getSimpleName();
 
     public void onSnackbarShown(Snackbar snackbar) {
         Log.v(TAG, "onSnackbarShown " + snackbar.toString());

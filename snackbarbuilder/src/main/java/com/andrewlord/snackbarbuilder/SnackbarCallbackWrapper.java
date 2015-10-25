@@ -5,11 +5,11 @@ import android.support.design.widget.Snackbar.Callback;
 
 public class SnackbarCallbackWrapper extends Callback {
 
-    private SnackbarActionCallback snackbarActionCallback;
+    private SnackbarCallback snackbarCallback;
     private Callback callback;
 
-    public SnackbarCallbackWrapper(SnackbarActionCallback snackbarActionCallback, Callback callback) {
-        this.snackbarActionCallback = snackbarActionCallback;
+    public SnackbarCallbackWrapper(SnackbarCallback snackbarCallback, Callback callback) {
+        this.snackbarCallback = snackbarCallback;
         this.callback = callback;
     }
 
@@ -21,19 +21,19 @@ public class SnackbarCallbackWrapper extends Callback {
 
         switch (event) {
             case Callback.DISMISS_EVENT_SWIPE:
-                snackbarActionCallback.onSnackbarSwiped(snackbar);
+                snackbarCallback.onSnackbarSwiped(snackbar);
                 break;
             case Callback.DISMISS_EVENT_ACTION:
-                snackbarActionCallback.onSnackbarActionPressed(snackbar);
+                snackbarCallback.onSnackbarActionPressed(snackbar);
                 break;
             case Callback.DISMISS_EVENT_TIMEOUT:
-                snackbarActionCallback.onSnackbarTimedOut(snackbar);
+                snackbarCallback.onSnackbarTimedOut(snackbar);
                 break;
             case Callback.DISMISS_EVENT_MANUAL:
-                snackbarActionCallback.onSnackbarManuallyDismissed(snackbar);
+                snackbarCallback.onSnackbarManuallyDismissed(snackbar);
                 break;
             case Callback.DISMISS_EVENT_CONSECUTIVE:
-                snackbarActionCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
+                snackbarCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
                 break;
         }
     }
@@ -43,6 +43,6 @@ public class SnackbarCallbackWrapper extends Callback {
         if (callback != null) {
             callback.onShown(snackbar);
         }
-        snackbarActionCallback.onSnackbarShown(snackbar);
+        snackbarCallback.onSnackbarShown(snackbar);
     }
 }

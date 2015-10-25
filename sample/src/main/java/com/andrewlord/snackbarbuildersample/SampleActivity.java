@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.andrewlord.snackbarbuilder.SnackbarActionCallback;
+import com.andrewlord.snackbarbuilder.SnackbarCallback;
 import com.andrewlord.snackbarbuilder.SnackbarBuilder;
 import com.andrewlord.snackbarbuilder.SnackbarDuration;
 
@@ -54,8 +54,8 @@ public class SampleActivity extends AppCompatActivity {
         SnackbarBuilder.setDefaultParentViewId(R.id.coordinator);
     }
 
-    private SnackbarActionCallback getCallback() {
-        return new SnackbarActionCallback() {
+    private SnackbarCallback getCallback() {
+        return new SnackbarCallback() {
 
             public void onSnackbarShown(Snackbar snackbar) {
                 super.onSnackbarShown(snackbar);

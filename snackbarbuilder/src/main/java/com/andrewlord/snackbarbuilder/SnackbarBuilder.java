@@ -29,7 +29,7 @@ public class SnackbarBuilder {
     private CharSequence actionText;
     private OnClickListener actionClickListener;
     private Snackbar.Callback callback;
-    private SnackbarActionCallback snackbarActionCallback;
+    private SnackbarCallback snackbarCallback;
 
     private int actionTextColor = defaultActionTextColor;
     private int messageTextColor = defaultMessageTextColor;
@@ -100,8 +100,8 @@ public class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder snackbarActionCallback(SnackbarActionCallback snackbarActionCallback) {
-        this.snackbarActionCallback = snackbarActionCallback;
+    public SnackbarBuilder snackbarActionCallback(SnackbarCallback snackbarCallback) {
+        this.snackbarCallback = snackbarCallback;
         return this;
     }
 
@@ -121,8 +121,8 @@ public class SnackbarBuilder {
             snackbar.setAction(actionText, actionClickListener);
         }
 
-        if (snackbarActionCallback != null) {
-            snackbar.setCallback(new SnackbarCallbackWrapper(snackbarActionCallback, this.callback));
+        if (snackbarCallback != null) {
+            snackbar.setCallback(new SnackbarCallbackWrapper(snackbarCallback, callback));
         } else {
             snackbar.setCallback(callback);
         }
