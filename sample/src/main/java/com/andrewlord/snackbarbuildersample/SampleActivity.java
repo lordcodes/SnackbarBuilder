@@ -36,7 +36,7 @@ public class SampleActivity extends AppCompatActivity {
                 new SnackbarBuilder(SampleActivity.this)
                         .message("Test snackbar")
                         .duration(SnackbarDuration.LONG)
-                        .snackbarActionCallback(getCallback())
+                        .snackbarCallback(getCallback())
                         .actionText("UNDO")
                         .actionClickListener(new OnClickListener() {
                             @Override

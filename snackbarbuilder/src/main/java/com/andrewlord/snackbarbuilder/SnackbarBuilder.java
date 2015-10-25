@@ -6,48 +6,41 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.internal.widget.ThemeUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.andrewlord.snackbarbuilder.theme.ThemeAttr;
-
 public class SnackbarBuilder {
 
-    private static int defaultActionTextColor;
-    private static int defaultMessageTextColor;
+    static int defaultActionTextColor;
+    static int defaultMessageTextColor;
 
     @IdRes
-    private static int defaultParentViewId;
+    protected static int defaultParentViewId;
 
-    private Context context;
-    private View parentView;
-    private CharSequence message;
-    private SnackbarDuration duration = SnackbarDuration.LONG;
-    private CharSequence actionText;
-    private OnClickListener actionClickListener;
-    private Snackbar.Callback callback;
-    private SnackbarCallback snackbarCallback;
-
-    private int actionTextColor = defaultActionTextColor;
-    private int messageTextColor = defaultMessageTextColor;
+    Context context;
+    View parentView;
+    CharSequence message;
+    SnackbarDuration duration = SnackbarDuration.LONG;
+    CharSequence actionText;
+    OnClickListener actionClickListener;
+    Snackbar.Callback callback;
+    SnackbarCallback snackbarCallback;
+    int actionTextColor = defaultActionTextColor;
+    int messageTextColor = defaultMessageTextColor;
 
     public SnackbarBuilder(View view) {
         this.parentView = view;
         context = view.getContext();
 
-        setDefaultActionTextColor();
-        setDefaultMessageTextColor();
+        initialiseDefaultActionTextColor();
+        initialiseDefaultMessageTextColor();
     }
 
     public SnackbarBuilder(Activity activity) {
         this(activity.findViewById(defaultParentViewId));
-    }
-
-    public SnackbarBuilder(Fragment fragment) {
-        this(fragment.getActivity().findViewById(defaultParentViewId));
     }
 
     public SnackbarBuilder message(CharSequence message) {
@@ -57,6 +50,16 @@ public class SnackbarBuilder {
 
     public SnackbarBuilder message(@StringRes int messageResId) {
         this.message = context.getString(messageResId);
+        return this;
+    }
+
+    public SnackbarBuilder messageTextColorRes(@ColorRes int messageTextColor) {
+        this.messageTextColor = ContextCompat.getColor(context, messageTextColor);
+        return this;
+    }
+
+    public SnackbarBuilder messageTextColor(int messageTextColor) {
+        this.messageTextColor = messageTextColor;
         return this;
     }
 
@@ -100,7 +103,7 @@ public class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder snackbarActionCallback(SnackbarCallback snackbarCallback) {
+    public SnackbarBuilder snackbarCallback(SnackbarCallback snackbarCallback) {
         this.snackbarCallback = snackbarCallback;
         return this;
     }
@@ -142,19 +145,23 @@ public class SnackbarBuilder {
         return ContextCompat.getColor(context, color);
     }
 
-    private void setDefaultMessageTextColor() {
+    private void initialiseDefaultMessageTextColor() {
         if (messageTextColor == 0) {
-            messageTextColor = ThemeAttr.resolveColor(context,
-                    R.attr.snackbarBuilder_messageTextColor,
-                    getColor(R.color.default_message));
+            messageTextColor = ThemeUtils.getThemeAttrColor(context,
+                    R.attr.snackbarBuilder_messageTextColor);
+            if (messageTextColor == 0) {
+                messageTextColor = getColor(R.color.default_message);
+            }
         }
     }
 
-    private void setDefaultActionTextColor() {
+    private void initialiseDefaultActionTextColor() {
         if (actionTextColor == 0) {
-            int fallback = ThemeAttr.resolveColor(context, R.attr.colorAccent);
-            actionTextColor = ThemeAttr.resolveColor(context,
-                    R.attr.snackbarBuilder_actionTextColor, fallback);
+            actionTextColor = ThemeUtils.getThemeAttrColor(context,
+                    R.attr.snackbarBuilder_actionTextColor);
+            if (actionTextColor == 0) {
+                actionTextColor = ThemeUtils.getThemeAttrColor(context, R.attr.colorAccent);
+            }
         }
     }
 

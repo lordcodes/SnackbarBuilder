@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="default_message">@android:color/white</color>
+
+
+    <!-- Tests -->
+
+    <color name="test">#444444</color>
+
 </resources>

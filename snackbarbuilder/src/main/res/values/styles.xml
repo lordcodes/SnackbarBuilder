@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomAttrTheme">
+        <item name="snackbarBuilder_actionTextColor">#454545</item>
+        <item name="snackbarBuilder_messageTextColor">#987654</item>
+    </style>
+
+    <style name="FallbackAttrTheme">
+        <item name="colorAccent">#232323</item>
+    </style>
+
+</resources>
