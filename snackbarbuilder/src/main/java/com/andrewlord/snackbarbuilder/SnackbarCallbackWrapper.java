@@ -5,8 +5,8 @@ import android.support.design.widget.Snackbar.Callback;
 
 public class SnackbarCallbackWrapper extends Callback {
 
-    private SnackbarCallback snackbarCallback;
-    private Callback callback;
+    protected SnackbarCallback snackbarCallback;
+    protected Callback callback;
 
     public SnackbarCallbackWrapper(SnackbarCallback snackbarCallback, Callback callback) {
         this.snackbarCallback = snackbarCallback;
