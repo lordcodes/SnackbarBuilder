@@ -21,6 +21,8 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -34,21 +36,22 @@ public class SnackbarBuilderTest {
     @Mock
     Activity activity;
 
+    @Mock
+    Callback callback;
+
+    @Mock
+    SnackbarCallback snackbarCallback;
+
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
 
-        SnackbarBuilder.defaultActionTextColor = 0;
-        SnackbarBuilder.defaultMessageTextColor = 0;
-        SnackbarBuilder.defaultParentViewId = 0;
-
         when(parentView.getContext()).thenReturn(RuntimeEnvironment.application);
-        builderUnderTest = new SnackbarBuilder(parentView);
     }
 
     @After
     public void after() {
-        RuntimeEnvironment.application.setTheme(0);
+        SnackbarBuilder.setDefaultParentViewId(0);
     }
 
     @Test
@@ -66,7 +69,7 @@ public class SnackbarBuilderTest {
         //Given
         @IdRes int defaultId = 10;
         when(activity.findViewById(defaultId)).thenReturn(parentView);
-        SnackbarBuilder.defaultParentViewId = defaultId;
+        SnackbarBuilder.setDefaultParentViewId(defaultId);
 
         //When
         SnackbarBuilder builder = new SnackbarBuilder(activity);
@@ -74,18 +77,6 @@ public class SnackbarBuilderTest {
         //Then
         assertThat(builder.parentView).isEqualTo(parentView);
         assertThat(builder.context).isEqualTo(parentView.getContext());
-    }
-
-    @Test
-    public void givenDefaultActionTextColor_whenCreated_thenActionTextColorIsDefault() {
-        //Given
-        SnackbarBuilder.defaultActionTextColor = 0xFF123456;
-
-        //When
-        SnackbarBuilder builder = new SnackbarBuilder(parentView);
-
-        //Then
-        assertThat(builder.actionTextColor).isEqualTo(0xFF123456);
     }
 
     @Test
@@ -113,18 +104,6 @@ public class SnackbarBuilderTest {
     }
 
     @Test
-    public void givenDefaultMessageTextColor_whenCreated_thenMessageTextColorIsDefault() {
-        //Given
-        SnackbarBuilder.defaultMessageTextColor = 0xFF123456;
-
-        //When
-        SnackbarBuilder builder = new SnackbarBuilder(parentView);
-
-        //Then
-        assertThat(builder.messageTextColor).isEqualTo(0xFF123456);
-    }
-
-    @Test
     public void givenNoDefaultMessageTextColor_whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
         //Given
         RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
@@ -147,86 +126,171 @@ public class SnackbarBuilderTest {
 
     @Test
     public void whenMessageWithString_thenMessageSet() {
-        assertThat(builderUnderTest.message("message").message).isEqualTo("message");
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.message("message");
+
+        //Then
+        assertThat(builderUnderTest.message).isEqualTo("message");
     }
 
     @Test
     public void whenMessageWithStringResource_thenMessageSet() {
-        assertThat(builderUnderTest.message(R.string.test).message).isEqualTo("Test");
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.message(R.string.test);
+
+        //Then
+        assertThat(builderUnderTest.message).isEqualTo("Test");
     }
 
     @Test
     public void whenMessageTextColorRes_thenMessageTextColorSet() {
-        assertThat(builderUnderTest.messageTextColorRes(R.color.test).messageTextColor)
-                .isEqualTo(0xFF444444);
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.messageTextColorRes(R.color.test);
+
+        //Then
+        assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF444444);
     }
 
     @Test
     public void whenMessageTextColor_thenMessageTextColorSet() {
-        assertThat(builderUnderTest.messageTextColor(0xFF333333).messageTextColor)
-                .isEqualTo(0xFF333333);
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.messageTextColor(0xFF333333);
+
+        //Then
+        assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF333333);
     }
 
     @Test
     public void whenDurationWithInt_thenDurationSet() {
-        assertThat(builderUnderTest.duration(Snackbar.LENGTH_INDEFINITE).duration)
-                .isEqualTo(SnackbarDuration.INDEFINITE);
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.duration(Snackbar.LENGTH_INDEFINITE);
+
+        //Then
+        assertThat(builderUnderTest.duration).isEqualTo(SnackbarDuration.INDEFINITE);
     }
 
     @Test
     public void whenDurationWithEnum_thenDurationSet() {
-        assertThat(builderUnderTest.duration(SnackbarDuration.SHORT).duration)
-                .isEqualTo(SnackbarDuration.SHORT);
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.duration(SnackbarDuration.SHORT);
+
+        //Then
+        assertThat(builderUnderTest.duration).isEqualTo(SnackbarDuration.SHORT);
     }
 
     @Test
     public void whenActionTextColorRes_thenActionTextColorSet() {
-        assertThat(builderUnderTest.actionTextColorRes(R.color.test).actionTextColor)
-                .isEqualTo(0xFF444444);
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.actionTextColorRes(R.color.test);
+
+        //Then
+        assertThat(builderUnderTest.actionTextColor).isEqualTo(0xFF444444);
     }
 
     @Test
     public void whenActionTextColor_thenActionTextColorSet() {
-        assertThat(builderUnderTest.actionTextColor(0xFF333333).actionTextColor)
-                .isEqualTo(0xFF333333);
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.actionTextColor(0xFF333333);
+
+        //Then
+        assertThat(builderUnderTest.actionTextColor).isEqualTo(0xFF333333);
     }
 
     @Test
     public void whenActionTextWithString_thenActionTextSet() {
-        assertThat(builderUnderTest.actionText("text").actionText).isEqualTo("text");
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.actionText("text");
+
+        //Then
+        assertThat(builderUnderTest.actionText).isEqualTo("text");
     }
 
     @Test
     public void whenActionTextWithStringResource_thenActionTextSet() {
-        assertThat(builderUnderTest.actionText(R.string.test).actionText).isEqualTo("Test");
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.actionText(R.string.test);
+
+        //Then
+        assertThat(builderUnderTest.actionText).isEqualTo("Test");
     }
 
     @Test
     public void whenActionClickListener_thenActionClickListenerSet() {
+        //Given
+        createBuilder();
         OnClickListener click = new OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Click
             }
         };
-        assertThat(builderUnderTest.actionClickListener(click).actionClickListener).isEqualTo(click);
+
+        //When
+        builderUnderTest.actionClickListener(click);
+
+        //Then
+        assertThat(builderUnderTest.actionClickListener).isEqualTo(click);
     }
 
     @Test
     public void whenCallback_thenCallbackSet() {
+        //Given
+        createBuilder();
         Callback callback = new Callback() {
             @Override
             public void onDismissed(Snackbar snackbar, int event) {
                 super.onDismissed(snackbar, event);
             }
         };
-        assertThat(builderUnderTest.callback(callback).callback).isEqualTo(callback);
+
+        //When
+        builderUnderTest.callback(callback);
+
+        //Then
+        assertThat(builderUnderTest.callback).isEqualTo(callback);
     }
 
     @Test
     public void whenSnackbarCallback_thenSnackbarCallbackSet() {
+        //Given
+        createBuilder();
         SnackbarCallback callback = new SnackbarCallback();
-        assertThat(builderUnderTest.snackbarCallback(callback).snackbarCallback).isEqualTo(callback);
+
+        //When
+        builderUnderTest.snackbarCallback(callback);
+
+        //Then
+        assertThat(builderUnderTest.snackbarCallback).isEqualTo(callback);
     }
 
     @Test
@@ -237,9 +301,11 @@ public class SnackbarBuilderTest {
         String message = "message";
         String action = "action";
         SnackbarDuration duration = SnackbarDuration.INDEFINITE;
+        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
-        Snackbar snackbar = new SnackbarBuilder(parentView)
+        Snackbar snackbar = new SnackbarBuilder(parent)
                 .messageTextColor(messageTextColor)
                 .actionTextColor(actionTextColor)
                 .message(message)
@@ -255,6 +321,51 @@ public class SnackbarBuilderTest {
 
         Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         assertThat(button.getCurrentTextColor()).isEqualTo(actionTextColor);
+    }
+
+    @Test
+    public void givenCallback_whenBuild_thenCallbackSet() {
+        //Given
+        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+
+        //When
+        Snackbar snackbar = new SnackbarBuilder(parent)
+                .message("message")
+                .actionText("action")
+                .duration(SnackbarDuration.SHORT)
+                .callback(callback)
+                .build();
+        snackbar.show();
+
+        //Then
+        snackbar.dismiss();
+        verify(callback, times(1)).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
+    }
+
+    @Test
+    public void givenSnackbarCallback_whenBuild_thenSnackbarCallbackSet() {
+        //Given
+        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+
+        //When
+        Snackbar snackbar = new SnackbarBuilder(parent)
+                .message("message")
+                .actionText("action")
+                .duration(SnackbarDuration.SHORT)
+                .snackbarCallback(snackbarCallback)
+                .build();
+        snackbar.show();
+
+        //Then
+        snackbar.dismiss();
+        verify(snackbarCallback, times(1)).onSnackbarManuallyDismissed(snackbar);
+    }
+
+    private void createBuilder() {
+        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        builderUnderTest = new SnackbarBuilder(parentView);
     }
 
 }

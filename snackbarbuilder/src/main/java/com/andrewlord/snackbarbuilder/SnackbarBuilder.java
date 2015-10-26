@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 public class SnackbarBuilder {
 
-    static int defaultActionTextColor;
-    static int defaultMessageTextColor;
-
     @IdRes
     protected static int defaultParentViewId;
 
@@ -28,8 +25,8 @@ public class SnackbarBuilder {
     OnClickListener actionClickListener;
     Snackbar.Callback callback;
     SnackbarCallback snackbarCallback;
-    int actionTextColor = defaultActionTextColor;
-    int messageTextColor = defaultMessageTextColor;
+    int actionTextColor;
+    int messageTextColor;
 
     public SnackbarBuilder(View view) {
         this.parentView = view;
@@ -133,15 +130,7 @@ public class SnackbarBuilder {
         return snackbar;
     }
 
-    public void buildAndShow() {
-        build().show();
-    }
-
     private int getColor(@ColorRes int color) {
-        return ContextCompat.getColor(context, color);
-    }
-
-    private static int getColor(Context context, @ColorRes int color) {
         return ContextCompat.getColor(context, color);
     }
 
@@ -163,24 +152,6 @@ public class SnackbarBuilder {
                 actionTextColor = ThemeUtils.getThemeAttrColor(context, R.attr.colorAccent);
             }
         }
-    }
-
-    public static void setDefaultActionTextColor(int defaultActionTextColor) {
-        SnackbarBuilder.defaultActionTextColor = defaultActionTextColor;
-    }
-
-    public static void setDefaultActionTextColorRes(Context context,
-                                                    @ColorRes int defaultActionTextColor) {
-        SnackbarBuilder.defaultActionTextColor = getColor(context, defaultActionTextColor);
-    }
-
-    public static void setDefaultMessageTextColor(int defaultMessageTextColor) {
-        SnackbarBuilder.defaultMessageTextColor = defaultMessageTextColor;
-    }
-
-    public static void setDefaultMessageTextColorRes(Context context,
-                                                     @ColorRes int defaultMessageTextColor) {
-        SnackbarBuilder.defaultMessageTextColor = getColor(context, defaultMessageTextColor);
     }
 
     public static void setDefaultParentViewId(@IdRes int defaultParentViewId) {
