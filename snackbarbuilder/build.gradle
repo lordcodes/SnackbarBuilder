@@ -12,11 +12,19 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    sourceSets {
+        test.java.srcDirs += 'build/generated/source/r/debug'
     }
 }
 
