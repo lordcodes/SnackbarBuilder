@@ -2,8 +2,8 @@ package com.andrewlord.snackbarbuilder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -13,9 +13,6 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class SnackbarBuilder {
-
-    @IdRes
-    protected static int defaultParentViewId;
 
     Context context;
     View parentView;
@@ -29,15 +26,21 @@ public class SnackbarBuilder {
     int messageTextColor;
 
     public SnackbarBuilder(View view) {
-        this.parentView = view;
-        context = view.getContext();
-
-        initialiseDefaultActionTextColor();
-        initialiseDefaultMessageTextColor();
+        parentView = view;
+        context = parentView.getContext();
+        setup();
     }
 
     public SnackbarBuilder(Activity activity) {
-        this(activity.findViewById(defaultParentViewId));
+        context = activity;
+        int parentViewId = getParentViewId();
+        parentView = activity.findViewById(parentViewId);
+        setup();
+    }
+
+    private void setup() {
+        initialiseDefaultActionTextColor();
+        initialiseDefaultMessageTextColor();
     }
 
     public SnackbarBuilder message(CharSequence message) {
@@ -154,8 +157,18 @@ public class SnackbarBuilder {
         }
     }
 
-    public static void setDefaultParentViewId(@IdRes int defaultParentViewId) {
-        SnackbarBuilder.defaultParentViewId = defaultParentViewId;
+    private int getParentViewId() {
+        return getThemeAttr(R.attr.snackbarBuilder_parentViewId);
+    }
+
+    private int getThemeAttr(int attr) {
+        int[] attrs = new int[]{attr};
+        TypedArray a = context.obtainStyledAttributes(null, attrs);
+        try {
+            return a.getResourceId(0, 0);
+        } finally {
+            a.recycle();
+        }
     }
 
 }

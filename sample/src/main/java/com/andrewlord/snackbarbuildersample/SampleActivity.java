@@ -44,14 +44,13 @@ public class SampleActivity extends AppCompatActivity {
                                 //Stuff
                             }
                         })
-                        .buildAndShow();
+                        .build()
+                        .show();
             }
         });
 
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1));
-
-        SnackbarBuilder.setDefaultParentViewId(R.id.coordinator);
     }
 
     private SnackbarCallback getCallback() {

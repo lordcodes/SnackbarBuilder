@@ -9,14 +9,15 @@ import android.support.design.widget.Snackbar.Callback;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
@@ -49,11 +50,6 @@ public class SnackbarBuilderTest {
         when(parentView.getContext()).thenReturn(RuntimeEnvironment.application);
     }
 
-    @After
-    public void after() {
-        SnackbarBuilder.setDefaultParentViewId(0);
-    }
-
     @Test
     public void givenView_whenCreated_thenParentViewSetCorrectly() {
         //When
@@ -65,22 +61,26 @@ public class SnackbarBuilderTest {
     }
 
     @Test
-    public void givenActivity_whenCreated_thenParentViewFoundUsingDefaultParentViewId() {
+    public void givenActivity_whenCreated_thenParentViewFoundUsingParentViewId() {
         //Given
-        @IdRes int defaultId = 10;
-        when(activity.findViewById(defaultId)).thenReturn(parentView);
-        SnackbarBuilder.setDefaultParentViewId(defaultId);
+        Activity activity = Robolectric.setupActivity(Activity.class);
+        activity.setTheme(R.style.CustomAttrTheme);
+        LinearLayout layout = new LinearLayout(activity);
+        layout.setId(R.id.test_id);
+        activity.setContentView(layout);
 
         //When
         SnackbarBuilder builder = new SnackbarBuilder(activity);
 
         //Then
-        assertThat(builder.parentView).isEqualTo(parentView);
-        assertThat(builder.context).isEqualTo(parentView.getContext());
+        assertThat(builder.parentView).isEqualTo(layout);
+        assertThat(builder.context).isEqualTo(activity);
+        assertThat(builder.actionTextColor).isEqualTo(0xFF454545);
+        assertThat(builder.messageTextColor).isEqualTo(0xFF987654);
     }
 
     @Test
-    public void givenNoDefaultActionTextColor_whenCreated_thenActionTextColorFromCustomThemeAttribute() {
+    public void whenCreated_thenActionTextColorFromCustomThemeAttribute() {
         //Given
         RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
 
@@ -92,7 +92,7 @@ public class SnackbarBuilderTest {
     }
 
     @Test
-    public void givenNoDefaultActionTextColorOrCustomThemeAttribute_whenCreated_thenActionTextColorFromColorAccentThemeAttribute() {
+    public void givenNoCustomThemeAttribute_whenCreated_thenActionTextColorFromColorAccentThemeAttribute() {
         //Given
         RuntimeEnvironment.application.setTheme(R.style.FallbackAttrTheme);
 
@@ -104,7 +104,7 @@ public class SnackbarBuilderTest {
     }
 
     @Test
-    public void givenNoDefaultMessageTextColor_whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
+    public void whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
         //Given
         RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
 
@@ -116,7 +116,7 @@ public class SnackbarBuilderTest {
     }
 
     @Test
-    public void givenNoDefaultMessageTextColorOrCustomThemeAttribute_whenCreated_thenMessageTextColorFromColorAccentThemeAttribute() {
+    public void givenNoCustomThemeAttribute_whenCreated_thenMessageTextColorFromColorAccentThemeAttribute() {
         //When
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
 

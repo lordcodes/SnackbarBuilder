@@ -2,4 +2,5 @@
 <resources>
     <attr name="snackbarBuilder_actionTextColor" format="color" />
     <attr name="snackbarBuilder_messageTextColor" format="color" />
+    <attr name="snackbarBuilder_parentViewId" format="reference" />
 </resources>
