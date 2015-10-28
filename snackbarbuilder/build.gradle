@@ -1,6 +1,20 @@
 import static groovy.io.FileType.FILES
 
 apply plugin: 'com.android.library'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
+    }
+}
 
 project.ext.set("versionMajor", 0)
 project.ext.set("versionMinor", 1)
@@ -47,6 +61,39 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.assertj:assertj-core:1.7.1'
     testCompile 'org.mockito:mockito-core:1.10.19'
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebug']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports"
+
+    jacocoClasspath = project.configurations['androidJacocoAnt']
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*_.*']
+    def debugTree = fileTree(dir: "${project.buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = ['${project.projectDir}/src/main/java']
+
+    sourceDirectories = files([mainSrc])
+    additionalSourceDirs = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.projectDir, includes: ['**/*.exec', '**/*.ec'])
+
+    reports {
+        xml {
+            enabled = true
+            destination = "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+        }
+        csv.enabled false
+        html {
+            enabled = true
+            destination = "${project.buildDir}/reports/jacoco"
+        }
+    }
+
 }
 
 // This task discovers the manifest files for the .aars that we depend on and
