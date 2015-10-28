@@ -1,8 +1,10 @@
 # SnackbarBuilder
 
 [![Build Status](https://travis-ci.org/andrewlord1990/SnackbarBuilder.svg?branch=master)](https://travis-ci.org/andrewlord1990/SnackbarBuilder)
+[![Coverage Status](https://coveralls.io/repos/andrewlord1990/SnackbarBuilder/badge.svg?branch=master&service=github)](https://coveralls.io/github/andrewlord1990/SnackbarBuilder?branch=master)
+[![API](https://img.shields.io/badge/API-7%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=7)
 
-SnackbarBuilder is a builder pattern that makes Snackbars easier to make and customise.
+The Android Design Support library introduced a Snackbar class. SnackbarBuilder is a builder pattern that makes Snackbars easier to make and customise.
 
 It is not yet available on `Maven Central` or `Bintray`, but it will be soon.
 
