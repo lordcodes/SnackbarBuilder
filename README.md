@@ -4,6 +4,8 @@
 
 SnackbarBuilder is a builder pattern that makes Snackbars easier to make and customise.
 
+It is not yet available on `Maven Central` or `Bintray`, but it will be soon.
+
 ## Main Features
 
 - Builder pattern to create Snackbars
@@ -24,7 +26,7 @@ Snackbar snackbar = new SnackbarBuilder(this)
               .duration(SnackbarDuration.LONG)
               .message("message")
               .actionText("Action")
-              .snackbarCallback(new MySnackbarCallback()) // Handles all callback events
+              .snackbarCallback(new MySnackbarCallback())
               .build()
               .show();
 ```
