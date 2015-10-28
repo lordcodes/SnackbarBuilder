@@ -2,25 +2,34 @@ import static groovy.io.FileType.FILES
 
 apply plugin: 'com.android.library'
 
+project.ext.set("versionMajor", 0)
+project.ext.set("versionMinor", 1)
+project.ext.set("versionPatch", 0)
+
+project.ext.set("targetSdk", 23)
+project.ext.set("minSdk", 7)
+
+def generateVersionCode() {
+    def minSdkPart = String.format("%02d", project.minSdk)
+    def majorPart = String.format("%01d", project.versionMajor)
+    def minorPart = String.format("%03d", project.versionMinor)
+    def patchPart = String.format("%03d", project.versionPatch)
+    return "${minSdkPart}${majorPart}${minorPart}${patchPart}".toInteger()
+}
+
+def generateVersionName() {
+    return "${versionMajor}.${versionMinor}.${versionPatch}"
+}
+
 android {
-    compileSdkVersion 23
+    compileSdkVersion project.targetSdk
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        debug {
-            minifyEnabled false
-        }
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+        minSdkVersion project.minSdk
+        targetSdkVersion project.targetSdk
+        versionCode generateVersionCode()
+        versionName generateVersionName()
     }
 
     sourceSets {
