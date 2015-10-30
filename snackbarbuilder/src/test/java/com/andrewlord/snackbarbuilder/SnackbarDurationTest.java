@@ -43,4 +43,27 @@ public class SnackbarDurationTest {
         assertThat(SnackbarDuration.fromInt(-5)).isEqualTo(SnackbarDuration.LONG);
     }
 
+    @Test
+    public void givenValidIndices_whenFromThemeAttributeEnum_thenCorrectDuration() {
+        //When
+        SnackbarDuration shortDuration = SnackbarDuration.fromThemeAttributeEnum(0);
+        SnackbarDuration longDuration = SnackbarDuration.fromThemeAttributeEnum(1);
+        SnackbarDuration indefiniteDuration = SnackbarDuration.fromThemeAttributeEnum(2);
+
+        //Then
+        assertThat(shortDuration).isEqualTo(SnackbarDuration.SHORT);
+        assertThat(longDuration).isEqualTo(SnackbarDuration.LONG);
+        assertThat(indefiniteDuration).isEqualTo(SnackbarDuration.INDEFINITE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void givenIndexLessThan0_whenFromThemeAttribute_thenIllegalArgumentException() {
+        SnackbarDuration.fromThemeAttributeEnum(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void givenIndexGreaterThan2_whenFromThemeAttribute_thenIllegalArgumentException() {
+        SnackbarDuration.fromThemeAttributeEnum(3);
+    }
+
 }

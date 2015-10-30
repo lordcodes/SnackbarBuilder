@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="snackbarBuilder_actionTextColor" format="color" />
-    <attr name="snackbarBuilder_messageTextColor" format="color" />
-    <attr name="snackbarBuilder_parentViewId" format="reference" />
+
+    <attr name="snackbarBuilder_messageTextColor" format="color"/>
+    <attr name="snackbarBuilder_actionTextColor" format="color"/>
+    <attr name="snackbarBuilder_parentViewId" format="reference"/>
+    <attr name="snackbarBuilder_duration">
+        <enum name="shortTime" value="0"/>
+        <enum name="longTime" value="1"/>
+        <enum name="indefinite" value="2"/>
+    </attr>
+
 </resources>

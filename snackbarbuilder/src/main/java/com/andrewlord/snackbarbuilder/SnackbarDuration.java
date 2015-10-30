@@ -28,4 +28,17 @@ public enum SnackbarDuration {
         }
         return LONG;
     }
+
+    static SnackbarDuration fromThemeAttributeEnum(int duration) {
+        switch (duration) {
+            case 0:
+                return SHORT;
+            case 1:
+                return LONG;
+            case 2:
+                return INDEFINITE;
+        }
+        throw new IllegalArgumentException("Unexpected value for duration theme attribute");
+    }
+
 }

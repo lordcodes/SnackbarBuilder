@@ -24,23 +24,18 @@ public class SnackbarBuilder {
     SnackbarCallback snackbarCallback;
     int actionTextColor;
     int messageTextColor;
+    int parentViewId;
 
     public SnackbarBuilder(View view) {
         parentView = view;
         context = parentView.getContext();
-        setup();
+        loadThemeAttributes();
     }
 
     public SnackbarBuilder(Activity activity) {
         context = activity;
-        int parentViewId = getParentViewId();
+        loadThemeAttributes();
         parentView = activity.findViewById(parentViewId);
-        setup();
-    }
-
-    private void setup() {
-        initialiseDefaultActionTextColor();
-        initialiseDefaultMessageTextColor();
     }
 
     public SnackbarBuilder message(CharSequence message) {
@@ -137,38 +132,38 @@ public class SnackbarBuilder {
         return ContextCompat.getColor(context, color);
     }
 
-    private void initialiseDefaultMessageTextColor() {
-        if (messageTextColor == 0) {
-            messageTextColor = ThemeUtils.getThemeAttrColor(context,
-                    R.attr.snackbarBuilder_messageTextColor);
-            if (messageTextColor == 0) {
-                messageTextColor = getColor(R.color.default_message);
-            }
-        }
-    }
-
-    private void initialiseDefaultActionTextColor() {
-        if (actionTextColor == 0) {
-            actionTextColor = ThemeUtils.getThemeAttrColor(context,
-                    R.attr.snackbarBuilder_actionTextColor);
-            if (actionTextColor == 0) {
-                actionTextColor = ThemeUtils.getThemeAttrColor(context, R.attr.colorAccent);
-            }
-        }
-    }
-
-    private int getParentViewId() {
-        return getThemeAttr(R.attr.snackbarBuilder_parentViewId);
-    }
-
-    private int getThemeAttr(int attr) {
-        int[] attrs = new int[]{attr};
-        TypedArray a = context.obtainStyledAttributes(null, attrs);
+    private void loadThemeAttributes() {
+        TypedArray attrs = context.obtainStyledAttributes(getAttributes());
         try {
-            return a.getResourceId(0, 0);
+            messageTextColor = attrs.getColor(0, 0);
+            actionTextColor = attrs.getColor(1, 0);
+            parentViewId = attrs.getResourceId(2, 0);
+            int durationIndex = attrs.getInteger(3, -1);
+            if (durationIndex > 0) {
+                duration = SnackbarDuration.fromThemeAttributeEnum(durationIndex);
+            }
         } finally {
-            a.recycle();
+            attrs.recycle();
         }
+        loadFallbackThemeAttributes();
+    }
+
+    private void loadFallbackThemeAttributes() {
+        if (messageTextColor == 0) {
+            messageTextColor = getColor(R.color.default_message);
+        }
+        if (actionTextColor == 0) {
+            actionTextColor = ThemeUtils.getThemeAttrColor(context, R.attr.colorAccent);
+        }
+    }
+
+    private int[] getAttributes() {
+        return new int[]{
+                R.attr.snackbarBuilder_messageTextColor,
+                R.attr.snackbarBuilder_actionTextColor,
+                R.attr.snackbarBuilder_parentViewId,
+                R.attr.snackbarBuilder_duration
+        };
     }
 
 }

@@ -2,7 +2,6 @@ package com.andrewlord.snackbarbuilder;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -122,6 +122,27 @@ public class SnackbarBuilderTest {
 
         //Then
         assertThat(builder.messageTextColor).isEqualTo(Color.WHITE);
+    }
+
+    @Test
+    public void whenCreated_thenDurationFromCustomThemeAttribute() {
+        //Given
+        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+
+        //When
+        SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+        //Then
+        assertThat(builder.duration).isEqualTo(SnackbarDuration.INDEFINITE);
+    }
+
+    @Test
+    public void givenNoCustomThemeAttribute_whenCreated_thenDurationLong() {
+        //When
+        SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+        //Then
+        assertThat(builder.duration).isEqualTo(SnackbarDuration.LONG);
     }
 
     @Test
