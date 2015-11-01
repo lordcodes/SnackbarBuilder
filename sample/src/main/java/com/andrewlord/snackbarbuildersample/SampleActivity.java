@@ -123,6 +123,17 @@ public class SampleActivity extends AppCompatActivity {
                         .show();
             }
         });
+        samples.put("Lowercase action", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message")
+                        .actionText("Action")
+                        .lowercaseAction()
+                        .build()
+                        .show();
+            }
+        });
     }
 
     private SnackbarCallback createSnackbarCallback() {

@@ -3,6 +3,8 @@ package com.andrewlord.snackbarbuilder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.internal.widget.ThemeUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class SnackbarBuilder {
@@ -26,6 +29,7 @@ public class SnackbarBuilder {
     OnClickListener actionClickListener;
     Snackbar.Callback callback;
     SnackbarCallback snackbarCallback;
+    boolean actionAllCaps = true;
 
     int backgroundColor;
     int actionTextColor;
@@ -114,6 +118,11 @@ public class SnackbarBuilder {
         return this;
     }
 
+    public SnackbarBuilder lowercaseAction() {
+        actionAllCaps = false;
+        return this;
+    }
+
     public Snackbar build() {
         Snackbar snackbar = Snackbar.make(parentView, message, duration);
 
@@ -148,7 +157,16 @@ public class SnackbarBuilder {
             snackbar.setCallback(callback);
         }
 
+        Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
+        if (isApiAtLeast14()) {
+            action.setAllCaps(actionAllCaps);
+        }
+
         return snackbar;
+    }
+
+    private boolean isApiAtLeast14() {
+        return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
     private int getColor(@ColorRes int color) {

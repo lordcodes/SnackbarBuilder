@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
+import android.support.v7.internal.text.AllCapsTransformationMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -338,6 +339,18 @@ public class SnackbarBuilderTest {
     }
 
     @Test
+    public void whenLowercaseAction_thenActionAllCapsFalse() {
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.lowercaseAction();
+
+        //Then
+        assertThat(builderUnderTest.actionAllCaps).isFalse();
+    }
+
+    @Test
     public void whenBuild_thenSnackbarSetup() {
         //Given
         int messageTextColor = 0xFF111111;
@@ -355,6 +368,7 @@ public class SnackbarBuilderTest {
                 .actionText(action)
                 .duration(Snackbar.LENGTH_INDEFINITE)
                 .backgroundColorRes(R.color.test)
+                .lowercaseAction()
                 .build();
 
         //Then
@@ -366,6 +380,7 @@ public class SnackbarBuilderTest {
         Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         assertThat(button.getCurrentTextColor()).isEqualTo(actionTextColor);
         button.performClick();
+        assertThat(button.getTransformationMethod()).isNull();
     }
 
     @Test
@@ -406,6 +421,25 @@ public class SnackbarBuilderTest {
         //Then
         snackbar.dismiss();
         verify(snackbarCallback, times(1)).onSnackbarManuallyDismissed(snackbar);
+    }
+
+    @Test
+    public void givenNotLowercaseAction_whenBuild_thenActionAllCaps() {
+        //Given
+        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+
+        //When
+        Snackbar snackbar = new SnackbarBuilder(parent)
+                .message("message")
+                .actionText("action")
+                .duration(Snackbar.LENGTH_SHORT)
+                .build();
+        snackbar.show();
+
+        //Then
+        Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
+        assertThat(button.getTransformationMethod()).isNotNull();
     }
 
     private void createBuilder() {
