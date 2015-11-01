@@ -354,6 +354,7 @@ public class SnackbarBuilderTest {
                 .message(message)
                 .actionText(action)
                 .duration(Snackbar.LENGTH_INDEFINITE)
+                .backgroundColorRes(R.color.test)
                 .build();
 
         //Then
@@ -364,6 +365,7 @@ public class SnackbarBuilderTest {
 
         Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         assertThat(button.getCurrentTextColor()).isEqualTo(actionTextColor);
+        button.performClick();
     }
 
     @Test
