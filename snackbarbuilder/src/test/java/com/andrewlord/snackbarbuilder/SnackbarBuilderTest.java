@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -133,7 +132,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
 
         //Then
-        assertThat(builder.duration).isEqualTo(SnackbarDuration.INDEFINITE);
+        assertThat(builder.duration).isEqualTo(Snackbar.LENGTH_INDEFINITE);
     }
 
     @Test
@@ -142,7 +141,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
 
         //Then
-        assertThat(builder.duration).isEqualTo(SnackbarDuration.LONG);
+        assertThat(builder.duration).isEqualTo(Snackbar.LENGTH_LONG);
     }
 
     @Test
@@ -194,7 +193,7 @@ public class SnackbarBuilderTest {
     }
 
     @Test
-    public void whenDurationWithInt_thenDurationSet() {
+    public void whenDuration_thenDurationSet() {
         //Given
         createBuilder();
 
@@ -202,19 +201,7 @@ public class SnackbarBuilderTest {
         builderUnderTest.duration(Snackbar.LENGTH_INDEFINITE);
 
         //Then
-        assertThat(builderUnderTest.duration).isEqualTo(SnackbarDuration.INDEFINITE);
-    }
-
-    @Test
-    public void whenDurationWithEnum_thenDurationSet() {
-        //Given
-        createBuilder();
-
-        //When
-        builderUnderTest.duration(SnackbarDuration.SHORT);
-
-        //Then
-        assertThat(builderUnderTest.duration).isEqualTo(SnackbarDuration.SHORT);
+        assertThat(builderUnderTest.duration).isEqualTo(Snackbar.LENGTH_INDEFINITE);
     }
 
     @Test
@@ -321,7 +308,6 @@ public class SnackbarBuilderTest {
         int actionTextColor = 0xFF999999;
         String message = "message";
         String action = "action";
-        SnackbarDuration duration = SnackbarDuration.INDEFINITE;
         RuntimeEnvironment.application.setTheme(R.style.AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
@@ -331,7 +317,7 @@ public class SnackbarBuilderTest {
                 .actionTextColor(actionTextColor)
                 .message(message)
                 .actionText(action)
-                .duration(duration)
+                .duration(Snackbar.LENGTH_INDEFINITE)
                 .build();
 
         //Then
@@ -354,7 +340,7 @@ public class SnackbarBuilderTest {
         Snackbar snackbar = new SnackbarBuilder(parent)
                 .message("message")
                 .actionText("action")
-                .duration(SnackbarDuration.SHORT)
+                .duration(Snackbar.LENGTH_SHORT)
                 .callback(callback)
                 .build();
         snackbar.show();
@@ -374,7 +360,7 @@ public class SnackbarBuilderTest {
         Snackbar snackbar = new SnackbarBuilder(parent)
                 .message("message")
                 .actionText("action")
-                .duration(SnackbarDuration.SHORT)
+                .duration(Snackbar.LENGTH_SHORT)
                 .snackbarCallback(snackbarCallback)
                 .build();
         snackbar.show();

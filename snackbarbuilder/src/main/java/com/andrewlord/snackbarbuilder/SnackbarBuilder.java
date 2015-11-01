@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.Snackbar.Duration;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.internal.widget.ThemeUtils;
 import android.view.View;
@@ -17,7 +18,10 @@ public class SnackbarBuilder {
     Context context;
     View parentView;
     CharSequence message;
-    SnackbarDuration duration = SnackbarDuration.LONG;
+
+    @Duration
+    int duration = Snackbar.LENGTH_LONG;
+
     CharSequence actionText;
     OnClickListener actionClickListener;
     Snackbar.Callback callback;
@@ -58,12 +62,7 @@ public class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder duration(int duration) {
-        this.duration = SnackbarDuration.fromInt(duration);
-        return this;
-    }
-
-    public SnackbarBuilder duration(SnackbarDuration duration) {
+    public SnackbarBuilder duration(@Duration int duration) {
         this.duration = duration;
         return this;
     }
@@ -104,7 +103,7 @@ public class SnackbarBuilder {
     }
 
     public Snackbar build() {
-        Snackbar snackbar = Snackbar.make(parentView, message, duration.getAsInt());
+        Snackbar snackbar = Snackbar.make(parentView, message, duration);
 
         if (messageTextColor != 0) {
             TextView messageView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
@@ -138,9 +137,9 @@ public class SnackbarBuilder {
             messageTextColor = attrs.getColor(0, 0);
             actionTextColor = attrs.getColor(1, 0);
             parentViewId = attrs.getResourceId(2, 0);
-            int durationIndex = attrs.getInteger(3, -1);
-            if (durationIndex > 0) {
-                duration = SnackbarDuration.fromThemeAttributeEnum(durationIndex);
+            int durationAttr = attrs.getInteger(3, Integer.MIN_VALUE);
+            if (durationAttr > Integer.MIN_VALUE) {
+                duration = durationAttr;
             }
         } finally {
             attrs.recycle();

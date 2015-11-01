@@ -5,9 +5,9 @@
     <attr name="snackbarBuilder_actionTextColor" format="color"/>
     <attr name="snackbarBuilder_parentViewId" format="reference"/>
     <attr name="snackbarBuilder_duration">
-        <enum name="shortTime" value="0"/>
-        <enum name="longTime" value="1"/>
-        <enum name="indefinite" value="2"/>
+        <enum name="longTime" value="0"/>
+        <enum name="shortTime" value="-1"/>
+        <enum name="indefinite" value="-2"/>
     </attr>
 
 </resources>

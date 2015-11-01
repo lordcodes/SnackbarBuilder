@@ -12,10 +12,9 @@ It is not yet available on `Maven Central` or `Bintray`, but it will be soon.
 
 - Builder pattern to create Snackbars
 - Customise message and action text color with global theme attributes and on a per-Snackbar basis
-- Specify dismiss callbacks with separate methods for each type
-- Duration through an enum
-- Specify default view ID in activity to attach Snackbars too, so you don't need to provide parent view each time you wish to show one
-
+- Dismiss callbacks with separate methods for each type of dismiss event
+- Theme attribute for default view ID in activity to attach Snackbars to, so you don't need to provide parent view each time you wish to show one
+- Set default duration to use through a theme attribute
 
 ## Usage
 
@@ -25,13 +24,14 @@ Build the Snackbar, making it very easy to build and customise the snackbar.
 
 ```java
 Snackbar snackbar = new SnackbarBuilder(this)
-              .duration(SnackbarDuration.LONG)
               .message("message")
               .actionText("Action")
               .snackbarCallback(new MySnackbarCallback())
               .build()
               .show();
 ```
+
+Check out the sample project to see examples of how the library can be used.
 
 ### Callback
 

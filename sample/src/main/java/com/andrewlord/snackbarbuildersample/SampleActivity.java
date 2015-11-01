@@ -12,9 +12,8 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.andrewlord.snackbarbuilder.SnackbarCallback;
 import com.andrewlord.snackbarbuilder.SnackbarBuilder;
-import com.andrewlord.snackbarbuilder.SnackbarDuration;
+import com.andrewlord.snackbarbuilder.SnackbarCallback;
 
 public class SampleActivity extends AppCompatActivity {
 
@@ -34,8 +33,8 @@ public class SampleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new SnackbarBuilder(SampleActivity.this)
-                        .message("Test snackbar")
-                        .duration(SnackbarDuration.LONG)
+                        .message("Test snackbar really long message")
+                        .duration(Snackbar.LENGTH_LONG)
                         .snackbarCallback(getCallback())
                         .actionText("UNDO")
                         .actionClickListener(new OnClickListener() {
