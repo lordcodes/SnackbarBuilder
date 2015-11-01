@@ -26,6 +26,8 @@ public class SnackbarBuilder {
     OnClickListener actionClickListener;
     Snackbar.Callback callback;
     SnackbarCallback snackbarCallback;
+
+    int backgroundColor;
     int actionTextColor;
     int messageTextColor;
     int parentViewId;
@@ -87,6 +89,16 @@ public class SnackbarBuilder {
         return this;
     }
 
+    public SnackbarBuilder backgroundColorRes(@ColorRes int backgroundColor) {
+        this.backgroundColor = ContextCompat.getColor(context, backgroundColor);
+        return this;
+    }
+
+    public SnackbarBuilder backgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+        return this;
+    }
+
     public SnackbarBuilder actionClickListener(OnClickListener actionClickListener) {
         this.actionClickListener = actionClickListener;
         return this;
@@ -112,6 +124,10 @@ public class SnackbarBuilder {
 
         if (actionTextColor != 0) {
             snackbar.setActionTextColor(actionTextColor);
+        }
+
+        if (backgroundColor != 0) {
+            snackbar.getView().setBackgroundColor(backgroundColor);
         }
 
         if (actionText != null) {
@@ -141,6 +157,7 @@ public class SnackbarBuilder {
             if (durationAttr > Integer.MIN_VALUE) {
                 duration = durationAttr;
             }
+            backgroundColor = attrs.getColor(4, 0);
         } finally {
             attrs.recycle();
         }
@@ -161,7 +178,8 @@ public class SnackbarBuilder {
                 R.attr.snackbarBuilder_messageTextColor,
                 R.attr.snackbarBuilder_actionTextColor,
                 R.attr.snackbarBuilder_parentViewId,
-                R.attr.snackbarBuilder_duration
+                R.attr.snackbarBuilder_duration,
+                R.attr.snackbarBuilder_backgroundColor
         };
     }
 

@@ -145,6 +145,18 @@ public class SnackbarBuilderTest {
     }
 
     @Test
+    public void whenCreated_thenBackgroundColorFromCustomThemeAttribute() {
+        //Given
+        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+
+        //When
+        SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+        //Then
+        assertThat(builder.backgroundColor).isEqualTo(0xFF999999);
+    }
+
+    @Test
     public void whenMessageWithString_thenMessageSet() {
         //Given
         createBuilder();
@@ -250,6 +262,30 @@ public class SnackbarBuilderTest {
 
         //Then
         assertThat(builderUnderTest.actionText).isEqualTo("Test");
+    }
+
+    @Test
+    public void whenBackgroundColorRes_thenBackgroundColorSet() {
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.backgroundColorRes(R.color.test);
+
+        //Then
+        assertThat(builderUnderTest.backgroundColor).isEqualTo(0xFF444444);
+    }
+
+    @Test
+    public void whenBackgroundColor_thenBackgroundColorSet() {
+        //Given
+        createBuilder();
+
+        //When
+        builderUnderTest.backgroundColor(0xFF333333);
+
+        //Then
+        assertThat(builderUnderTest.backgroundColor).isEqualTo(0xFF333333);
     }
 
     @Test

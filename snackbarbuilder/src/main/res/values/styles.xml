@@ -12,6 +12,7 @@
         <item name="snackbarBuilder_messageTextColor">#987654</item>
         <item name="snackbarBuilder_parentViewId">@id/test_id</item>
         <item name="snackbarBuilder_duration">indefinite</item>
+        <item name="snackbarBuilder_backgroundColor">#999999</item>
     </style>
 
     <style name="FallbackAttrTheme">

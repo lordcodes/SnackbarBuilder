@@ -9,5 +9,6 @@
         <enum name="shortTime" value="-1"/>
         <enum name="indefinite" value="-2"/>
     </attr>
+    <attr name="snackbarBuilder_backgroundColor" format="color"/>
 
 </resources>
