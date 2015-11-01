@@ -36,6 +36,7 @@ public class SnackbarCallbackWrapper extends Callback {
                 snackbarCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
                 break;
         }
+        snackbarCallback.onSnackbarDismissed(snackbar);
     }
 
     @Override

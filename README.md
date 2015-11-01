@@ -8,6 +8,8 @@ The Android Design Support library introduced a Snackbar class. SnackbarBuilder 
 
 It is not yet available on `Maven Central` or `Bintray`, but it will be soon.
 
+The `Snackbar` has a dark background, but takes the default text color from your theme, which is often dark. This often makes the messages hard to read and requires you retrieve the TextView and change the text color. `SnackbarBuilder` defaults the text color to white and then allows you to choose your own colour if you wish.
+
 ## Main Features
 
 - Builder pattern to create Snackbars

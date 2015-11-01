@@ -3,99 +3,242 @@ package com.andrewlord.snackbarbuildersample;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.Snackbar.Callback;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.andrewlord.snackbarbuilder.SnackbarBuilder;
 import com.andrewlord.snackbarbuilder.SnackbarCallback;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class SampleActivity extends AppCompatActivity {
 
+    private static final String TAG = SampleActivity.class.getSimpleName();
+
     private ListView listView;
+    private Map<String, OnClickListener> samples;
+
+    private int red;
+    private int green;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        red = ContextCompat.getColor(this, R.color.red);
+        green = ContextCompat.getColor(this, R.color.green);
+
         setContentView(R.layout.activity_main);
+        setupToolbar();
+        setupFab();
+        setupData();
+        setupListView();
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void setupListView() {
+        listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(createAdapter());
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    private void setupData() {
+        samples = new LinkedHashMap<>();
+        samples.put("Message", new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 new SnackbarBuilder(SampleActivity.this)
-                        .message("Test snackbar really long message")
-                        .duration(Snackbar.LENGTH_LONG)
-                        .snackbarCallback(getCallback())
-                        .actionText("UNDO")
-                        .actionClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //Stuff
-                            }
-                        })
+                        .message("Message")
                         .build()
                         .show();
             }
         });
-
-        listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1));
+        samples.put("Action", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message")
+                        .actionText("Action")
+                        .actionClickListener(getActionClickListener())
+                        .build()
+                        .show();
+            }
+        });
+        samples.put("Custom Text Colours Using Resources", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message in different color")
+                        .actionText("Action")
+                        .actionClickListener(getActionClickListener())
+                        .messageTextColorRes(R.color.red)
+                        .actionTextColorRes(R.color.green)
+                        .build()
+                        .show();
+            }
+        });
+        samples.put("Custom Text Colours Using Colors", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message in different color")
+                        .actionText("Action")
+                        .actionClickListener(getActionClickListener())
+                        .messageTextColor(green)
+                        .actionTextColor(red)
+                        .build()
+                        .show();
+            }
+        });
+        samples.put("Standard callback", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message")
+                        .actionText("Action")
+                        .callback(createCallback())
+                        .build()
+                        .show();
+            }
+        });
+        samples.put("SnackbarBuilder callback", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message")
+                        .actionText("Action")
+                        .snackbarCallback(createSnackbarCallback())
+                        .build()
+                        .show();
+            }
+        });
     }
 
-    private SnackbarCallback getCallback() {
+    private SnackbarCallback createSnackbarCallback() {
         return new SnackbarCallback() {
-
+            @Override
             public void onSnackbarShown(Snackbar snackbar) {
                 super.onSnackbarShown(snackbar);
             }
 
+            @Override
+            public void onSnackbarDismissed(Snackbar snackbar) {
+                super.onSnackbarDismissed(snackbar);
+            }
+
+            @Override
             public void onSnackbarActionPressed(Snackbar snackbar) {
-                super.onSnackbarActionPressed(snackbar);
+                showToast("Action pressed");
             }
 
+            @Override
             public void onSnackbarSwiped(Snackbar snackbar) {
-                super.onSnackbarSwiped(snackbar);
+                showToast("Swiped");
             }
 
+            @Override
             public void onSnackbarTimedOut(Snackbar snackbar) {
-                super.onSnackbarTimedOut(snackbar);
+                showToast("Timed out");
             }
 
+            @Override
             public void onSnackbarManuallyDismissed(Snackbar snackbar) {
                 super.onSnackbarManuallyDismissed(snackbar);
             }
 
+            @Override
             public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
                 super.onSnackbarDismissedAfterAnotherShown(snackbar);
             }
-
         };
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    private Callback createCallback() {
+        return new Callback() {
+            @Override
+            public void onDismissed(Snackbar snackbar, int event) {
+                switch (event) {
+                    case DISMISS_EVENT_SWIPE:
+                        showToast("Swiped");
+                        break;
+                    case DISMISS_EVENT_ACTION:
+                        showToast("Action dismissed");
+                        break;
+                    case DISMISS_EVENT_TIMEOUT:
+                        showToast("Timed out");
+                        break;
+                    case DISMISS_EVENT_MANUAL:
+                        Log.v(TAG, "Snackbar manually dismissed");
+                        break;
+                    case DISMISS_EVENT_CONSECUTIVE:
+                        Log.v(TAG, "Snackbar dismissed consecutive");
+                        break;
+                }
+            }
+
+            @Override
+            public void onShown(Snackbar snackbar) {
+                Log.v(TAG, "Snackbar shown");
+            }
+        };
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    private OnClickListener getActionClickListener() {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Action pressed");
+            }
+        };
+    }
 
-        if (id == R.id.action_settings) {
-            return true;
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupFab() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Primary action pressed")
+                        .duration(Snackbar.LENGTH_SHORT)
+                        .build()
+                        .show();
+            }
+        });
+    }
+
+    private ListAdapter createAdapter() {
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = adapter.getItem(position);
+                samples.get(item).onClick(view);
+            }
+        });
+        for (Entry<String, OnClickListener> sample : samples.entrySet()) {
+            adapter.add(sample.getKey());
         }
-
-        return super.onOptionsItemSelected(item);
+        return adapter;
     }
+
+    private void showToast(String message) {
+        Toast.makeText(SampleActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }

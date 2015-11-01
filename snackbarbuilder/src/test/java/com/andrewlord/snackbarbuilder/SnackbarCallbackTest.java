@@ -42,6 +42,17 @@ public class SnackbarCallbackTest {
     }
 
     @Test
+    public void whenOnSnackbarDismissed_thenSnackbarDismissedMessageLogged() {
+        //When
+        callbackUnderTest.onSnackbarDismissed(snackbar);
+
+        //Then
+        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+        assertThat(logs).hasSize(1);
+        assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed");
+    }
+
+    @Test
     public void whenOnSnackbarActionPressed_thenSnackbarActionPressedMessageLogged() {
         //When
         callbackUnderTest.onSnackbarActionPressed(snackbar);

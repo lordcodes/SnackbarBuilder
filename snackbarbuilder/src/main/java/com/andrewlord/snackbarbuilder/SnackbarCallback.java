@@ -11,6 +11,10 @@ public class SnackbarCallback {
         Log.v(TAG, "onSnackbarShown");
     }
 
+    public void onSnackbarDismissed(Snackbar snackbar) {
+        Log.v(TAG, "onSnackbarDismissed");
+    }
+
     public void onSnackbarActionPressed(Snackbar snackbar) {
         Log.v(TAG, "onSnackbarActionPressed");
     }

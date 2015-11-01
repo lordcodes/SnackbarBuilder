@@ -130,6 +130,14 @@ public class SnackbarBuilder {
             snackbar.getView().setBackgroundColor(backgroundColor);
         }
 
+        if (actionClickListener == null) {
+            actionClickListener = new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            };
+        }
+
         if (actionText != null) {
             snackbar.setAction(actionText, actionClickListener);
         }

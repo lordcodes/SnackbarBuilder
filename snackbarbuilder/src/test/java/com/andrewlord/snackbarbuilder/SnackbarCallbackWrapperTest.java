@@ -54,6 +54,15 @@ public class SnackbarCallbackWrapperTest {
     }
 
     @Test
+    public void whenOnDismissed_thenSnackbarCallbackInformedOfEvent() {
+        //When
+        callbackUnderTest.onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
+
+        //Then
+        verify(snackbarCallback, times(1)).onSnackbarDismissed(snackbar);
+    }
+
+    @Test
     public void givenSwipeEvent_whenOnDismissed_thenSnackbarCallbackSwipedEvent() {
         //Given
         int dismissEvent = Callback.DISMISS_EVENT_SWIPE;
