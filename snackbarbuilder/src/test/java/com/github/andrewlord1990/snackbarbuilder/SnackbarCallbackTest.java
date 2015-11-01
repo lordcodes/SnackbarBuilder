@@ -1,4 +1,4 @@
-package com.andrewlord.snackbarbuilder;
+package com.github.andrewlord1990.snackbarbuilder;
 
 import android.support.design.widget.Snackbar;
 

@@ -1,11 +1,10 @@
-package com.andrewlord.snackbarbuilder;
+package com.github.andrewlord1990.snackbarbuilder;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.v7.internal.text.AllCapsTransformationMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

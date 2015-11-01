@@ -1,4 +1,4 @@
-package com.andrewlord.snackbarbuildersample;
+package com.github.andrewlord1990.snackbarbuildersample;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +17,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.andrewlord.snackbarbuilder.SnackbarBuilder;
-import com.andrewlord.snackbarbuilder.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.SnackbarBuilder;
+import com.github.andrewlord1990.snackbarbuilder.SnackbarCallback;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
