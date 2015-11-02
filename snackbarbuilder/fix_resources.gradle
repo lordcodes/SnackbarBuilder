@@ -17,6 +17,7 @@ task discoverManifestFiles(dependsOn: 'prepareDebugDependencies') << {
     project.ext.manifestFiles = manifestFiles;
 }
 
+
 // After gradle's done compiling the code, it'll run this to add some more tasks for us.
 afterEvaluate { project ->
 
@@ -24,7 +25,7 @@ afterEvaluate { project ->
     android.libraryVariants.each { variant ->
 
         // TODO extract from our manifest?  Should be on the build variant
-        def myPackageNamespace = "com.andrewlord.snackbarbuilder"
+        def myPackageNamespace = "com.github.andrewlord1990.snackbarbuilder"
         def myPackagePath = myPackageNamespace.replaceAll("\\.", "/")
 
         def processedPackages = new ArrayList<String>()
