@@ -15,13 +15,13 @@ The `Snackbar` has a dark background, but takes the default text color from your
 
 Download via Gradle:
 ```groovy
-compile 'com.github.andrewlord1990:snackbar-builder:0.2'
+compile 'com.github.andrewlord1990:snackbarbuilder:0.2'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.github.andrewlord1990</groupId>
-  <artifactId>snackbar-builder</artifactId>
+  <artifactId>snackbarbuilder</artifactId>
   <version>0.2</version>
 </dependency>
 ```
