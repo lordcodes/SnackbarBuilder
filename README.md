@@ -26,6 +26,9 @@ or Maven:
 </dependency>
 ```
 
+The library is available on Bintray (JCenter) and Maven Central.
+
+
 ## Main Features
 
 - Builder pattern to create Snackbars
