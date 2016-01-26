@@ -15,7 +15,7 @@ The `Snackbar` has a dark background, but takes the default text color from your
 
 Download via Gradle:
 ```groovy
-compile 'com.github.andrewlord1990:snackbarbuilder:0.2'
+compile 'com.github.andrewlord1990:snackbarbuilder:0.3'
 ```
 or Maven:
 ```xml
