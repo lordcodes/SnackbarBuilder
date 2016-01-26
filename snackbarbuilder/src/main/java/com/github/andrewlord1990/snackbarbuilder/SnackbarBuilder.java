@@ -10,7 +10,6 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Duration;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.internal.widget.ThemeUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -184,18 +183,18 @@ public class SnackbarBuilder {
                 duration = durationAttr;
             }
             backgroundColor = attrs.getColor(4, 0);
+            loadFallbackAttributes(attrs);
         } finally {
             attrs.recycle();
         }
-        loadFallbackThemeAttributes();
     }
 
-    private void loadFallbackThemeAttributes() {
+    private void loadFallbackAttributes(TypedArray attrs) {
         if (messageTextColor == 0) {
             messageTextColor = getColor(R.color.default_message);
         }
         if (actionTextColor == 0) {
-            actionTextColor = ThemeUtils.getThemeAttrColor(context, R.attr.colorAccent);
+            actionTextColor = attrs.getColor(5, 0);
         }
     }
 
@@ -205,7 +204,8 @@ public class SnackbarBuilder {
                 R.attr.snackbarBuilder_actionTextColor,
                 R.attr.snackbarBuilder_parentViewId,
                 R.attr.snackbarBuilder_duration,
-                R.attr.snackbarBuilder_backgroundColor
+                R.attr.snackbarBuilder_backgroundColor,
+                R.attr.colorAccent
         };
     }
 
