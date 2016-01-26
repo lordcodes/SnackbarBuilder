@@ -17,7 +17,7 @@ buildscript {
 }
 
 project.ext.set("versionMajor", 0)
-project.ext.set("versionMinor", 2)
+project.ext.set("versionMinor", 3)
 project.ext.set("versionPatch", 0)
 
 project.ext.set("targetSdk", 23)
