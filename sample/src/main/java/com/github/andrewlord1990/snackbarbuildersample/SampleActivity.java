@@ -18,11 +18,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.github.andrewlord1990.snackbarbuilder.SnackbarBuilder;
-import com.github.andrewlord1990.snackbarbuilder.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class SampleActivity extends AppCompatActivity {
 
@@ -130,6 +129,16 @@ public class SampleActivity extends AppCompatActivity {
                         .message("Message")
                         .actionText("Action")
                         .lowercaseAction()
+                        .build()
+                        .show();
+            }
+        });
+        samples.put("Custom timeout", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("This has a custom timeout")
+                        .duration(10000)
                         .build()
                         .show();
             }
@@ -242,8 +251,8 @@ public class SampleActivity extends AppCompatActivity {
                 samples.get(item).onClick(view);
             }
         });
-        for (Entry<String, OnClickListener> sample : samples.entrySet()) {
-            adapter.add(sample.getKey());
+        for (String sample : samples.keySet()) {
+            adapter.add(sample);
         }
         return adapter;
     }
