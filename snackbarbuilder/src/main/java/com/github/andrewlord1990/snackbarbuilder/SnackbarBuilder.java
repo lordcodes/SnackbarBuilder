@@ -61,7 +61,7 @@ public class SnackbarBuilder {
     }
 
     public SnackbarBuilder messageTextColorRes(@ColorRes int messageTextColor) {
-        this.messageTextColor = ContextCompat.getColor(context, messageTextColor);
+        this.messageTextColor = getColor(messageTextColor);
         return this;
     }
 
@@ -76,7 +76,7 @@ public class SnackbarBuilder {
     }
 
     public SnackbarBuilder actionTextColorRes(@ColorRes int actionTextColor) {
-        this.actionTextColor = ContextCompat.getColor(context, actionTextColor);
+        this.actionTextColor = getColor(actionTextColor);
         return this;
     }
 
@@ -96,7 +96,7 @@ public class SnackbarBuilder {
     }
 
     public SnackbarBuilder backgroundColorRes(@ColorRes int backgroundColor) {
-        this.backgroundColor = ContextCompat.getColor(context, backgroundColor);
+        this.backgroundColor = getColor(backgroundColor);
         return this;
     }
 
@@ -128,19 +128,36 @@ public class SnackbarBuilder {
     public Snackbar build() {
         Snackbar snackbar = Snackbar.make(parentView, message, duration);
 
+        setMessageTextColor(snackbar);
+        setActionTextColor(snackbar);
+        setBackgroundColor(snackbar);
+        setAction(snackbar);
+        setCallback(snackbar);
+        setActionAllCaps(snackbar);
+
+        return snackbar;
+    }
+
+    private void setMessageTextColor(Snackbar snackbar) {
         if (messageTextColor != 0) {
             TextView messageView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
             messageView.setTextColor(messageTextColor);
         }
+    }
 
+    private void setActionTextColor(Snackbar snackbar) {
         if (actionTextColor != 0) {
             snackbar.setActionTextColor(actionTextColor);
         }
+    }
 
+    private void setBackgroundColor(Snackbar snackbar) {
         if (backgroundColor != 0) {
             snackbar.getView().setBackgroundColor(backgroundColor);
         }
+    }
 
+    private void setAction(Snackbar snackbar) {
         if (actionClickListener == null) {
             actionClickListener = new OnClickListener() {
                 @Override
@@ -148,23 +165,24 @@ public class SnackbarBuilder {
                 }
             };
         }
-
         if (actionText != null) {
             snackbar.setAction(actionText, actionClickListener);
         }
+    }
 
+    private void setCallback(Snackbar snackbar) {
         if (snackbarCallback != null) {
             snackbar.setCallback(new SnackbarCombinedCallback(snackbarCallback, callback));
         } else {
             snackbar.setCallback(callback);
         }
+    }
 
+    private void setActionAllCaps(Snackbar snackbar) {
         Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         if (isApiAtLeast14()) {
             action.setAllCaps(actionAllCaps);
         }
-
-        return snackbar;
     }
 
     private boolean isApiAtLeast14() {

@@ -1,5 +1,6 @@
 package com.github.andrewlord1990.snackbarbuildersample;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.github.andrewlord1990.snackbarbuilder.SnackbarBuilder;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import com.github.andrewlord1990.toastbuilder.ToastBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -258,7 +260,12 @@ public class SampleActivity extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        Toast.makeText(SampleActivity.this, message, Toast.LENGTH_SHORT).show();
+        new ToastBuilder(SampleActivity.this)
+                .message(message)
+                .duration(Toast.LENGTH_LONG)
+                .messageTextColor(Color.RED)
+                .build()
+                .show();
     }
 
 }

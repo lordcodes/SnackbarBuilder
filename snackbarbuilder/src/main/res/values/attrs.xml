@@ -11,4 +11,10 @@
     </attr>
     <attr name="snackbarBuilder_backgroundColor" format="color"/>
 
+    <attr name="toastBuilder_messageTextColor" format="color"/>
+    <attr name="toastBuilder_duration">
+        <enum name="shortTime" value="0"/>
+        <enum name="longTime" value="1"/>
+    </attr>
+
 </resources>
