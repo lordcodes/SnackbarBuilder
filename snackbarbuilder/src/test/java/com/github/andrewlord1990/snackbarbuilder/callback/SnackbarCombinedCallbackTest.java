@@ -1,4 +1,4 @@
-package com.github.andrewlord1990.snackbarbuilder;
+package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
@@ -11,13 +11,12 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricGradleTestRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
-public class SnackbarCallbackWrapperTest {
+public class SnackbarCombinedCallbackTest {
 
-    private SnackbarCallbackWrapper callbackUnderTest;
+    private SnackbarCombinedCallback callbackUnderTest;
 
     @Mock
     SnackbarCallback snackbarCallback;
@@ -32,13 +31,30 @@ public class SnackbarCallbackWrapperTest {
     public void before() {
         MockitoAnnotations.initMocks(this);
 
-        callbackUnderTest = new SnackbarCallbackWrapper(snackbarCallback, callback);
+        callbackUnderTest = new SnackbarCombinedCallback(snackbarCallback, callback);
     }
 
     @Test
     public void whenCreated_thenSetupCorrectly() {
         assertThat(callbackUnderTest.snackbarCallback).isEqualTo(snackbarCallback);
         assertThat(callbackUnderTest.callback).isEqualTo(callback);
+    }
+
+    @Test
+    public void givenNoSnackbarCallback_whenCreated_thenSetupCorrectly() {
+        //Given
+        int dismissEvent = Callback.DISMISS_EVENT_ACTION;
+
+        //When
+        SnackbarCombinedCallback testCallback = new SnackbarCombinedCallback(callback);
+        testCallback.onShown(snackbar);
+        testCallback.onDismissed(snackbar, dismissEvent);
+
+        //Then
+        assertThat(testCallback.snackbarCallback).isNull();
+        assertThat(testCallback.callback).isEqualTo(callback);
+        verify(callback).onShown(snackbar);
+        verify(callback).onDismissed(snackbar, dismissEvent);
     }
 
     @Test
@@ -50,7 +66,7 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
         //Then
-        verify(callback, times(1)).onDismissed(snackbar, dismissEvent);
+        verify(callback).onDismissed(snackbar, dismissEvent);
     }
 
     @Test
@@ -59,7 +75,7 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
 
         //Then
-        verify(snackbarCallback, times(1)).onSnackbarDismissed(snackbar);
+        verify(snackbarCallback).onSnackbarDismissed(snackbar);
     }
 
     @Test
@@ -71,7 +87,7 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
         //Then
-        verify(snackbarCallback, times(1)).onSnackbarSwiped(snackbar);
+        verify(snackbarCallback).onSnackbarSwiped(snackbar);
     }
 
     @Test
@@ -83,7 +99,7 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
         //Then
-        verify(snackbarCallback, times(1)).onSnackbarActionPressed(snackbar);
+        verify(snackbarCallback).onSnackbarActionPressed(snackbar);
     }
 
     @Test
@@ -95,7 +111,7 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
         //Then
-        verify(snackbarCallback, times(1)).onSnackbarTimedOut(snackbar);
+        verify(snackbarCallback).onSnackbarTimedOut(snackbar);
     }
 
     @Test
@@ -107,7 +123,7 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
         //Then
-        verify(snackbarCallback, times(1)).onSnackbarManuallyDismissed(snackbar);
+        verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
     }
 
     @Test
@@ -119,7 +135,7 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
         //Then
-        verify(snackbarCallback, times(1)).onSnackbarDismissedAfterAnotherShown(snackbar);
+        verify(snackbarCallback).onSnackbarDismissedAfterAnotherShown(snackbar);
     }
 
     @Test
@@ -128,8 +144,8 @@ public class SnackbarCallbackWrapperTest {
         callbackUnderTest.onShown(snackbar);
 
         //Then
-        verify(callback, times(1)).onShown(snackbar);
-        verify(snackbarCallback, times(1)).onSnackbarShown(snackbar);
+        verify(callback).onShown(snackbar);
+        verify(snackbarCallback).onSnackbarShown(snackbar);
     }
 
 }

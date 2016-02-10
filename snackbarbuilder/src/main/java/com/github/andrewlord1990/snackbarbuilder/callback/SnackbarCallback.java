@@ -1,4 +1,4 @@
-package com.github.andrewlord1990.snackbarbuilder;
+package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
 import android.util.Log;

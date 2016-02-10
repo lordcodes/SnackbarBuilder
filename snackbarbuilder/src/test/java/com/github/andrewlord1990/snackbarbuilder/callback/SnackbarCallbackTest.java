@@ -1,6 +1,8 @@
-package com.github.andrewlord1990.snackbarbuilder;
+package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
+
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 
 import org.junit.Before;
 import org.junit.Test;

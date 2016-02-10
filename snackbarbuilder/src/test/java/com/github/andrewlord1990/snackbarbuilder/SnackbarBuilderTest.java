@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,6 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -399,7 +400,7 @@ public class SnackbarBuilderTest {
 
         //Then
         snackbar.dismiss();
-        verify(callback, times(1)).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
+        verify(callback).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
     }
 
     @Test
@@ -419,7 +420,7 @@ public class SnackbarBuilderTest {
 
         //Then
         snackbar.dismiss();
-        verify(snackbarCallback, times(1)).onSnackbarManuallyDismissed(snackbar);
+        verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
     }
 
     @Test
