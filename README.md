@@ -22,7 +22,7 @@ or Maven:
 <dependency>
   <groupId>com.github.andrewlord1990</groupId>
   <artifactId>snackbarbuilder</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
 </dependency>
 ```
 
