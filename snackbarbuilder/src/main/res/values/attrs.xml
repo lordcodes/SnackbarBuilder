@@ -4,7 +4,7 @@
     <attr name="snackbarBuilder_messageTextColor" format="color"/>
     <attr name="snackbarBuilder_actionTextColor" format="color"/>
     <attr name="snackbarBuilder_parentViewId" format="reference"/>
-    <attr name="snackbarBuilder_duration">
+    <attr name="snackbarBuilder_duration" format="integer">
         <enum name="longTime" value="0"/>
         <enum name="shortTime" value="-1"/>
         <enum name="indefinite" value="-2"/>
