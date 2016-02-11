@@ -183,6 +183,7 @@ public class ToastBuilderTest {
                 .messageTextColor(messageTextColor)
                 .message(message)
                 .duration(Toast.LENGTH_SHORT)
+                .gravity(Gravity.TOP)
                 .build();
 
         //Then
@@ -191,6 +192,8 @@ public class ToastBuilderTest {
         TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
         assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
         assertThat(textView.getText().toString()).isEqualTo(message);
+
+        assertThat(toast.getGravity()).isEqualTo(Gravity.TOP);
     }
 
     @Test
