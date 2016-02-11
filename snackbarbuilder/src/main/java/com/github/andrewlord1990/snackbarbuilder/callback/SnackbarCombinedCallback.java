@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar.Callback;
 public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
 
     protected SnackbarCallback snackbarCallback;
-    protected Callback callback;
 
     public SnackbarCombinedCallback(Callback callback) {
         super(callback);
@@ -47,7 +46,7 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     @Override
     public void onShown(Snackbar snackbar) {
         super.onShown(snackbar);
-        
+
         if (snackbarCallback != null) {
             snackbarCallback.onSnackbarShown(snackbar);
         }

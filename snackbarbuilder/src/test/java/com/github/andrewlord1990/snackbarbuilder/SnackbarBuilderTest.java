@@ -376,6 +376,7 @@ public class SnackbarBuilderTest {
 
         TextView textView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
         assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
+        assertThat(textView.getText().toString()).isEqualTo(message);
 
         Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         assertThat(button.getCurrentTextColor()).isEqualTo(actionTextColor);

@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -145,6 +146,30 @@ public class SampleActivity extends AppCompatActivity {
                         .show();
             }
         });
+        samples.put("Toast with red text", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ToastBuilder(SampleActivity.this)
+                        .message("Custom toast")
+                        .duration(Toast.LENGTH_LONG)
+                        .messageTextColor(Color.RED)
+                        .build()
+                        .show();
+            }
+        });
+        samples.put("Toast with custom position", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ToastBuilder(SampleActivity.this)
+                        .message("Positioned toast")
+                        .duration(Toast.LENGTH_LONG)
+                        .gravity(Gravity.TOP)
+                        .gravityOffsetX(100)
+                        .gravityOffsetY(300)
+                        .build()
+                        .show();
+            }
+        });
     }
 
     private SnackbarCallback createSnackbarCallback() {
@@ -263,7 +288,6 @@ public class SampleActivity extends AppCompatActivity {
         new ToastBuilder(SampleActivity.this)
                 .message(message)
                 .duration(Toast.LENGTH_LONG)
-                .messageTextColor(Color.RED)
                 .build()
                 .show();
     }
