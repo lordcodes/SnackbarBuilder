@@ -11,7 +11,7 @@ ext {
     siteUrl = 'https://github.com/andrewlord1990/SnackbarBuilder'
     gitUrl = 'https://github.com/andrewlord1990/SnackbarBuilder.git'
 
-    libraryVersion = '0.3'
+    libraryVersion = '0.4'
 
     developerId = 'andrewlord1990'
     developerName = 'Andrew Lord'
