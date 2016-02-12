@@ -5,10 +5,9 @@
 [![API](https://img.shields.io/badge/API-7%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=7)
 [ ![Download](https://api.bintray.com/packages/andrewlord1990/maven/snackbar-builder/images/download.svg) ](https://bintray.com/andrewlord1990/maven/snackbar-builder/_latestVersion)
 
-The Android Design Support library introduced a Snackbar class. SnackbarBuilder is a builder pattern that makes Snackbars easier to make and customise.
+The Android Design Support library introduced the `Snackbar`. SnackbarBuilder provides a builder pattern that not only makes Snackbars easier to create, but it also provides some extra customisations.
 
-The `Snackbar` has a dark background, but takes the default text color from your theme, which is often dark. This often makes the messages hard to read and requires you retrieve the TextView and change the text color. `SnackbarBuilder` defaults the text color to white and then allows you to choose your own colour if you wish.
-
+One of the main annoyances with the `Snackbar` is that it has a dark background, but takes the default text color from your theme, which is often dark as well. This makes the messages hard to read and requires you to retrieve the `TextView` yourself and change the text color. `SnackbarBuilder` defaults the text color to white and then allows you to choose your own colour if you wish.
 
 
 ## Download
@@ -31,17 +30,18 @@ The library is available on Bintray (JCenter) and Maven Central.
 
 ## Main Features
 
-- Builder pattern to create Snackbars
-- Customise message and action text color with global theme attributes and on a per-Snackbar basis
-- Dismiss callbacks with separate methods for each type of dismiss event
-- Theme attribute for default view ID in activity to attach Snackbars to, so you don't need to provide parent view each time you wish to show one
-- Set default duration to use through a theme attribute
+- A builder pattern to create Snackbars.
+- Customise message and action text color with global theme attributes and on a per-Snackbar basis.
+- Dismiss callbacks with separate methods for each type of dismiss event.
+- Theme attribute for the default view ID in an activity to attach Snackbars to, so you don't need to provide the parent view each time you wish to show one.
+- Set the default duration to use through a theme attribute.
+- A ToastBuilder to create Toast messages, with a builder pattern and global theme attributes.
 
 ## Usage
 
 ### Create
 
-Build the Snackbar, making it very easy to build and customise the snackbar.
+It is really easy to build and customise snackbars.
 
 ```java
 Snackbar snackbar = new SnackbarBuilder(this)
@@ -86,6 +86,24 @@ private class MySnackbarCallback extends SnackbarCallback {
     }
 }
 ```
+
+### ToastBuilder
+
+Makes it very easy to create and customise `Toast` messages.
+
+```java
+new ToastBuilder(this)
+    .message("message")
+    .messageTextColor(Color.BLUE)
+    .duration(Toast.LENGTH_LONG)
+    .gravity(Gravity.TOP)
+    .build()
+    .show();
+```
+
+The builder allows you to change the text color of the displayed message. If you wish to change the background you can provide a custom view for the `Toast`. By providing the ID of a `TextView` within this view, you can set the message on it through the builder method `message(String)`.
+
+## Suggestions
 
 If there is any features that have been missed that you are interested in then please open an Issue.
 
