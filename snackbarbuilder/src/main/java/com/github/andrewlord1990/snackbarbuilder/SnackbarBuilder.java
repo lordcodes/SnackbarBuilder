@@ -194,20 +194,46 @@ public class SnackbarBuilder {
     }
 
     private void loadThemeAttributes() {
-        TypedArray attrs = context.obtainStyledAttributes(getAttributes());
+        TypedArray attrs = context.obtainStyledAttributes(R.styleable.SnackbarBuilderStyle);
         try {
-            messageTextColor = attrs.getColor(0, 0);
-            actionTextColor = attrs.getColor(1, 0);
-            parentViewId = attrs.getResourceId(2, 0);
-            int durationAttr = attrs.getInteger(3, Integer.MIN_VALUE);
-            if (durationAttr > Integer.MIN_VALUE) {
-                duration = durationAttr;
-            }
-            backgroundColor = attrs.getColor(4, 0);
+            loadMessageTextColor(attrs);
+            loadActionTextColor(attrs);
+            loadParentViewId(attrs);
+            loadDuration(attrs);
+            loadBackgroundColor(attrs);
+
             loadFallbackAttributes(attrs);
         } finally {
             attrs.recycle();
         }
+    }
+
+    private void loadBackgroundColor(TypedArray attrs) {
+        backgroundColor = attrs.getColor(
+                R.styleable.SnackbarBuilderStyle_snackbarBuilder_backgroundColor, 0);
+    }
+
+    private void loadDuration(TypedArray attrs) {
+        int durationAttr = attrs.getInteger(
+                R.styleable.SnackbarBuilderStyle_snackbarBuilder_duration, Integer.MIN_VALUE);
+        if (durationAttr > Integer.MIN_VALUE) {
+            duration = durationAttr;
+        }
+    }
+
+    private void loadParentViewId(TypedArray attrs) {
+        parentViewId = attrs.getResourceId(
+                R.styleable.SnackbarBuilderStyle_snackbarBuilder_parentViewId, 0);
+    }
+
+    private void loadActionTextColor(TypedArray attrs) {
+        actionTextColor = attrs.getColor(
+                R.styleable.SnackbarBuilderStyle_snackbarBuilder_actionTextColor, 0);
+    }
+
+    private void loadMessageTextColor(TypedArray attrs) {
+        messageTextColor = attrs.getColor(
+                R.styleable.SnackbarBuilderStyle_snackbarBuilder_messageTextColor, 0);
     }
 
     private void loadFallbackAttributes(TypedArray attrs) {
@@ -215,19 +241,8 @@ public class SnackbarBuilder {
             messageTextColor = getColor(R.color.default_message);
         }
         if (actionTextColor == 0) {
-            actionTextColor = attrs.getColor(5, 0);
+            actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
         }
-    }
-
-    private int[] getAttributes() {
-        return new int[]{
-                R.attr.snackbarBuilder_messageTextColor,
-                R.attr.snackbarBuilder_actionTextColor,
-                R.attr.snackbarBuilder_parentViewId,
-                R.attr.snackbarBuilder_duration,
-                R.attr.snackbarBuilder_backgroundColor,
-                R.attr.colorAccent
-        };
     }
 
 }

@@ -2,48 +2,27 @@ apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1x'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
-    }
-}
-
-project.ext.set("versionMajor", 0)
-project.ext.set("versionMinor", 4)
-project.ext.set("versionPatch", 0)
-
-project.ext.set("targetSdk", 23)
-project.ext.set("minSdk", 7)
-
 apply from: 'bintray-config.gradle'
 
 def generateVersionCode() {
-    def minSdkPart = String.format("%02d", project.minSdk)
-    def majorPart = String.format("%01d", project.versionMajor)
-    def minorPart = String.format("%03d", project.versionMinor)
-    def patchPart = String.format("%03d", project.versionPatch)
+    def minSdkPart = String.format("%02d", rootProject.ext.minSdk)
+    def majorPart = String.format("%01d", rootProject.ext.versionMajor)
+    def minorPart = String.format("%03d", rootProject.ext.versionMinor)
+    def patchPart = String.format("%03d", rootProject.ext.versionPatch)
     return "${minSdkPart}${majorPart}${minorPart}${patchPart}".toInteger()
 }
 
 def generateVersionName() {
-    return "${versionMajor}.${versionMinor}.${versionPatch}"
+    return "${rootProject.ext.versionMajor}.${rootProject.ext.versionMinor}.${rootProject.ext.versionPatch}"
 }
 
 android {
-    compileSdkVersion project.targetSdk
+    compileSdkVersion rootProject.ext.compileSdk
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion project.minSdk
-        targetSdkVersion project.targetSdk
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
         versionCode generateVersionCode()
         versionName generateVersionName()
     }
