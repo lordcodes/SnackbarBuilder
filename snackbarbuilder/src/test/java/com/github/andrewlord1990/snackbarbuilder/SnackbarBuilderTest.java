@@ -20,6 +20,7 @@ package com.github.andrewlord1990.snackbarbuilder;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
@@ -221,6 +222,62 @@ public class SnackbarBuilderTest {
 
         //Then
         assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF333333);
+    }
+
+    @Test
+    public void whenAppendMessageWithString_thenMessageAdded() {
+        //Given
+        createBuilder();
+        String message = "aMessage";
+
+        //When
+        builderUnderTest.appendMessage(message);
+
+        //Then
+        assertThat(builderUnderTest.appendMessages.toString()).isEqualTo(message);
+    }
+
+    @Test
+    public void givenMessageAlreadyAppended_whenAppendMessageWithString_thenMessageAdded() {
+        //Given
+        createBuilder();
+        String message = "aMessage";
+        String starting = "startingMessage";
+        builderUnderTest.appendMessage(starting);
+
+        //When
+        builderUnderTest.appendMessage(message);
+
+        //Then
+        assertThat(builderUnderTest.appendMessages.toString()).isEqualTo(starting + message);
+    }
+
+    @Test
+    public void whenAppendMessageWithStringResource_thenMessageAdded() {
+        //Given
+        createBuilder();
+        int message = R.string.test;
+
+        //When
+        builderUnderTest.appendMessage(message);
+
+        //Then
+        assertThat(builderUnderTest.appendMessages.toString()).isEqualTo(getString(message));
+    }
+
+    @Test
+    public void givenMessageAlreadyAppended_whenAppendMessageWithStringResource_thenMessageAdded() {
+        //Given
+        createBuilder();
+        int message = R.string.test;
+        String starting = "startingMessage";
+        builderUnderTest.appendMessage(starting);
+
+        //When
+        builderUnderTest.appendMessage(message);
+
+        //Then
+        assertThat(builderUnderTest.appendMessages.toString()).isEqualTo(starting + getString(message));
     }
 
     @Test
@@ -464,6 +521,10 @@ public class SnackbarBuilderTest {
     private void createBuilder() {
         RuntimeEnvironment.application.setTheme(R.style.AppTheme);
         builderUnderTest = new SnackbarBuilder(parentView);
+    }
+
+    private String getString(@StringRes int stringResId) {
+        return RuntimeEnvironment.application.getString(stringResId);
     }
 
 }

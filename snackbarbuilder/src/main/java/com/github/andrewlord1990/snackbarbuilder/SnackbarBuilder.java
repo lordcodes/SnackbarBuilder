@@ -34,6 +34,7 @@ public class SnackbarBuilder {
 
     Context context;
     View parentView;
+    StringBuilder appendMessages;
     CharSequence message;
 
     @Duration
@@ -80,6 +81,16 @@ public class SnackbarBuilder {
     public SnackbarBuilder messageTextColor(int messageTextColor) {
         this.messageTextColor = messageTextColor;
         return this;
+    }
+
+    public SnackbarBuilder appendMessage(String message) {
+        initialiseAppendMessages();
+        appendMessages.append(message);
+        return this;
+    }
+
+    public SnackbarBuilder appendMessage(@StringRes int messageResId) {
+        return appendMessage(context.getString(messageResId));
     }
 
     public SnackbarBuilder duration(@Duration int duration) {
@@ -194,6 +205,12 @@ public class SnackbarBuilder {
         Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         if (isApiAtLeast14()) {
             action.setAllCaps(actionAllCaps);
+        }
+    }
+
+    private void initialiseAppendMessages() {
+        if (appendMessages == null) {
+            appendMessages = new StringBuilder();
         }
     }
 
