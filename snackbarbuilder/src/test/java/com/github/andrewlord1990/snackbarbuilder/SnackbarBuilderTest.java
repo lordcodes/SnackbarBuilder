@@ -18,8 +18,16 @@
 
 package com.github.andrewlord1990.snackbarbuilder;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
@@ -41,6 +49,7 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -54,6 +63,9 @@ public class SnackbarBuilderTest {
 
     @Mock
     Activity activity;
+
+    @Mock
+    Resources resources;
 
     @Mock
     Callback callback;
@@ -191,9 +203,10 @@ public class SnackbarBuilderTest {
     public void whenMessageWithStringResource_thenMessageSet() {
         //Given
         createBuilder();
+        @StringRes int stringResId = getStringResourceId("Test");
 
         //When
-        builderUnderTest.message(R.string.test);
+        builderUnderTest.message(stringResId);
 
         //Then
         assertThat(builderUnderTest.message).isEqualTo("Test");
@@ -203,9 +216,10 @@ public class SnackbarBuilderTest {
     public void whenMessageTextColorRes_thenMessageTextColorSet() {
         //Given
         createBuilder();
+        @ColorRes int colorResId = getColorResourceId(0xFF444444);
 
         //When
-        builderUnderTest.messageTextColorRes(R.color.test);
+        builderUnderTest.messageTextColorRes(colorResId);
 
         //Then
         assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF444444);
@@ -239,9 +253,10 @@ public class SnackbarBuilderTest {
     public void whenActionTextColorRes_thenActionTextColorSet() {
         //Given
         createBuilder();
+        @ColorRes int colorResId = getColorResourceId(0xFF444444);
 
         //When
-        builderUnderTest.actionTextColorRes(R.color.test);
+        builderUnderTest.actionTextColorRes(colorResId);
 
         //Then
         assertThat(builderUnderTest.actionTextColor).isEqualTo(0xFF444444);
@@ -275,9 +290,10 @@ public class SnackbarBuilderTest {
     public void whenActionTextWithStringResource_thenActionTextSet() {
         //Given
         createBuilder();
+        @StringRes int stringResId = getStringResourceId("Test");
 
         //When
-        builderUnderTest.actionText(R.string.test);
+        builderUnderTest.actionText(stringResId);
 
         //Then
         assertThat(builderUnderTest.actionText).isEqualTo("Test");
@@ -287,9 +303,10 @@ public class SnackbarBuilderTest {
     public void whenBackgroundColorRes_thenBackgroundColorSet() {
         //Given
         createBuilder();
+        @ColorRes int colorResId = getColorResourceId(0xFF444444);
 
         //When
-        builderUnderTest.backgroundColorRes(R.color.test);
+        builderUnderTest.backgroundColorRes(colorResId);
 
         //Then
         assertThat(builderUnderTest.backgroundColor).isEqualTo(0xFF444444);
@@ -369,6 +386,24 @@ public class SnackbarBuilderTest {
     }
 
     @Test
+    @TargetApi(21)
+    public void whenIconWithDrawableResource_thenIconSet() {
+        //Given
+        createBuilder();
+        builderUnderTest.context = activity;
+        Drawable testDrawable = mock(Drawable.class);
+        @DrawableRes int drawableResId = 50;
+        when(activity.getDrawable(drawableResId)).thenReturn(testDrawable);
+
+        //When
+        builderUnderTest.icon(drawableResId);
+
+        //Then
+        assertThat(builderUnderTest.icon).isEqualTo(testDrawable);
+    }
+
+    @Test
+    @TargetApi(11)
     public void whenBuild_thenSnackbarSetup() {
         //Given
         int messageTextColor = 0xFF111111;
@@ -385,7 +420,7 @@ public class SnackbarBuilderTest {
                 .message(message)
                 .actionText(action)
                 .duration(Snackbar.LENGTH_INDEFINITE)
-                .backgroundColorRes(R.color.test)
+                .backgroundColor(0xFF777777)
                 .lowercaseAction()
                 .build();
 
@@ -395,6 +430,9 @@ public class SnackbarBuilderTest {
         TextView textView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
         assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
         assertThat(textView.getText().toString()).isEqualTo(message);
+
+        ColorDrawable backgroundColor = (ColorDrawable) snackbar.getView().getBackground();
+        assertThat(backgroundColor.getColor()).isEqualTo(0xFF777777);
 
         Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         assertThat(button.getCurrentTextColor()).isEqualTo(actionTextColor);
@@ -464,6 +502,27 @@ public class SnackbarBuilderTest {
     private void createBuilder() {
         RuntimeEnvironment.application.setTheme(R.style.AppTheme);
         builderUnderTest = new SnackbarBuilder(parentView);
+    }
+
+    @ColorRes
+    private int getColorResourceId(@ColorInt int color) {
+        if (builderUnderTest != null) {
+            builderUnderTest.context = activity;
+        }
+        @ColorRes int colorResId = 50;
+        when(activity.getResources()).thenReturn(resources);
+        when(resources.getColor(colorResId)).thenReturn(color);
+        return colorResId;
+    }
+
+    @StringRes
+    private int getStringResourceId(String string) {
+        if (builderUnderTest != null) {
+            builderUnderTest.context = activity;
+        }
+        @StringRes int stringResId = 50;
+        when(activity.getString(stringResId)).thenReturn(string);
+        return stringResId;
     }
 
 }

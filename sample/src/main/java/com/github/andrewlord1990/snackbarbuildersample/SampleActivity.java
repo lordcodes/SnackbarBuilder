@@ -163,7 +163,8 @@ public class SampleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new SnackbarBuilder(SampleActivity.this)
                         .icon(R.drawable.ic_android_24dp)
-                        .iconMarginStart(R.dimen.activity_horizontal_margin)
+                        .iconMarginStart(R.dimen.snackbarIconMargin)
+                        .iconMarginEnd(R.dimen.snackbarIconMargin)
                         .message("This has an icon on it")
                         .duration(Snackbar.LENGTH_LONG)
                         .build()
