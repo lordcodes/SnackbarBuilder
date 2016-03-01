@@ -16,8 +16,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
@@ -279,9 +277,7 @@ public class SnackbarBuilder {
 
     private void setActionAllCaps(Snackbar snackbar) {
         Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
-        if (isApiAtLeast14()) {
-            action.setAllCaps(actionAllCaps);
-        }
+        Compatibility.getInstance().setAllCaps(action, true);
     }
 
     private void setIconImageView(Snackbar snackbar) {
@@ -310,10 +306,6 @@ public class SnackbarBuilder {
         if (appendMessages == null) {
             appendMessages = new SpannableStringBuilder();
         }
-    }
-
-    private boolean isApiAtLeast14() {
-        return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
     private int getColor(@ColorRes int color) {
