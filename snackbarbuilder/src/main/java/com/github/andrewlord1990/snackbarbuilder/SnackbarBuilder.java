@@ -23,18 +23,14 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Duration;
-import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
@@ -282,24 +278,12 @@ public class SnackbarBuilder {
 
     private void setIconImageView(Snackbar snackbar) {
         if (icon != null) {
-            ImageView iconView = new ImageView(context);
-            LayoutParams params = getIconViewLayoutParams();
-            iconView.setLayoutParams(params);
-            iconView.setImageDrawable(icon);
-
-            SnackbarLayout view = (SnackbarLayout) snackbar.getView();
-            view.addView(iconView, 0);
+            SnackbarIconBuilder.builder(snackbar)
+                    .icon(icon)
+                    .iconMarginStartPixels(iconMarginStartPixels)
+                    .iconMarginEndPixels(iconMarginEndPixels)
+                    .bindToSnackbar();
         }
-    }
-
-    private LayoutParams getIconViewLayoutParams() {
-        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
-        params.weight = 0;
-        params.leftMargin = iconMarginStartPixels;
-        params.rightMargin = iconMarginEndPixels;
-        return params;
     }
 
     private void initialiseAppendMessages() {

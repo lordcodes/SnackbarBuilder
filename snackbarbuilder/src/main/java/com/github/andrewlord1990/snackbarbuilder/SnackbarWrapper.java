@@ -14,8 +14,11 @@ package com.github.andrewlord1990.snackbarbuilder;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -39,6 +42,10 @@ public class SnackbarWrapper {
     private Button actionView;
 
     private Callback callback;
+    private SnackbarIconBuilder iconBuilder;
+
+    //TODO: Append text
+    //TODO: Tests
 
     /**
      * Create from wrapping a {@link Snackbar}.
@@ -49,6 +56,7 @@ public class SnackbarWrapper {
         this.snackbar = snackbar;
         messageView = (TextView) getView().findViewById(R.id.snackbar_text);
         actionView = (Button) getView().findViewById(R.id.snackbar_action);
+        iconBuilder = SnackbarIconBuilder.builder(snackbar);
         context = snackbar.getView().getContext();
     }
 
@@ -122,7 +130,7 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Sets the text color for the action on the {@link Snackbar}.
+     * Set the text color for the action on the {@link Snackbar}.
      *
      * @param colors Colors state list to apply to the action text.
      * @return This instance.
@@ -134,7 +142,7 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Sets the text color for the action on the {@link Snackbar}.
+     * Set the text color for the action on the {@link Snackbar}.
      *
      * @param color Color to make the action text.
      * @return This instance.
@@ -146,7 +154,7 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Gets the text color for the action on the {@link Snackbar}.
+     * Get the text color for the action on the {@link Snackbar}.
      *
      * @return The action text color.
      */
@@ -155,7 +163,7 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Gets the text color for the action on the {@link Snackbar}.
+     * Get the text color for the action on the {@link Snackbar}.
      *
      * @return The action text color.
      */
@@ -165,7 +173,7 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Sets the text color for the action on the {@link Snackbar}.
+     * Set the text color for the action on the {@link Snackbar}.
      *
      * @param colorResId Color to make the action text.
      * @return This instance.
@@ -223,12 +231,45 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Gets the message shown in the {@link Snackbar}.
+     * Get the message shown in the {@link Snackbar}.
      *
      * @return The message shown.
      */
     public CharSequence getText() {
         return messageView.getText();
+    }
+
+    /**
+     * Set the text color for the message shown in the {@link Snackbar}.
+     *
+     * @param color The message text color.
+     * @return This instance.
+     */
+    public SnackbarWrapper setTextColor(@ColorInt int color) {
+        messageView.setTextColor(color);
+        return this;
+    }
+
+    /**
+     * Set the text color for the message shown in the {@link Snackbar}.
+     *
+     * @param colors The message text color state list.
+     * @return This instance.
+     */
+    public SnackbarWrapper setTextColor(ColorStateList colors) {
+        messageView.setTextColor(colors);
+        return this;
+    }
+
+    /**
+     * Set the text color for the message shown in the {@link Snackbar}.
+     *
+     * @param colorResId The message text color resource.
+     * @return This instance.
+     */
+    public SnackbarWrapper setTetColorRes(@ColorRes int colorResId) {
+        messageView.setTextColor(ContextCompat.getColor(context, colorResId));
+        return this;
     }
 
     /**
@@ -266,6 +307,28 @@ public class SnackbarWrapper {
     }
 
     /**
+     * Set the background color of the {@link Snackbar}.
+     *
+     * @param color The background color.
+     * @return This instance.
+     */
+    public SnackbarWrapper setBackgroundColor(@ColorInt int color) {
+        getView().setBackgroundColor(color);
+        return this;
+    }
+
+    /**
+     * Set the background color of the {@link Snackbar}.
+     *
+     * @param colorResId The background color resource.
+     * @return This instance.
+     */
+    public SnackbarWrapper setBackgroundColorRes(@ColorRes int colorResId) {
+        getView().setBackgroundColor(ContextCompat.getColor(context, colorResId));
+        return this;
+    }
+
+    /**
      * Set the callback to be called when the {@link Snackbar} changes visibility.
      * This will overwrite any callback that has already been set on the {@link Snackbar}.
      *
@@ -290,6 +353,85 @@ public class SnackbarWrapper {
     @NonNull
     public SnackbarWrapper setSnackbarCallback(SnackbarCallback callback) {
         return setCallback(new SnackbarCombinedCallback(callback, this.callback));
+    }
+
+    /**
+     * Set the icon at the start of the {@link Snackbar}.  If there is no icon
+     * it will be added, or if there is then it will be replaced.
+     *
+     * @param iconResId The icon drawable resource to display.
+     * @return This instance.
+     */
+    public SnackbarWrapper setIcon(@DrawableRes int iconResId) {
+        return setIcon(ContextCompat.getDrawable(context, iconResId));
+    }
+
+    /**
+     * Set the icon at the start of the {@link Snackbar}. If there is no icon
+     * it will be added, or if there is then it will be replaced.
+     *
+     * @param icon The icon to display.
+     * @return This instance.
+     */
+    public SnackbarWrapper setIcon(Drawable icon) {
+        iconBuilder
+                .icon(icon)
+                .bindToSnackbar();
+        return this;
+    }
+
+    /**
+     * Set the margin to have before the icon of the {@link Snackbar}. This
+     * margin will be left of the icon on left-to-right layouts and
+     * right of the icon on right-to-left layouts.
+     *
+     * @param iconMarginStart The dimension resource for the margin to have before the icon.
+     * @return This instance.
+     */
+    public SnackbarWrapper setIconMarginStart(@DimenRes int iconMarginStart) {
+        return setIconMarginStartPixels(context.getResources().getDimensionPixelSize(iconMarginStart));
+    }
+
+    /**
+     * Set the margin to have before the icon of the {@link Snackbar}. This
+     * margin will be left of the icon on left-to-right layouts and
+     * right of the icon on right-to-left layouts.
+     *
+     * @param iconMarginStartPixels The margin to have before the icon.
+     * @return This instance.
+     */
+    public SnackbarWrapper setIconMarginStartPixels(int iconMarginStartPixels) {
+        iconBuilder
+                .iconMarginStartPixels(iconMarginStartPixels)
+                .bindToSnackbar();
+        return this;
+    }
+
+    /**
+     * Set the margin to have after the icon of the {@link Snackbar}. This
+     * margin will be right of the icon on left-to-right layouts and
+     * left of the icon on right-to-left layouts.
+     *
+     * @param iconMarginEnd The dimension resource for the margin to have after the icon.
+     * @return This instance.
+     */
+    public SnackbarWrapper setIconMarginEnd(@DimenRes int iconMarginEnd) {
+        return setIconMarginEndPixels(context.getResources().getDimensionPixelSize(iconMarginEnd));
+    }
+
+    /**
+     * Set the margin to have after the icon of the {@link Snackbar}. This
+     * margin will be right of the icon on left-to-right layouts and
+     * left of the icon on right-to-left layouts.
+     *
+     * @param iconMarginEndPixels The margin to have after the icon.
+     * @return This instance.
+     */
+    public SnackbarWrapper setIconMarginEndPixels(int iconMarginEndPixels) {
+        iconBuilder
+                .iconMarginEndPixels(iconMarginEndPixels)
+                .bindToSnackbar();
+        return this;
     }
 
     /**
