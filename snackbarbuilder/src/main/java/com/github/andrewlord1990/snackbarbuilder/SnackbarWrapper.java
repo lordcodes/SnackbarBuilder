@@ -25,6 +25,9 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
 import android.support.design.widget.Snackbar.Duration;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,9 +36,19 @@ import android.widget.TextView;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
-public class SnackbarWrapper {
+/**
+ * SnackbarWrapper is an extension to the {@link Snackbar} available within the Android Design
+ * Support library.
+ * By wrapping a {@link Snackbar} within it, it provides many customisations that are not
+ * available without it. The setter methods also return the {@link SnackbarWrapper} instance,
+ * allowing you to chain the calls together fluently.
+ * In order to use {@link SnackbarWrapper} wrapper there is the SnackbarBuilder.buildWrapper()
+ * method. Alternatively, if you already have a {@link Snackbar} object, you can just create
+ * your own {@link SnackbarWrapper} object and pass the {@link Snackbar} into it.
+ */
+public final class SnackbarWrapper {
 
-    private Context context;
+    Context context;
 
     private Snackbar snackbar;
     private TextView messageView;
@@ -44,11 +57,10 @@ public class SnackbarWrapper {
     private Callback callback;
     private SnackbarIconBuilder iconBuilder;
 
-    //TODO: Append text
     //TODO: Tests
 
     /**
-     * Create from wrapping a {@link Snackbar}.
+     * Create by wrapping a {@link Snackbar}.
      *
      * @param snackbar The {@link Snackbar} to wrap.
      */
@@ -58,6 +70,15 @@ public class SnackbarWrapper {
         actionView = (Button) getView().findViewById(R.id.snackbar_action);
         iconBuilder = SnackbarIconBuilder.builder(snackbar);
         context = snackbar.getView().getContext();
+    }
+
+    /**
+     * Get the {@link Snackbar} that has been wrapped.
+     *
+     * @return The {@link Snackbar}.
+     */
+    public Snackbar getSnackbar() {
+        return snackbar;
     }
 
     /**
@@ -154,6 +175,18 @@ public class SnackbarWrapper {
     }
 
     /**
+     * Set the text color for the action on the {@link Snackbar}.
+     *
+     * @param colorResId Color to make the action text.
+     * @return This instance.
+     */
+    @NonNull
+    public SnackbarWrapper setActionTextColorResId(@ColorRes int colorResId) {
+        snackbar.setActionTextColor(ContextCompat.getColor(context, colorResId));
+        return this;
+    }
+
+    /**
      * Get the text color for the action on the {@link Snackbar}.
      *
      * @return The action text color.
@@ -173,15 +206,23 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Set the text color for the action on the {@link Snackbar}.
+     * Set the visibility of the action on the {@link Snackbar}.
      *
-     * @param colorResId Color to make the action text.
+     * @param visibility The action visibility.
      * @return This instance.
      */
-    @NonNull
-    public SnackbarWrapper setActionTextColorResId(@ColorRes int colorResId) {
-        snackbar.setActionTextColor(ContextCompat.getColor(context, colorResId));
+    public SnackbarWrapper setActionVisibility(int visibility) {
+        actionView.setVisibility(visibility);
         return this;
+    }
+
+    /**
+     * Get the visibility of the action on the {@link Snackbar}.
+     *
+     * @return The action visibility.
+     */
+    public int getActionVisibility() {
+        return actionView.getVisibility();
     }
 
     /**
@@ -207,7 +248,8 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Update the message in this {@link Snackbar}.
+     * Update the message in this {@link Snackbar}. This will overwrite
+     * the whole message that is currently shown.
      *
      * @param message The new message.
      * @return This instance.
@@ -219,7 +261,8 @@ public class SnackbarWrapper {
     }
 
     /**
-     * Update the message in the {@link Snackbar}.
+     * Update the message in the {@link Snackbar}. This will overwrite
+     * the whole message that is currently shown.
      *
      * @param messageResId The new message.
      * @return This instance.
@@ -270,6 +313,98 @@ public class SnackbarWrapper {
     public SnackbarWrapper setTetColorRes(@ColorRes int colorResId) {
         messageView.setTextColor(ContextCompat.getColor(context, colorResId));
         return this;
+    }
+
+    /**
+     * Append text to the {@link Snackbar} message.
+     *
+     * @param message The text to append.
+     * @return This instance.
+     */
+    public SnackbarWrapper appendMessage(CharSequence message) {
+        messageView.append(message);
+        return this;
+    }
+
+    /**
+     * Append text to the {@link Snackbar} message.
+     *
+     * @param messageResId The resource of the text to append.
+     * @return This instance.
+     */
+    public SnackbarWrapper appendMessage(@StringRes int messageResId) {
+        return appendMessage(context.getString(messageResId));
+    }
+
+    /**
+     * Append text in the specified color to the {@link Snackbar}.
+     *
+     * @param message The text to append.
+     * @param color   The color to apply to the text.
+     * @return This instance.
+     */
+    public SnackbarWrapper appendMessageWithColor(CharSequence message, @ColorInt int color) {
+        Spannable spannable = new SpannableString(message);
+        spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        messageView.append(spannable);
+        return this;
+    }
+
+    /**
+     * Append text in the specified color to the {@link Snackbar}.
+     *
+     * @param message    The text to append.
+     * @param colorResId The color resource to apply to the text.
+     * @return This instance.
+     */
+    public SnackbarWrapper appendMessageWithColorRes(CharSequence message, @ColorRes int colorResId) {
+        return appendMessageWithColor(message, ContextCompat.getColor(context, colorResId));
+    }
+
+    /**
+     * Append text in the specified color to the {@link Snackbar}.
+     *
+     * @param messageResId The resource of the text to append.
+     * @param color        The color to apply to the text.
+     * @return This instance.
+     */
+    public SnackbarWrapper appendMessageResWithColor(@StringRes int messageResId,
+                                                     @ColorInt int color) {
+        return appendMessageWithColor(context.getString(messageResId), color);
+    }
+
+    /**
+     * Append text in the specified color to the {@link Snackbar}.
+     *
+     * @param messageResId The resource of the text to append.
+     * @param colorResId   The color resource to apply to the text.
+     * @return This instance.
+     */
+    public SnackbarWrapper appendMessageResWithColorRes(@StringRes int messageResId,
+                                                        @ColorRes int colorResId) {
+        return appendMessageWithColor(context.getString(messageResId),
+                ContextCompat.getColor(context, colorResId));
+    }
+
+    /**
+     * Set the visibility of the message on the {@link Snackbar}.
+     *
+     * @param visibility The message visibility.
+     * @return This instance.
+     */
+    public SnackbarWrapper setMessageVisibility(int visibility) {
+        messageView.setVisibility(visibility);
+        return this;
+    }
+
+    /**
+     * Get the visibility of the message on the {@link Snackbar}.
+     *
+     * @return The message visibility.
+     */
+    public int getMessageVisibility() {
+        return messageView.getVisibility();
     }
 
     /**

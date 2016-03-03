@@ -36,7 +36,7 @@ import android.widget.TextView;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
-public class SnackbarBuilder {
+public final class SnackbarBuilder {
 
     Context context;
     View parentView;
@@ -209,6 +209,9 @@ public class SnackbarBuilder {
                 context.getResources().getDimensionPixelSize(iconMarginEnd));
     }
 
+    public SnackbarWrapper buildWrapper() {
+        return new SnackbarWrapper(build());
+    }
 
     public Snackbar build() {
         Snackbar snackbar = Snackbar.make(parentView, message, duration);
@@ -238,12 +241,6 @@ public class SnackbarBuilder {
         return (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
     }
 
-    private void setActionTextColor(Snackbar snackbar) {
-        if (actionTextColor != 0) {
-            snackbar.setActionTextColor(actionTextColor);
-        }
-    }
-
     private void setBackgroundColor(Snackbar snackbar) {
         if (backgroundColor != 0) {
             snackbar.getView().setBackgroundColor(backgroundColor);
@@ -261,6 +258,13 @@ public class SnackbarBuilder {
         if (actionText != null) {
             snackbar.setAction(actionText, actionClickListener);
         }
+        setActionTextColor(snackbar);
+    }
+
+    private void setActionTextColor(Snackbar snackbar) {
+        if (actionTextColor != 0) {
+            snackbar.setActionTextColor(actionTextColor);
+        }
     }
 
     private void setCallback(Snackbar snackbar) {
@@ -273,7 +277,7 @@ public class SnackbarBuilder {
 
     private void setActionAllCaps(Snackbar snackbar) {
         Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
-        Compatibility.getInstance().setAllCaps(action, true);
+        Compatibility.getInstance().setAllCaps(action, actionAllCaps);
     }
 
     private void setIconImageView(Snackbar snackbar) {

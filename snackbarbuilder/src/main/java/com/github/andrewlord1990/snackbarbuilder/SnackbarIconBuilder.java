@@ -21,7 +21,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 class SnackbarIconBuilder {
 
-    private Snackbar snackbar;
+    Snackbar snackbar;
     private ImageView iconView;
     private Drawable icon;
     private int iconMarginStartPixels;
