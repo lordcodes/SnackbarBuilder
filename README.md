@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/andrewlord1990/SnackbarBuilder.svg?branch=master)](https://travis-ci.org/andrewlord1990/SnackbarBuilder)
 [![Coverage Status](https://coveralls.io/repos/andrewlord1990/SnackbarBuilder/badge.svg?branch=master&service=github)](https://coveralls.io/github/andrewlord1990/SnackbarBuilder?branch=master)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg) ](https://github.com/andrewlord1990/SnackbarBuilder/blob/master/LICENSE)
 [![API](https://img.shields.io/badge/API-7%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=7)
 [ ![Download](https://api.bintray.com/packages/andrewlord1990/maven/snackbar-builder/images/download.svg) ](https://bintray.com/andrewlord1990/maven/snackbar-builder/_latestVersion)
 
@@ -14,14 +15,14 @@ One of the main annoyances with the `Snackbar` is that it has a dark background,
 
 Download via Gradle:
 ```groovy
-compile 'com.github.andrewlord1990:snackbarbuilder:0.4'
+compile 'com.github.andrewlord1990:snackbarbuilder:0.5.0'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.github.andrewlord1990</groupId>
   <artifactId>snackbarbuilder</artifactId>
-  <version>0.4</version>
+  <version>0.5.0</version>
 </dependency>
 ```
 
@@ -104,6 +105,31 @@ new ToastBuilder(this)
 ```
 
 The builder allows you to change the text color of the displayed message. If you wish to change the background you can provide a custom view for the `Toast`. By providing the ID of a `TextView` within this view, you can set the message on it through the builder method `message(String)`.
+
+### Theme
+
+You can provide defaults to the `SnackbarBuilder` and the `ToastBuilder` through theme attributes.
+
+```xml
+<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="snackbarBuilderStyle">@style/SampleSnackbarStyle</item>
+    <item name="toastBuilderStyle">@style/SampleToastStyle</item>
+</style>
+
+<style name="SampleSnackbarStyle" parent="SnackbarBuilder">
+    <item name="snackbarBuilder_parentViewId">@id/coordinator</item>
+    <item name="snackbarBuilder_duration">shortTime</item>
+    <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
+    <item name="snackbarBuilder_actionTextColor">@color/colorAccent</item>
+</style>
+
+<style name="SampleToastStyle" parent="ToastBuilder">
+    <item name="toastBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
+    <item name="toastBuilder_duration">shortTime</item>
+</style>
+```
 
 ## Suggestions
 
