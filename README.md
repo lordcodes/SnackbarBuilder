@@ -17,17 +17,14 @@ Download via Gradle:
 ```groovy
 compile 'com.github.andrewlord1990:snackbarbuilder:0.5.0'
 ```
-or Maven:
-```xml
-<dependency>
-  <groupId>com.github.andrewlord1990</groupId>
-  <artifactId>snackbarbuilder</artifactId>
-  <version>0.5.0</version>
-</dependency>
+
+The library is available on Bintray (JCenter).
+
+```groovy
+repositories {
+  jcenter()
+}
 ```
-
-The library is available on Bintray (JCenter) and Maven Central.
-
 
 ## Main Features
 
