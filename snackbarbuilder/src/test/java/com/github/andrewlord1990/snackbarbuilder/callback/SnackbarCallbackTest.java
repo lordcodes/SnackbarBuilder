@@ -20,6 +20,7 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
+import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +47,55 @@ public class SnackbarCallbackTest {
     public void before() {
         MockitoAnnotations.initMocks(this);
 
-        callbackUnderTest = new SnackbarCallback();
+        callbackUnderTest = new SnackbarCallback() {
+            @Override
+            public void onSnackbarShown(Snackbar snackbar) {
+                super.onSnackbarShown(snackbar);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarShown");
+            }
+
+            @Override
+            public void onSnackbarDismissed(Snackbar snackbar) {
+                super.onSnackbarDismissed(snackbar);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissed");
+            }
+
+            @Override
+            public void onSnackbarDismissed(Snackbar snackbar, @Callback.DismissEvent int dismissEvent) {
+                super.onSnackbarDismissed(snackbar, dismissEvent);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissed method = " + dismissEvent);
+            }
+
+            @Override
+            public void onSnackbarActionPressed(Snackbar snackbar) {
+                super.onSnackbarActionPressed(snackbar);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarActionPressed");
+            }
+
+            @Override
+            public void onSnackbarSwiped(Snackbar snackbar) {
+                super.onSnackbarSwiped(snackbar);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarSwiped");
+            }
+
+            @Override
+            public void onSnackbarTimedOut(Snackbar snackbar) {
+                super.onSnackbarTimedOut(snackbar);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarTimedOut");
+            }
+
+            @Override
+            public void onSnackbarManuallyDismissed(Snackbar snackbar) {
+                super.onSnackbarManuallyDismissed(snackbar);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarManuallyDismissed");
+            }
+
+            @Override
+            public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
+                super.onSnackbarDismissedAfterAnotherShown(snackbar);
+                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissedAfterAnotherShown");
+            }
+        };
     }
 
     @Test

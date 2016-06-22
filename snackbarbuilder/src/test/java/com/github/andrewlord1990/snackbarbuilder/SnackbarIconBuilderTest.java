@@ -52,8 +52,8 @@ public class SnackbarIconBuilderTest {
         //Given
         Snackbar snackbar = new SnackbarBuilder(snackbarParentView)
                 .icon(icon1)
-                .iconMarginStartPixels(50)
-                .iconMarginEndPixels(100)
+                .iconMarginStart(50)
+                .iconMarginEnd(100)
                 .build();
         SnackbarIconBuilder iconBuilder = new SnackbarIconBuilder(snackbar);
         int expectedMarginStart = 10;

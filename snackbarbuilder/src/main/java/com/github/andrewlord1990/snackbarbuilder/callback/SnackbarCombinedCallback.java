@@ -21,7 +21,7 @@ import android.support.design.widget.Snackbar.Callback;
  * notified of any Snackbar events. This is used internally by SnackbarBuilder, but is also
  * available for use outside.
  */
-public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
+public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
 
     protected SnackbarCallback snackbarCallback;
 

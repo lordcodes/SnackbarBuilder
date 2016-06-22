@@ -14,16 +14,14 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback.DismissEvent;
-import android.util.Log;
 
 /**
  * A callback for use with SnackbarBuilder that allows you to easily respond to the events you are
  * interested in by overriding the appropriate methods. You know longer have to check the value of
- * the dismiss event, as you do with the standard Callback class.
+ * the dismiss event, as you do with the standard Callback class. Override whichever callback
+ * methods you are interested in.
  */
-public class SnackbarCallback {
-
-    private static final String TAG = SnackbarCallback.class.getSimpleName();
+public abstract class SnackbarCallback {
 
     /**
      * Indicates that the {@link Snackbar} was shown (made visible).
@@ -31,7 +29,6 @@ public class SnackbarCallback {
      * @param snackbar The Snackbar.
      */
     public void onSnackbarShown(Snackbar snackbar) {
-        Log.v(TAG, "onSnackbarShown");
     }
 
     /**
@@ -40,17 +37,15 @@ public class SnackbarCallback {
      * @param snackbar The Snackbar.
      */
     public void onSnackbarDismissed(Snackbar snackbar) {
-        Log.v(TAG, "onSnackbarDismissed");
     }
 
     /**
      * Indicates that the {@link Snackbar} was dismissed through any means.
      *
-     * @param snackbar The Snackbar.
+     * @param snackbar     The Snackbar.
      * @param dismissEvent The event through which it was dismissed.
      */
     public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
-        Log.v(TAG, "onSnackbarDismissed method = " + dismissEvent);
     }
 
     /**
@@ -59,7 +54,6 @@ public class SnackbarCallback {
      * @param snackbar The Snackbar.
      */
     public void onSnackbarActionPressed(Snackbar snackbar) {
-        Log.v(TAG, "onSnackbarActionPressed");
     }
 
     /**
@@ -68,7 +62,6 @@ public class SnackbarCallback {
      * @param snackbar The Snackbar.
      */
     public void onSnackbarSwiped(Snackbar snackbar) {
-        Log.v(TAG, "onSnackbarSwiped");
     }
 
     /**
@@ -78,7 +71,6 @@ public class SnackbarCallback {
      * @param snackbar The Snackbar.
      */
     public void onSnackbarTimedOut(Snackbar snackbar) {
-        Log.v(TAG, "onSnackbarTimedOut");
     }
 
     /**
@@ -87,7 +79,6 @@ public class SnackbarCallback {
      * @param snackbar The Snackbar.
      */
     public void onSnackbarManuallyDismissed(Snackbar snackbar) {
-        Log.v(TAG, "onSnackbarManuallyDismissed");
     }
 
     /**
@@ -96,7 +87,6 @@ public class SnackbarCallback {
      * @param snackbar The Snackbar.
      */
     public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
-        Log.v(TAG, "onSnackbarDismissedAfterAnotherShown");
     }
 
 }

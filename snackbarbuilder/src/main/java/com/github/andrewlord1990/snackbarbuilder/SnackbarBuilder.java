@@ -74,8 +74,8 @@ public final class SnackbarBuilder {
     int messageTextColor;
     int parentViewId;
     Drawable icon;
-    int iconMarginStartPixels;
-    int iconMarginEndPixels;
+    int iconMarginStart;
+    int iconMarginEnd;
 
     /**
      * Create a builder to create a Snackbar. The Snackbar will be attached to the specified
@@ -432,11 +432,11 @@ public final class SnackbarBuilder {
      * bi-directional layouts, this will be the start margin, on platforms before this it will just
      * be the left margin.
      *
-     * @param iconMarginStartPixels The margin before the icon.
+     * @param iconMarginStart The margin before the icon.
      * @return This instance.
      */
-    public SnackbarBuilder iconMarginStartPixels(int iconMarginStartPixels) {
-        this.iconMarginStartPixels = iconMarginStartPixels;
+    public SnackbarBuilder iconMarginStart(int iconMarginStart) {
+        this.iconMarginStart = iconMarginStart;
         return this;
     }
 
@@ -448,8 +448,8 @@ public final class SnackbarBuilder {
      * @param iconMarginStartResId The dimension resource of the margin before the icon.
      * @return This instance.
      */
-    public SnackbarBuilder iconMarginStart(@DimenRes int iconMarginStartResId) {
-        return iconMarginStartPixels(
+    public SnackbarBuilder iconMarginStartRes(@DimenRes int iconMarginStartResId) {
+        return iconMarginStart(
                 context.getResources().getDimensionPixelSize(iconMarginStartResId));
     }
 
@@ -458,11 +458,11 @@ public final class SnackbarBuilder {
      * bi-directional layouts, this will be the end margin, on platforms before this it will just
      * be the right margin.
      *
-     * @param iconMarginEndPixels The margin after the icon in pixels.
+     * @param iconMarginEnd The margin after the icon in pixels.
      * @return This instance.
      */
-    public SnackbarBuilder iconMarginEndPixels(int iconMarginEndPixels) {
-        this.iconMarginEndPixels = iconMarginEndPixels;
+    public SnackbarBuilder iconMarginEnd(int iconMarginEnd) {
+        this.iconMarginEnd = iconMarginEnd;
         return this;
     }
 
@@ -474,8 +474,8 @@ public final class SnackbarBuilder {
      * @param iconMarginEndResId The margin after the icon.
      * @return This instance.
      */
-    public SnackbarBuilder iconMarginEnd(@DimenRes int iconMarginEndResId) {
-        return iconMarginEndPixels(
+    public SnackbarBuilder iconMarginEndRes(@DimenRes int iconMarginEndResId) {
+        return iconMarginEnd(
                 context.getResources().getDimensionPixelSize(iconMarginEndResId));
     }
 
@@ -504,7 +504,7 @@ public final class SnackbarBuilder {
                 .setActionTextColor(actionTextColor)
                 .setActionAllCaps(actionAllCaps)
                 .setCallbacks(callbackBuilder.build())
-                .setIcon(icon, iconMarginStartPixels, iconMarginEndPixels);
+                .setIcon(icon, iconMarginStart, iconMarginEnd);
 
         return snackbar;
     }
@@ -566,12 +566,12 @@ public final class SnackbarBuilder {
         if (actionTextColor == 0) {
             actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
         }
-        if (iconMarginStartPixels == 0) {
-            iconMarginStartPixels = context.getResources()
+        if (iconMarginStart == 0) {
+            iconMarginStart = context.getResources()
                     .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
         }
-        if (iconMarginEndPixels == 0) {
-            iconMarginEndPixels = context.getResources()
+        if (iconMarginEnd == 0) {
+            iconMarginEnd = context.getResources()
                     .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
         }
     }

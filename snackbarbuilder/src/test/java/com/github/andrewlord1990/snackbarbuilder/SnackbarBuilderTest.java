@@ -499,7 +499,8 @@ public class SnackbarBuilderTest {
     public void whenSnackbarCallback_thenSnackbarCallbackSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        SnackbarCallback callback = new SnackbarCallback();
+        SnackbarCallback callback = new SnackbarCallback() {
+        };
 
         //When
         builder.snackbarCallback(callback);
@@ -676,20 +677,20 @@ public class SnackbarBuilderTest {
     }
 
     @Test
-    public void whenIconMarginStartPixels_thenIconMarinStartSet() {
+    public void whenIconMarginStart_thenIconMarinStartSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
         int iconMarginStart = 100;
 
         //When
-        builder.iconMarginStartPixels(iconMarginStart);
+        builder.iconMarginStart(iconMarginStart);
 
         //Then
-        assertThat(builder.iconMarginStartPixels).isEqualTo(iconMarginStart);
+        assertThat(builder.iconMarginStart).isEqualTo(iconMarginStart);
     }
 
     @Test
-    public void whenIconMarginStart_thenIconMarinStartSet() {
+    public void whenIconMarginStartRes_thenIconMarinStartSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
         int iconMarginStart = 100;
@@ -697,27 +698,27 @@ public class SnackbarBuilderTest {
                 .getDimensionPixelSize(iconMarginStart);
 
         //When
-        builder.iconMarginStart(dimenResId);
+        builder.iconMarginStartRes(dimenResId);
 
         //Then
-        assertThat(builder.iconMarginStartPixels).isEqualTo(iconMarginStart);
+        assertThat(builder.iconMarginStart).isEqualTo(iconMarginStart);
     }
 
     @Test
-    public void whenIconMarginEndPixels_thenIconMarinEndSet() {
+    public void whenIconMarginEnd_thenIconMarinEndSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
         int iconMarginEnd = 100;
 
         //When
-        builder.iconMarginEndPixels(iconMarginEnd);
+        builder.iconMarginEnd(iconMarginEnd);
 
         //Then
-        assertThat(builder.iconMarginEndPixels).isEqualTo(iconMarginEnd);
+        assertThat(builder.iconMarginEnd).isEqualTo(iconMarginEnd);
     }
 
     @Test
-    public void whenIconMarginEnd_thenIconMarinStartSet() {
+    public void whenIconMarginEndRes_thenIconMarinStartSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
         int iconMarginEnd = 100;
@@ -725,10 +726,10 @@ public class SnackbarBuilderTest {
                 .getDimensionPixelSize(iconMarginEnd);
 
         //When
-        builder.iconMarginEnd(dimenResId);
+        builder.iconMarginEndRes(dimenResId);
 
         //Then
-        assertThat(builder.iconMarginEndPixels).isEqualTo(iconMarginEnd);
+        assertThat(builder.iconMarginEnd).isEqualTo(iconMarginEnd);
     }
 
     @Test
@@ -857,8 +858,8 @@ public class SnackbarBuilderTest {
         Snackbar snackbar = new SnackbarBuilder(parent)
                 .message("messsage")
                 .icon(drawable)
-                .iconMarginStartPixels(10)
-                .iconMarginEndPixels(20)
+                .iconMarginStart(10)
+                .iconMarginEnd(20)
                 .build();
 
         //Then
