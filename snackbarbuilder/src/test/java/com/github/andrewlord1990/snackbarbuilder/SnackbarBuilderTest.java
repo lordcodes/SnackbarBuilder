@@ -26,6 +26,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
@@ -125,6 +126,33 @@ public class SnackbarBuilderTest {
         assertThat(builder.context).isEqualTo(activity);
         assertThat(builder.actionTextColor).isEqualTo(0xFF454545);
         assertThat(builder.messageTextColor).isEqualTo(0xFF987654);
+    }
+
+    @Test
+    public void givenActivityAndParentFinder_whenCreated_thenParentViewFoundUsingTheParentFinder() {
+        //Given
+        Activity activity = Robolectric.setupActivity(Activity.class);
+        @IdRes final int fallbackId = 100;
+        SnackbarParentFinder parentFinder = new SnackbarParentFinder() {
+            @Override
+            public View findSnackbarParentView(Activity activity) {
+                View defaultParent = activity.findViewById(R.id.snackbarbuilder_icon);
+                if (defaultParent != null) {
+                    return defaultParent;
+                }
+                return activity.findViewById(fallbackId);
+            }
+        };
+        LinearLayout layout = new LinearLayout(activity);
+        layout.setId(fallbackId);
+        activity.setContentView(layout);
+
+        //When
+        SnackbarBuilder builder = new SnackbarBuilder(activity, parentFinder);
+
+        //Then
+        assertThat(builder.parentView).isEqualTo(layout);
+        assertThat(builder.context).isEqualTo(activity);
     }
 
     @Test

@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.6.0 (TBC)
+
+### Features
+
+- New constructor that takes a `SnackbarParentFinder`, which is used to look for a parent view to attach to - allowing fallback parent views when one is not found.
+
+### API Changes
+
+ - `SnackbarCombinedCallback` is now final.
+ - `SnackbarBuilder.iconMarginStartPixels` -> `iconMarginStart`
+ - `SnackbarBuilder.iconMarginStart` -> `iconMarginStartRes`
+ - `SnackbarBuilder.iconMarginEndPixels` -> `iconMarginEnd`
+ - `SnackbarBuilder.iconMarginEnd` -> `iconMarginEndRes`
+ 
+### Improvements
+
+- Tidied up Gradle files
+- Removed logging from `SnackbarCallback`
+- Tidied up some JavaDoc comments
+
+### Dependencies
+
+- Updated Gradle plugin to `2.1.2`
+- Updated build tools to `23.0.3`
+
 ## v0.5.0 (06/03/16)
 
 ### Features
@@ -15,6 +40,7 @@
 - Moved the `ToastBuilder` to be within the `snackbarbuilder` package, to ensure the whole library is within a single base package.
 
 ### Improvements
+
 - Added JavaDoc comments to the full public API.
 - Added more samples.
 

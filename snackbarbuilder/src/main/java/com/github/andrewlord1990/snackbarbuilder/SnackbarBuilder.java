@@ -84,24 +84,41 @@ public final class SnackbarBuilder {
      * @param view Parent view to attach the Snackbar to.
      */
     public SnackbarBuilder(View view) {
+        setup(view.getContext());
         parentView = view;
-        context = parentView.getContext();
-        loadThemeAttributes();
     }
 
     /**
-     * Create a builder to create a Snackbar. The parent view to attach the Snackbar to can be
+     * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
      * specified through the attribute snackbarBuilder_parentViewId. This attribute is within a
      * style provided through the theme attribute snackbarBuilderStyle. The parent view will be
      * found using this ID and the Snackbar will be attached to it.
      *
-     * @param activity Activity to show your Snackbar in, it should contain a view with the ID
+     * @param activity Activity to show the Snackbar in, it should contain a view with the ID
      *                 specified in the style attribute snackbarBuilder_parentViewId.
      */
     public SnackbarBuilder(Activity activity) {
-        context = activity;
-        loadThemeAttributes();
+        setup(activity);
         parentView = activity.findViewById(parentViewId);
+    }
+
+    /**
+     * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
+     * found using the provided SnackbarParentFinder. This gives you the flexibility of not
+     * using a single ID for the parent view, or to have fallback view IDs in the case that
+     * the usual one isn't found in a particular activity.
+     *
+     * @param activity Activity to show the Snackbar in.
+     * @param parentFinder Used to find the parent view to attach the Snackbar to.
+     */
+    public SnackbarBuilder(Activity activity, SnackbarParentFinder parentFinder) {
+        setup(activity);
+        parentView = parentFinder.findSnackbarParentView(activity);
+    }
+
+    private void setup(Context context) {
+        this.context = context;
+        loadThemeAttributes();
     }
 
     /**
