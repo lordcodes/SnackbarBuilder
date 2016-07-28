@@ -24,6 +24,8 @@ subprojects { project ->
   }
 
   task checkstyle(type: Checkstyle) {
+    group "Verification"
+
     configFile rootProject.file('config/checkstyle/checkstyle.xml')
     source 'src'
     include '**/*.java'
@@ -33,8 +35,38 @@ subprojects { project ->
     classpath = files()
 
     reports {
+      xml.enabled = true
       html.enabled true
     }
+  }
+
+  apply plugin: 'findbugs'
+
+  findbugs {
+    toolVersion '3.0.1'
+  }
+
+  task findbugs(type: FindBugs) {
+    group "Verification"
+
+    excludeFilter = rootProject.file('config/findbugs/findbugs-filter.xml')
+    classes = files(project.file('build/intermediates/classes'))
+    source = fileTree('src/main/java/')
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+
+    classpath = files()
+
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+  }
+
+  afterEvaluate {
+    check.dependsOn('checkstyle')
+    check.dependsOn('findbugs')
   }
 
 }
