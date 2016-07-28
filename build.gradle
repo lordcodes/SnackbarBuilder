@@ -64,6 +64,20 @@ subprojects { project ->
     }
   }
 
+  apply plugin: 'pmd'
+
+  task pmd(type: Pmd) {
+    group 'verification'
+
+    ruleSetFiles = rootProject.files('config/pmd/pmd-ruleset.xml')
+    source = fileTree('src/main/java/')
+
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+  }
+
   afterEvaluate {
     check.dependsOn('checkstyle')
     check.dependsOn('findbugs')

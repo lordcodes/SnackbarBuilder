@@ -44,6 +44,8 @@ import java.util.Map;
 public class SampleActivity extends AppCompatActivity {
 
   private static final String TAG = SampleActivity.class.getSimpleName();
+  private static final String MESSAGE = "Message";
+  public static final String ACTION = "Action";
 
   private ListView listView;
   private Map<String, OnClickListener> samples;
@@ -72,21 +74,21 @@ public class SampleActivity extends AppCompatActivity {
 
   private void setupData() {
     samples = new LinkedHashMap<>();
-    samples.put("Message", new OnClickListener() {
+    samples.put(MESSAGE, new OnClickListener() {
       @Override
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
-            .message("Message")
+            .message(MESSAGE)
             .build()
             .show();
       }
     });
-    samples.put("Action", new OnClickListener() {
+    samples.put(ACTION, new OnClickListener() {
       @Override
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
-            .message("Message")
-            .actionText("Action")
+            .message(MESSAGE)
+            .actionText(ACTION)
             .actionClickListener(getActionClickListener())
             .build()
             .show();
@@ -97,7 +99,7 @@ public class SampleActivity extends AppCompatActivity {
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message in different color")
-            .actionText("Action")
+            .actionText(ACTION)
             .actionClickListener(getActionClickListener())
             .messageTextColorRes(R.color.red)
             .actionTextColorRes(R.color.green)
@@ -110,7 +112,7 @@ public class SampleActivity extends AppCompatActivity {
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message in different color")
-            .actionText("Action")
+            .actionText(ACTION)
             .actionClickListener(getActionClickListener())
             .messageTextColor(green)
             .actionTextColor(red)
@@ -122,8 +124,8 @@ public class SampleActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
-            .message("Message")
-            .actionText("Action")
+            .message(MESSAGE)
+            .actionText(ACTION)
             .callback(createCallback())
             .build()
             .show();
@@ -133,8 +135,8 @@ public class SampleActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
-            .message("Message")
-            .actionText("Action")
+            .message(MESSAGE)
+            .actionText(ACTION)
             .snackbarCallback(createSnackbarCallback())
             .build()
             .show();
@@ -144,8 +146,8 @@ public class SampleActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
-            .message("Message")
-            .actionText("Action")
+            .message(MESSAGE)
+            .actionText(ACTION)
             .timeoutDismissCallback(new SnackbarTimeoutDismissCallback() {
               @Override
               public void onSnackbarTimedOut(Snackbar snackbar) {
@@ -160,8 +162,8 @@ public class SampleActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
-            .message("Message")
-            .actionText("Action")
+            .message(MESSAGE)
+            .actionText(ACTION)
             .lowercaseAction()
             .build()
             .show();
@@ -243,21 +245,6 @@ public class SampleActivity extends AppCompatActivity {
   private SnackbarCallback createSnackbarCallback() {
     return new SnackbarCallback() {
       @Override
-      public void onSnackbarShown(Snackbar snackbar) {
-        super.onSnackbarShown(snackbar);
-      }
-
-      @Override
-      public void onSnackbarDismissed(Snackbar snackbar) {
-        super.onSnackbarDismissed(snackbar);
-      }
-
-      @Override
-      public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
-        super.onSnackbarDismissed(snackbar, dismissEvent);
-      }
-
-      @Override
       public void onSnackbarActionPressed(Snackbar snackbar) {
         showToast("Action pressed");
       }
@@ -270,16 +257,6 @@ public class SampleActivity extends AppCompatActivity {
       @Override
       public void onSnackbarTimedOut(Snackbar snackbar) {
         showToast("Timed out");
-      }
-
-      @Override
-      public void onSnackbarManuallyDismissed(Snackbar snackbar) {
-        super.onSnackbarManuallyDismissed(snackbar);
-      }
-
-      @Override
-      public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
-        super.onSnackbarDismissedAfterAnotherShown(snackbar);
       }
     };
   }
