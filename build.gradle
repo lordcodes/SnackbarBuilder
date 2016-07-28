@@ -39,12 +39,6 @@ subprojects { project ->
 
 }
 
-afterEvaluate {
-  if (project.tasks.findByName('check')) {
-    check.dependsOn('checkstyle')
-  }
-}
-
 task clean(type: Delete) {
   delete rootProject.buildDir
 }

@@ -12,6 +12,7 @@
 
 package com.github.andrewlord1990.snackbarbuilder;
 
+import android.annotation.SuppressLint;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ final class Compatibility {
     return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
   }
 
+  @SuppressLint("NewApi")
   void setAllCaps(TextView textView, boolean allCaps) {
     if (isApiAtLeast14()) {
       textView.setAllCaps(allCaps);
