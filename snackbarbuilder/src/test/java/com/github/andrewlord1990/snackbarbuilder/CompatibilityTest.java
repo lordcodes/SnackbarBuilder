@@ -40,10 +40,8 @@ public class CompatibilityTest {
     @Test
     @TargetApi(VERSION_CODES.ICE_CREAM_SANDWICH)
     public void givenAfterSdk14_whenSetAllCaps_thenSetAllCapsCalled() {
-        //When
         Compatibility.getInstance().setAllCaps(textView, false);
 
-        //Then
         verify(textView).setAllCaps(anyBoolean());
     }
 

@@ -85,65 +85,50 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenGetSnackbar_thenWrappedSnackbarReturned() {
-        //When
         Snackbar actual = wrapper.getSnackbar();
 
-        //Then
         assertThat(actual).isEqualTo(snackbar);
     }
 
     @Test
     public void whenSetActionTextWithResource_thenActionTextUpdated() {
-        //When
         wrapper.setActionText(R.string.snackbarbuilder_action_undo);
 
-        //Then
         Assertions.assertThat(getActionView()).hasText("Undo");
     }
 
     @Test
     public void whenSetActionText_thenActionTextUpdated() {
-        //Given
         String actionText = "someAction";
 
-        //When
         wrapper.setActionText(actionText);
 
-        //Then
         assertThat(wrapper.getActionText()).isEqualTo(actionText);
     }
 
     @Test
     public void whenSetActionClickListener_thenActionClickListenerSet() {
-        //Given
         TestClickListener clickListener = new TestClickListener();
 
-        //When
         wrapper.setActionClickListener(clickListener);
         getActionView().performClick();
 
-        //Then
         assertThat(clickListener.isClicked()).isTrue();
     }
 
     @Test
     public void givenNullClickListener_whenSetActionWithResource_thenActionHidden() {
-        //When
         wrapper.setAction(R.string.snackbarbuilder_action_undo, null);
 
-        //Then
         Assertions.assertThat(getActionView()).isNotVisible();
     }
 
     @Test
     public void givenClickListener_whenSetActionWithResource_thenActionSetAndShown() {
-        //Given
         TestClickListener clickListener = new TestClickListener();
 
-        //When
         wrapper.setAction(R.string.snackbarbuilder_action_undo, clickListener);
 
-        //Then
         Assertions.assertThat(getActionView())
                 .isVisible()
                 .hasText("Undo");
@@ -153,23 +138,18 @@ public class SnackbarWrapperTest {
 
     @Test
     public void givenNullClickListener_whenSetAction_thenActionHidden() {
-        //When
         wrapper.setAction("Some text", null);
 
-        //Then
         Assertions.assertThat(getActionView()).isNotVisible();
     }
 
     @Test
     public void givenClickListener_whenSetAction_thenActionSetAndShown() {
-        //Given
         TestClickListener clickListener = new TestClickListener();
         String actionText = "some action";
 
-        //When
         wrapper.setAction(actionText, clickListener);
 
-        //Then
         Assertions.assertThat(getActionView())
                 .isVisible()
                 .hasText(actionText);
@@ -179,13 +159,10 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetActionTextColorWithStateList_thenActionTextColorSet() {
-        //Given
         ColorStateList stateList = createColorStateList();
 
-        //When
         wrapper.setActionTextColor(stateList);
 
-        //Then
         assertThat(wrapper.getActionTextColors())
                 .isEqualTo(stateList)
                 .isEqualTo(getActionView().getTextColors());
@@ -193,19 +170,15 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetActionTextColorWithColor_thenActionTextColorSet() {
-        //When
         wrapper.setActionTextColor(Color.GREEN);
 
-        //Then
         assertThat(wrapper.getActionCurrentTextColor()).isEqualTo(Color.GREEN);
     }
 
     @Test
     public void whenSetActionTextColorResId_thenActionTextColorSet() {
-        //When
         wrapper.setActionTextColorRes(R.color.snackbarbuilder_default_message);
 
-        //Then
         assertThat(wrapper.getActionCurrentTextColor())
                 .isEqualTo(Color.WHITE)
                 .isEqualTo(getActionView().getCurrentTextColor());
@@ -213,13 +186,10 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetActionVisibility_thenActionVisibilityChanged() {
-        //Given
         getActionView().setVisibility(View.GONE);
 
-        //When
         wrapper.setActionVisibility(View.VISIBLE);
 
-        //Then
         assertThat(wrapper.getActionVisibility())
                 .isEqualTo(View.VISIBLE)
                 .isEqualTo(getActionView().getVisibility());
@@ -227,37 +197,28 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetLowercaseActionText_thenActionNotAllCaps() {
-        //Given
         Compatibility.getInstance().setAllCaps(getActionView(), true);
 
-        //When
         wrapper.setLowercaseActionText();
 
-        //Then
         assertThat(getActionView().getTransformationMethod()).isNull();
     }
 
     @Test
     public void whenSetUppercaseActionText_thenActionAllCaps() {
-        //Given
         Compatibility.getInstance().setAllCaps(getActionView(), false);
 
-        //When
         wrapper.setUppercaseActionText();
 
-        //Then
         assertThat(getActionView().getTransformationMethod()).isNotNull();
     }
 
     @Test
     public void whenSetTextWithString_thenMessageSet() {
-        //Given
         String message = "some message to set";
 
-        //When
         wrapper.setText(message);
 
-        //Then
         assertThat(wrapper.getText())
                 .isEqualTo(message)
                 .isEqualTo(getMessageView().getText().toString());
@@ -265,10 +226,8 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetTextWithResource_thenMessageSet() {
-        //When
         wrapper.setText(R.string.snackbarbuilder_action_undo);
 
-        //Then
         assertThat(wrapper.getText())
                 .isEqualTo("Undo")
                 .isEqualTo(getMessageView().getText().toString());
@@ -276,10 +235,8 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetTextColorWithColor_thenMessageColorSet() {
-        //When
         wrapper.setTextColor(Color.RED);
 
-        //Then
         assertThat(wrapper.getCurrentTextColor())
                 .isEqualTo(Color.RED)
                 .isEqualTo(getMessageView().getCurrentTextColor());
@@ -287,13 +244,10 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetTextColorWithStateList_thenMessageColorSet() {
-        //Given
         ColorStateList stateList = createColorStateList();
 
-        //When
         wrapper.setTextColor(stateList);
 
-        //Then
         assertThat(wrapper.getTextColors())
                 .isEqualTo(stateList)
                 .isEqualTo(getMessageView().getTextColors());
@@ -301,10 +255,8 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetTextColorResId_thenMessageColorSet() {
-        //When
         wrapper.setTextColorRes(R.color.snackbarbuilder_default_message);
 
-        //Then
         assertThat(wrapper.getCurrentTextColor())
                 .isEqualTo(Color.WHITE)
                 .isEqualTo(getMessageView().getCurrentTextColor());
@@ -312,37 +264,29 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenAppendMessageWithString_thenTextAppendedToMessage() {
-        //Given
         wrapper.setText("startingText");
 
-        //When
         wrapper.appendMessage("MORE");
 
-        //Then
         assertThat(wrapper.getText()).isEqualTo("startingTextMORE");
     }
 
     @Test
     public void whenAppendMessageWithResource_thenTextAppendedToMessage() {
-        //Given
         wrapper.setText("startingText");
 
-        //When
         wrapper.appendMessage(R.string.snackbarbuilder_action_undo);
 
-        //Then
         assertThat(wrapper.getText()).isEqualTo("startingTextUndo");
     }
 
     @Test
     public void whenAppendMessagesWithColors_thenTextWithColorsAppendedToMessage() {
-        //When
         wrapper.setText("start")
                 .appendMessage(R.string.snackbarbuilder_action_undo, R.color.snackbarbuilder_default_message)
                 .appendMessage("second_in_blue", Color.BLUE)
                 .appendMessage("third_in_dark_grey", Color.DKGRAY);
 
-        //Then
         List<Pair<String, Integer>> expected = new ArrayList<>();
         expected.add(new Pair<>("start", 0));
         expected.add(new Pair<>("Undo", Color.WHITE));
@@ -353,13 +297,10 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetMessageVisibility_thenMessageVisibilityChanged() {
-        //Given
         getMessageView().setVisibility(View.GONE);
 
-        //When
         wrapper.setMessageVisibility(View.VISIBLE);
 
-        //Then
         assertThat(wrapper.getMessageVisibility())
                 .isEqualTo(View.VISIBLE)
                 .isEqualTo(getMessageView().getVisibility());
@@ -367,13 +308,10 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetDuration_thenDurationSet() {
-        //Given
         snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
 
-        //When
         wrapper.setDuration(Snackbar.LENGTH_LONG);
 
-        //Then
         assertThat(wrapper.getDuration())
                 .isEqualTo(Snackbar.LENGTH_LONG)
                 .isEqualTo(snackbar.getDuration());
@@ -386,103 +324,82 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenSetBackgroundColor_thenBackgroundColorSet() {
-        //When
         wrapper.setBackgroundColor(Color.MAGENTA);
 
-        //Then
         Assertions.assertThat((ColorDrawable) wrapper.getView().getBackground())
                 .hasColor(Color.MAGENTA);
     }
 
     @Test
     public void whenSetBackgroundColorResId_thenBackgroundColorSet() {
-        //When
         wrapper.setBackgroundColorRes(R.color.snackbarbuilder_default_message);
 
-        //Then
         Assertions.assertThat((ColorDrawable) wrapper.getView().getBackground())
                 .hasColor(Color.WHITE);
     }
 
     @Test
     public void whenSetCallback_thenCallbackSet() {
-        //When
         wrapper.setCallback(callback);
         wrapper.show();
 
-        //Then
         wrapper.dismiss();
         verify(callback).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
     }
 
     @Test
     public void whenSetSnackbarCallback_thenSnackbarCallbackSet() {
-        //When
         wrapper.setSnackbarCallback(snackbarCallback);
         wrapper.show();
 
-        //Then
         wrapper.dismiss();
         verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
     }
 
     @Test
     public void whenSetIconWithResource_thenIconSet() {
-        //Given
         @DrawableRes int drawableResId = 50;
         resourceCreator.createMockDrawableResId(drawableResId, drawable);
 
-        //When
         wrapper.setIcon(drawableResId);
 
-        //Then
         assertThat(getIconView().getDrawable()).isEqualTo(drawable);
     }
 
     @Test
     public void whenSetIconWithDrawable_thenIconSet() {
-        //When
         wrapper.setIcon(drawable);
 
-        //Then
         assertThat(getIconView().getDrawable()).isEqualTo(drawable);
     }
 
     @Test
     public void whenSetIconMarginsWithResource_thenIconMarginsSet() {
-        //Given
         Resources resources = RuntimeEnvironment.application.getResources();
         int start = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
         int end = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
 
-        //When
         wrapper.setIconMarginStart(R.dimen.snackbarbuilder_icon_margin_end_default)
                 .setIconMarginEnd(R.dimen.snackbarbuilder_icon_margin_start_default);
 
-        //Then
         assertThatIconMarginsEqualTo(start, end);
     }
 
     @Test
     public void whenSetIconMarginsWithPixels_thenIconMarginsSet() {
-        //Given
         int start = 100;
         int end = 20;
 
-        //When
         wrapper.setIconMarginStartPixels(start)
                 .setIconMarginEndPixels(end);
 
-        //Then
         assertThatIconMarginsEqualTo(start, end);
     }
 
     @Test
     public void whenShow_thenSnackbarShown() {
-        //When
         wrapper.show();
 
-        //Then
         assertThat(wrapper.isShown())
                 .isTrue()
                 .isEqualTo(snackbar.isShown());
@@ -493,14 +410,11 @@ public class SnackbarWrapperTest {
 
     @Test
     public void whenDismiss_thenSnackbarDismissed() {
-        //Given
         wrapper.setSnackbarCallback(snackbarCallback);
         wrapper.show();
 
-        //When
         wrapper.dismiss();
 
-        //Then
         assertThat(wrapper.isShown()).isFalse();
         verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
     }

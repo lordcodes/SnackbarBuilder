@@ -100,10 +100,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarShown_thenSnackbarShownMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarShown(snackbar);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarShown");
@@ -111,10 +109,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarDismissed_thenSnackbarDismissedMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarDismissed(snackbar);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed");
@@ -122,10 +118,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarDismissedWithEventType_thenSnackbarDismissedMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_TIMEOUT);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed method = 2");
@@ -133,10 +127,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarActionPressed_thenSnackbarActionPressedMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarActionPressed(snackbar);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarActionPressed");
@@ -144,10 +136,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarSwiped_thenSnackbarSwipedMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarSwiped(snackbar);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarSwiped");
@@ -155,10 +145,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarTimedOut_thenSnackbarTimedOutMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarTimedOut(snackbar);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarTimedOut");
@@ -166,10 +154,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarManuallyDismissed_thenSnackbarManuallyDismissedMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarManuallyDismissed(snackbar);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarManuallyDismissed");
@@ -177,10 +163,8 @@ public class SnackbarCallbackTest {
 
     @Test
     public void whenOnSnackbarDismissedAfterAnotherShown_thenSnackbarDismissedAfterAnotherShownMessageLogged() {
-        //When
         callbackUnderTest.onSnackbarDismissedAfterAnotherShown(snackbar);
 
-        //Then
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissedAfterAnotherShown");

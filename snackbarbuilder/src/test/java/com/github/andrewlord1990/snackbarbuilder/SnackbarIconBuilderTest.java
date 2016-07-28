@@ -49,7 +49,6 @@ public class SnackbarIconBuilderTest {
 
     @Test
     public void givenIconAlready_whenBindToSnackbar_thenIconUpdated() {
-        //Given
         Snackbar snackbar = new SnackbarBuilder(snackbarParentView)
                 .icon(icon1)
                 .iconMarginStart(50)
@@ -59,14 +58,12 @@ public class SnackbarIconBuilderTest {
         int expectedMarginStart = 10;
         int expectedMarginEnd = 20;
 
-        //When
         iconBuilder
                 .icon(icon2)
                 .iconMarginStartPixels(expectedMarginStart)
                 .iconMarginEndPixels(expectedMarginEnd)
                 .bindToSnackbar();
 
-        //Then
         ImageView iconView = getIconView(iconBuilder.snackbar);
         assertThat(iconView).hasDrawable(icon2);
         assertThat((SnackbarLayout.LayoutParams) iconView.getLayoutParams())
@@ -76,20 +73,17 @@ public class SnackbarIconBuilderTest {
 
     @Test
     public void givenNoIconAlready_whenBindToSnackbar_thenIconAdded() {
-        //Given
         int expectedMarginStart = 10;
         int expectedMarginEnd = 20;
         Snackbar snackbar = new SnackbarBuilder(snackbarParentView).build();
         SnackbarIconBuilder iconBuilder = new SnackbarIconBuilder(snackbar);
 
-        //When
         iconBuilder
                 .icon(icon2)
                 .iconMarginStartPixels(expectedMarginStart)
                 .iconMarginEndPixels(expectedMarginEnd)
                 .bindToSnackbar();
 
-        //Then
         ImageView iconView = getIconView(iconBuilder.snackbar);
         assertThat(iconView).hasDrawable(icon2);
         assertThat((SnackbarLayout.LayoutParams) iconView.getLayoutParams())

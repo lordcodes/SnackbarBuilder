@@ -40,6 +40,7 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarManualDismissC
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarShowCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarSwipeDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.parent.SnackbarParentFinder;
 
 /**
  * A builder pattern to easily create and customise Android Design Support library Snackbars. On
@@ -113,7 +114,7 @@ public final class SnackbarBuilder {
      */
     public SnackbarBuilder(Activity activity, SnackbarParentFinder parentFinder) {
         setup(activity);
-        parentView = parentFinder.findSnackbarParentView(activity);
+        parentView = parentFinder.findSnackbarParent(activity);
     }
 
     private void setup(Context context) {

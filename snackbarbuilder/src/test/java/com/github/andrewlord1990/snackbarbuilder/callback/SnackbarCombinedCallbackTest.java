@@ -81,15 +81,12 @@ public class SnackbarCombinedCallbackTest {
 
     @Test
     public void givenNoSnackbarCallback_whenCreated_thenSetupCorrectly() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_ACTION;
 
-        //When
         SnackbarCombinedCallback testCallback = new SnackbarCombinedCallback(callback);
         testCallback.onShown(snackbar);
         testCallback.onDismissed(snackbar, dismissEvent);
 
-        //Then
         assertThat(testCallback.snackbarCallback).isNull();
         assertThat(testCallback.callback).isEqualTo(callback);
         verify(callback).onShown(snackbar);
@@ -98,15 +95,12 @@ public class SnackbarCombinedCallbackTest {
 
     @Test
     public void givenNoCallback_whenCreated_thenSetupCorrectly() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_ACTION;
 
-        //When
         SnackbarCombinedCallback testCallback = new SnackbarCombinedCallback(snackbarCallback);
         testCallback.onShown(snackbar);
         testCallback.onDismissed(snackbar, dismissEvent);
 
-        //Then
         assertThat(testCallback.callback).isNull();
         assertThat(testCallback.snackbarCallback).isEqualTo(snackbarCallback);
         verify(snackbarCallback).onSnackbarShown(snackbar);
@@ -115,98 +109,75 @@ public class SnackbarCombinedCallbackTest {
 
     @Test
     public void whenOnDismissed_thenCallbackInformedOfEvent() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_MANUAL;
 
-        //When
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
-        //Then
         verify(callback).onDismissed(snackbar, dismissEvent);
     }
 
     @Test
     public void whenOnDismissed_thenSnackbarCallbackInformedOfEvent() {
-        //When
         callbackUnderTest.onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
 
-        //Then
         verify(snackbarCallback).onSnackbarDismissed(snackbar);
     }
 
     @Test
     public void givenSwipeEvent_whenOnDismissed_thenSnackbarCallbackSwipedEvent() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_SWIPE;
 
-        //When
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
-        //Then
         verify(snackbarCallback).onSnackbarSwiped(snackbar);
     }
 
     @Test
     public void givenActionEvent_whenOnDismissed_thenSnackbarCallbackActionEvent() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_ACTION;
 
-        //When
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
-        //Then
         verify(snackbarCallback).onSnackbarActionPressed(snackbar);
     }
 
     @Test
     public void givenTimeoutEvent_whenOnDismissed_thenSnackbarCallbackTimeoutEvent() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_TIMEOUT;
 
-        //When
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
-        //Then
         verify(snackbarCallback).onSnackbarTimedOut(snackbar);
     }
 
     @Test
     public void givenManualEvent_whenOnDismissed_thenSnackbarCallbackManualEvent() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_MANUAL;
 
-        //When
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
-        //Then
         verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
     }
 
     @Test
     public void givenConsecutiveEvent_whenOnDismissed_thenSnackbarCallbackConsecutiveEvent() {
-        //Given
         int dismissEvent = Callback.DISMISS_EVENT_CONSECUTIVE;
 
-        //When
         callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
-        //Then
         verify(snackbarCallback).onSnackbarDismissedAfterAnotherShown(snackbar);
     }
 
     @Test
     public void whenOnShown_thenCallbackInformedOfEvent() {
-        //When
         callbackUnderTest.onShown(snackbar);
 
-        //Then
         verify(callback).onShown(snackbar);
         verify(snackbarCallback).onSnackbarShown(snackbar);
     }
 
     @Test
     public void whenCreatedUsingBuilder_thenAllCallbacksInformedOfEvents() {
-        //Given
         SnackbarCombinedCallback actual = SnackbarCombinedCallback.builder()
                 .callback(callback)
                 .snackbarCallback(snackbarCallback)
@@ -219,7 +190,6 @@ public class SnackbarCombinedCallbackTest {
                 .consecutiveDismissCallback(consecutiveDismissCallback)
                 .build();
 
-        //When
         actual.onShown(snackbar);
         actual.onDismissed(snackbar, Callback.DISMISS_EVENT_ACTION);
         actual.onDismissed(snackbar, Callback.DISMISS_EVENT_SWIPE);
@@ -227,7 +197,6 @@ public class SnackbarCombinedCallbackTest {
         actual.onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
         actual.onDismissed(snackbar, Callback.DISMISS_EVENT_CONSECUTIVE);
 
-        //Then
         verify(callback).onShown(snackbar);
         verify(snackbarCallback).onSnackbarShown(snackbar);
         verify(showCallback).onSnackbarShown(snackbar);

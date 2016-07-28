@@ -67,102 +67,82 @@ public class SnackbarMoveBehaviorTest {
 
     @Test
     public void whenCreatedFromContextAndAttributeSet_thenSetupCorrectly() {
-        //When
         SnackbarMoveBehavior behavior = new SnackbarMoveBehavior(
                 RuntimeEnvironment.application, attributeSet);
 
-        //Then
         assertThat(behavior.translationAnimator).isNull();
     }
 
     @Test
     public void givenBehaviorDisabled_whenLayoutDependsOn_thenFalse() {
-        //Given
         SnackbarMoveBehavior.BEHAVIOR_ENABLED = false;
         CoordinatorLayout coordinatorLayout = new CoordinatorLayout(RuntimeEnvironment.application);
         View child = new View(RuntimeEnvironment.application);
         View dependency = new View(RuntimeEnvironment.application);
 
-        //When
         boolean actual = behavior.layoutDependsOn(coordinatorLayout, child, dependency);
 
-        //Then
         Assertions.assertThat(actual).isFalse();
     }
 
     @Test
     public void givenBehaviorEnabledAndSnackbarLayout_whenLayoutDependsOn_thenTrue() {
-        //Given
         CoordinatorLayout coordinatorLayout = new CoordinatorLayout(RuntimeEnvironment.application);
         View child = new View(RuntimeEnvironment.application);
         SnackbarLayout dependency = new SnackbarLayout(RuntimeEnvironment.application);
 
-        //When
         boolean actual = behavior.layoutDependsOn(coordinatorLayout, child, dependency);
 
-        //Then
         Assertions.assertThat(actual).isTrue();
     }
 
     @Test
     public void givenBehaviourDisabled_whenOnDependentViewChanged_thenFalse() {
-        //Given
         SnackbarMoveBehavior.BEHAVIOR_ENABLED = false;
         CoordinatorLayout coordinatorLayout = new CoordinatorLayout(RuntimeEnvironment.application);
         View child = new View(RuntimeEnvironment.application);
         View dependency = new View(RuntimeEnvironment.application);
 
-        //When
         boolean actual = behavior.onDependentViewChanged(coordinatorLayout, child, dependency);
 
-        //Then
         Assertions.assertThat(actual).isFalse();
     }
 
     @Test
     public void givenChildViewNotVisible_whenOnDependentViewChanged_thenFalse() {
-        //Given
         CoordinatorLayout coordinatorLayout = new CoordinatorLayout(RuntimeEnvironment.application);
         View child = new View(RuntimeEnvironment.application);
         child.setVisibility(View.GONE);
         View dependency = new View(RuntimeEnvironment.application);
 
-        //When
         boolean actual = behavior.onDependentViewChanged(coordinatorLayout, child, dependency);
 
-        //Then
         Assertions.assertThat(actual).isFalse();
     }
 
     @Test
     public void givenViewDoesNotOverlapSnackbar_whenOnDependentViewChanged_thenFalse() {
-        //Given
         View child = new View(RuntimeEnvironment.application);
         List<View> dependencies = new ArrayList<>();
         dependencies.add(snackbarLayout);
         when(coordinator.getDependencies(child)).thenReturn(dependencies);
         when(coordinator.doViewsOverlap(child, snackbarLayout)).thenReturn(false);
 
-        //When
         boolean actual = behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
 
-        //Then
         Assertions.assertThat(actual).isFalse();
     }
 
     @TargetApi(VERSION_CODES.HONEYCOMB)
     @Test
     public void givenTranslationDistanceLessThanTwoThirdsViewHeight_whenOnDependentViewChanged_thenTranslateView() {
-        //Given
         View child = new View(RuntimeEnvironment.application);
         child.setBottom(200);
         child.setTop(0);
         setupCoordinatorLayout(child);
 
-        //When
         boolean actual = behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
 
-        //Then
         Assertions.assertThat(actual).isTrue();
         assertThat(child).hasTranslationY(-110f);
     }
@@ -170,7 +150,6 @@ public class SnackbarMoveBehaviorTest {
     @TargetApi(VERSION_CODES.HONEYCOMB)
     @Test
     public void givenTranslationDistanceMoreThanTwoThirdsViewHeight_whenOnDependentViewChanged_thenAnimationTranslationOfView() {
-        //Given
         View child = new View(RuntimeEnvironment.application);
         child.setBottom(150);
         child.setTop(0);
@@ -178,10 +157,8 @@ public class SnackbarMoveBehaviorTest {
 
         Robolectric.getForegroundThreadScheduler().pause();
 
-        //When
         boolean actual = behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
 
-        //Then
         Assertions.assertThat(actual).isTrue();
         assertThat(behavior.translationAnimator).isStarted();
 
@@ -193,24 +170,20 @@ public class SnackbarMoveBehaviorTest {
     @TargetApi(VERSION_CODES.HONEYCOMB)
     @Test
     public void givenAlreadyTranslated_whenOnDependentViewChanged_thenFalse() {
-        //Given
         View child = new View(RuntimeEnvironment.application);
         child.setBottom(200);
         child.setTop(0);
         setupCoordinatorLayout(child);
         behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
 
-        //When
         boolean actual = behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
 
-        //Then
         Assertions.assertThat(actual).isFalse();
     }
 
     @TargetApi(VERSION_CODES.HONEYCOMB)
     @Test
     public void givenAnimatorAlreadyStarted_whenOnDependentViewChanged_thenAnimatorCancelled() {
-        //Given
         View child = new View(RuntimeEnvironment.application);
         child.setBottom(100);
         child.setTop(0);
@@ -219,10 +192,8 @@ public class SnackbarMoveBehaviorTest {
         behavior.translationAnimator = animator;
         when(animator.isRunning()).thenReturn(true);
 
-        //When
         behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
 
-        //Then
         verify(animator).cancel();
         verify(animator).start();
     }

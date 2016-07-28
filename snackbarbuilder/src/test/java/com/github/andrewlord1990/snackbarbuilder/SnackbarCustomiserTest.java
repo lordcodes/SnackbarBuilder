@@ -66,107 +66,85 @@ public class SnackbarCustomiserTest {
 
     @Test
     public void whenCustomiseMessage_thenMessageTextColorSetAndMessagesAppended() {
-        //Given
         SpannableStringBuilder appendMessages = new SpannableStringBuilder();
         appendMessages.append("one");
         appendMessages.append("two");
         appendMessages.append("three");
 
-        //When
         customiser.customiseMessage(Color.GREEN, appendMessages);
 
-        //Then
         assertThat(customiser.getMessageView()).hasCurrentTextColor(Color.GREEN);
         assertThat(customiser.getMessageView()).hasText("onetwothree");
     }
 
     @Test
     public void whenSetBackgroundColor_thenBackgroundColorSet() {
-        //When
         customiser.setBackgroundColor(Color.GRAY);
 
-        //Then
         assertThat((ColorDrawable) snackbar.getView().getBackground())
                 .hasColor(Color.GRAY);
     }
 
     @Test
     public void whenSetAction_thenActionClickListenerAndTextSet() {
-        //Given
         String text = "some action text";
         TestClickListener clickListener = new TestClickListener();
 
-        //When
         customiser.setAction(text, clickListener);
         customiser.getActionView().performClick();
 
-        //Then
         assertThat(customiser.getActionView()).hasText(text);
         Assertions.assertThat(clickListener.isClicked()).isTrue();
     }
 
     @Test
     public void givenNoClickListener_whenSetAction_thenTextSet() {
-        //Given
         String text = "some text";
 
-        //When
         customiser.setAction(text, null);
         customiser.getActionView().performClick();
 
-        //Then
         assertThat(customiser.getActionView()).hasText(text);
     }
 
     @Test
     public void whenSetActionTextColor_thenActionTextColorSet() {
-        //When
         customiser.setActionTextColor(Color.YELLOW);
 
-        //Then
         assertThat(customiser.getActionView()).hasCurrentTextColor(Color.YELLOW);
     }
 
     @Test
     public void givenAllCapsFalse_whenSetActionAllCaps_thenLowercaseAction() {
-        //When
         customiser.setActionAllCaps(false);
 
-        //Then
         Assertions.assertThat(customiser.getActionView().getTransformationMethod()).isNull();
     }
 
     @Test
     public void givenAllCapsTrue_whenSetActionAllCaps_thenUppercaseAction() {
-        //When
         customiser.setActionAllCaps(true);
 
-        //Then
         Assertions.assertThat(customiser.getActionView().getTransformationMethod()).isNotNull();
     }
 
     @Test
     public void whenSetCallbacks_thenCallbacksSetup() {
-        //Given
         snackbar.show();
         SnackbarCombinedCallback combinedCallback = new SnackbarCombinedCallback(
                 snackbarCallback, callback);
 
-        //When
         customiser.setCallbacks(combinedCallback);
         snackbar.dismiss();
 
-        //Then
         verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
         verify(callback).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
     }
 
     @Test
     public void whenSetIcon_thenIconAndIconMarginsSet() {
-        //When
         customiser.setIcon(drawable, 10, 20);
 
-        //Then
         SnackbarLayout layout = (SnackbarLayout) snackbar.getView();
         View firstChildView = layout.getChildAt(0);
         assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
