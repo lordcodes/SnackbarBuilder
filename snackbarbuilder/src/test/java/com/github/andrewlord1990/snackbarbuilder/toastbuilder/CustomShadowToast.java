@@ -31,6 +31,9 @@ import org.robolectric.annotation.Implements;
 @Implements(Toast.class)
 public class CustomShadowToast {
 
+  /**
+   * Implementation of makeText that actually shows the message.
+   */
   @Implementation
   @SuppressLint("ShowToast")
   public static Toast makeText(Context context, CharSequence text, int duration) {

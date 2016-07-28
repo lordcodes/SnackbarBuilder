@@ -408,7 +408,7 @@ public class SnackbarBuilderTest {
     SnackbarBuilder builder = createBuilder();
     OnClickListener click = new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         //Click
       }
     };
@@ -627,7 +627,7 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void WhenBuildWrapper_thenSnackbarWrapperSetup() {
+  public void whenBuildWrapper_thenSnackbarWrapperSetup() {
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
     CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
@@ -754,7 +754,7 @@ public class SnackbarBuilderTest {
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
     CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
-    Snackbar snackbar = new SnackbarBuilder(parent)
+    final Snackbar snackbar = new SnackbarBuilder(parent)
         .message("start")
         .appendMessage("first_added")
         .appendMessage("second_in_blue", Color.BLUE)

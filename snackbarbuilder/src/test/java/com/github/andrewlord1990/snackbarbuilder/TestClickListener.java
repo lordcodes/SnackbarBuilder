@@ -20,7 +20,7 @@ class TestClickListener implements OnClickListener {
   private ClickListenerVerifier verifier = new ClickListenerVerifier();
 
   @Override
-  public void onClick(View v) {
+  public void onClick(View view) {
     verifier.clicked = true;
   }
 

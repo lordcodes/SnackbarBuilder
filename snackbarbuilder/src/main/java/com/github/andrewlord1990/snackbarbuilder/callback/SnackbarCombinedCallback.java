@@ -106,6 +106,8 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
         case Callback.DISMISS_EVENT_CONSECUTIVE:
           snackbarCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
           break;
+        default:
+          break;
       }
       snackbarCallback.onSnackbarDismissed(snackbar);
     }
@@ -137,6 +139,8 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
         if (consecutiveDismissCallback != null) {
           consecutiveDismissCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
         }
+        break;
+      default:
         break;
     }
     if (dismissCallback != null) {

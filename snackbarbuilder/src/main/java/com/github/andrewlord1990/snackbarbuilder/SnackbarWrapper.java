@@ -80,23 +80,23 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action to be displayed in the {@link Snackbar}.
-   *
-   * @param actionTextResId String resource of the text to display as an action.
-   * @return This instance.
-   */
-  public SnackbarWrapper setActionText(@StringRes int actionTextResId) {
-    actionView.setText(actionTextResId);
-    return this;
-  }
-
-  /**
    * Get the action displayed in the {@link Snackbar}.
    *
    * @return Text displayed as an action.
    */
   public CharSequence getActionText() {
     return actionView.getText();
+  }
+
+  /**
+   * Set the action to be displayed in the {@link Snackbar}.
+   *
+   * @param actionText String resource of the text to display as an action.
+   * @return This instance.
+   */
+  public SnackbarWrapper setActionText(@StringRes int actionText) {
+    actionView.setText(actionText);
+    return this;
   }
 
   /**
@@ -125,13 +125,13 @@ public final class SnackbarWrapper {
    * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the
    * action is clicked.
    *
-   * @param actionTextResId     String resource to display as an action.
+   * @param actionText          String resource to display as an action.
    * @param actionClickListener Callback to be invoked when the action is clicked.
    * @return This instance.
    */
   @NonNull
-  public SnackbarWrapper setAction(@StringRes int actionTextResId, OnClickListener actionClickListener) {
-    snackbar.setAction(actionTextResId, actionClickListener);
+  public SnackbarWrapper setAction(@StringRes int actionText, OnClickListener actionClickListener) {
+    snackbar.setAction(actionText, actionClickListener);
     return this;
   }
 
@@ -176,12 +176,12 @@ public final class SnackbarWrapper {
   /**
    * Set the text color for the action on the {@link Snackbar}.
    *
-   * @param colorResId Resource of the color to make the action text.
+   * @param color Resource of the color to make the action text.
    * @return This instance.
    */
   @NonNull
-  public SnackbarWrapper setActionTextColorRes(@ColorRes int colorResId) {
-    snackbar.setActionTextColor(ContextCompat.getColor(context, colorResId));
+  public SnackbarWrapper setActionTextColorRes(@ColorRes int color) {
+    snackbar.setActionTextColor(ContextCompat.getColor(context, color));
     return this;
   }
 
@@ -249,19 +249,6 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Update the message in this {@link Snackbar}. This will overwrite the whole message that is
-   * currently shown.
-   *
-   * @param message The new message.
-   * @return This instance.
-   */
-  @NonNull
-  public SnackbarWrapper setText(@NonNull CharSequence message) {
-    snackbar.setText(message);
-    return this;
-  }
-
-  /**
    * Get the message shown in the {@link Snackbar}.
    *
    * @return The message shown.
@@ -274,12 +261,25 @@ public final class SnackbarWrapper {
    * Update the message in the {@link Snackbar}. This will overwrite the whole message that is
    * currently shown.
    *
-   * @param messageResId String resource of the new message.
+   * @param message String resource of the new message.
    * @return This instance.
    */
   @NonNull
-  public SnackbarWrapper setText(@StringRes int messageResId) {
-    snackbar.setText(messageResId);
+  public SnackbarWrapper setText(@StringRes int message) {
+    snackbar.setText(message);
+    return this;
+  }
+
+  /**
+   * Update the message in this {@link Snackbar}. This will overwrite the whole message that is
+   * currently shown.
+   *
+   * @param message The new message.
+   * @return This instance.
+   */
+  @NonNull
+  public SnackbarWrapper setText(@NonNull CharSequence message) {
+    snackbar.setText(message);
     return this;
   }
 
@@ -308,11 +308,11 @@ public final class SnackbarWrapper {
   /**
    * Set the text color for the message shown in the {@link Snackbar}.
    *
-   * @param colorResId The message text color resource.
+   * @param color The message text color resource.
    * @return This instance.
    */
-  public SnackbarWrapper setTextColorRes(@ColorRes int colorResId) {
-    messageView.setTextColor(ContextCompat.getColor(context, colorResId));
+  public SnackbarWrapper setTextColorRes(@ColorRes int color) {
+    messageView.setTextColor(ContextCompat.getColor(context, color));
     return this;
   }
 
@@ -349,11 +349,11 @@ public final class SnackbarWrapper {
   /**
    * Append text to the {@link Snackbar} message.
    *
-   * @param messageResId The string resource of the text to append.
+   * @param message The string resource of the text to append.
    * @return This instance.
    */
-  public SnackbarWrapper appendMessage(@StringRes int messageResId) {
-    return appendMessage(context.getString(messageResId));
+  public SnackbarWrapper appendMessage(@StringRes int message) {
+    return appendMessage(context.getString(message));
   }
 
   /**
@@ -374,14 +374,14 @@ public final class SnackbarWrapper {
   /**
    * Append text in the specified color to the {@link Snackbar}.
    *
-   * @param messageResId The string resource of the text to append.
-   * @param colorResId   The resource of the color to apply to the text.
+   * @param message The string resource of the text to append.
+   * @param color   The resource of the color to apply to the text.
    * @return This instance.
    */
-  public SnackbarWrapper appendMessage(@StringRes int messageResId,
-                                       @ColorRes int colorResId) {
-    return appendMessage(context.getString(messageResId),
-        ContextCompat.getColor(context, colorResId));
+  public SnackbarWrapper appendMessage(@StringRes int message,
+                                       @ColorRes int color) {
+    return appendMessage(context.getString(message),
+        ContextCompat.getColor(context, color));
   }
 
   /**
@@ -452,11 +452,11 @@ public final class SnackbarWrapper {
   /**
    * Set the background color of the {@link Snackbar}.
    *
-   * @param colorResId The background color resource.
+   * @param color The background color resource.
    * @return This instance.
    */
-  public SnackbarWrapper setBackgroundColorRes(@ColorRes int colorResId) {
-    getView().setBackgroundColor(ContextCompat.getColor(context, colorResId));
+  public SnackbarWrapper setBackgroundColorRes(@ColorRes int color) {
+    getView().setBackgroundColor(ContextCompat.getColor(context, color));
     return this;
   }
 
@@ -491,11 +491,11 @@ public final class SnackbarWrapper {
    * Set the icon at the start of the {@link Snackbar}.  If there is no icon it will be added,
    * or if there is then it will be replaced.
    *
-   * @param iconResId The icon drawable resource to display.
+   * @param icon The icon drawable resource to display.
    * @return This instance.
    */
-  public SnackbarWrapper setIcon(@DrawableRes int iconResId) {
-    return setIcon(ContextCompat.getDrawable(context, iconResId));
+  public SnackbarWrapper setIcon(@DrawableRes int icon) {
+    return setIcon(ContextCompat.getDrawable(context, icon));
   }
 
   /**

@@ -74,7 +74,7 @@ public class SampleActivity extends AppCompatActivity {
     samples = new LinkedHashMap<>();
     samples.put("Message", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message")
             .build()
@@ -83,7 +83,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Action", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message")
             .actionText("Action")
@@ -94,7 +94,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Custom Text Colours Using Resources", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message in different color")
             .actionText("Action")
@@ -107,7 +107,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Custom Text Colours Using Colors", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message in different color")
             .actionText("Action")
@@ -120,7 +120,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Standard callback", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message")
             .actionText("Action")
@@ -131,7 +131,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("SnackbarBuilder callback", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message")
             .actionText("Action")
@@ -142,7 +142,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Timeout callback", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message")
             .actionText("Action")
@@ -158,7 +158,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Lowercase action", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("Message")
             .actionText("Action")
@@ -169,7 +169,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Custom timeout", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("This has a custom timeout")
             .duration(10000)
@@ -179,7 +179,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Icon", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .icon(R.drawable.ic_android_24dp)
             .iconMarginStart(R.dimen.snackbar_icon_margin)
@@ -192,7 +192,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Multicolour", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message("this")
             .appendMessage(" message", Color.RED)
@@ -207,7 +207,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Using wrapper", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         SnackbarWrapper wrapper = new SnackbarBuilder(SampleActivity.this)
             .message("Using wrapper")
             .duration(Snackbar.LENGTH_LONG)
@@ -217,7 +217,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Toast with red text", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new ToastBuilder(SampleActivity.this)
             .message("Custom toast")
             .messageTextColor(Color.RED)
@@ -227,7 +227,7 @@ public class SampleActivity extends AppCompatActivity {
     });
     samples.put("Toast with custom position", new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         new ToastBuilder(SampleActivity.this)
             .message("Positioned toast")
             .duration(Toast.LENGTH_LONG)
@@ -304,6 +304,8 @@ public class SampleActivity extends AppCompatActivity {
           case DISMISS_EVENT_CONSECUTIVE:
             Log.v(TAG, "Snackbar dismissed consecutive");
             break;
+          default:
+            break;
         }
       }
 
@@ -317,7 +319,7 @@ public class SampleActivity extends AppCompatActivity {
   private OnClickListener getActionClickListener() {
     return new OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         showToast("Action pressed");
       }
     };
