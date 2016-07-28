@@ -9,7 +9,7 @@ android:
     - extra-android-support
     - extra-android-m2repository
 
-script: ./gradlew clean assembleDebug testDebug
+script: ./gradlew clean check checkstyle
 
 branches:
   only:
