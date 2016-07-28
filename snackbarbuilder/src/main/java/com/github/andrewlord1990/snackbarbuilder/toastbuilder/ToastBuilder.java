@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar.Duration;
 import android.support.v4.content.ContextCompat;
@@ -186,15 +187,24 @@ public class ToastBuilder {
     if (customView != null) {
       toast.setView(customView);
 
-      if (message != null) {
-        TextView messageView = (TextView) customView.findViewById(customViewMessageViewId);
-        if (messageView != null) {
-          messageView.setText(message);
-          return messageView;
-        }
+      TextView messageView = setCustomViewMessage();
+      if (messageView != null) {
+        return messageView;
       }
     }
     return getToastMessageView(toast.getView());
+  }
+
+  @Nullable
+  private TextView setCustomViewMessage() {
+    if (message != null) {
+      TextView messageView = (TextView) customView.findViewById(customViewMessageViewId);
+      if (messageView != null) {
+        messageView.setText(message);
+        return messageView;
+      }
+    }
+    return null;
   }
 
   private void setToastMessageTextColor(TextView toastMessage) {

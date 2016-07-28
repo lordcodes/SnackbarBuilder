@@ -23,7 +23,7 @@ import android.support.design.widget.Snackbar.Callback;
  */
 public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
 
-  protected SnackbarCallback snackbarCallback;
+  SnackbarCallback snackbarCallback;
 
   private SnackbarShowCallback showCallback;
   private SnackbarDismissCallback dismissCallback;

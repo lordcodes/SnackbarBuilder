@@ -21,7 +21,11 @@ import android.support.design.widget.Snackbar.Callback.DismissEvent;
  * the dismiss event, as you do with the standard Callback class. Override whichever callback
  * methods you are interested in.
  */
-public abstract class SnackbarCallback {
+public class SnackbarCallback {
+
+  protected SnackbarCallback() {
+    // To prevent class being instantiated directly.
+  }
 
   /**
    * Indicates that the {@link Snackbar} was shown (made visible).
@@ -29,6 +33,7 @@ public abstract class SnackbarCallback {
    * @param snackbar The Snackbar.
    */
   public void onSnackbarShown(Snackbar snackbar) {
+    // Override if needed
   }
 
   /**
@@ -37,6 +42,7 @@ public abstract class SnackbarCallback {
    * @param snackbar The Snackbar.
    */
   public void onSnackbarDismissed(Snackbar snackbar) {
+    // Override if needed
   }
 
   /**
@@ -46,6 +52,7 @@ public abstract class SnackbarCallback {
    * @param dismissEvent The event through which it was dismissed.
    */
   public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+    // Override if needed
   }
 
   /**
@@ -54,6 +61,7 @@ public abstract class SnackbarCallback {
    * @param snackbar The Snackbar.
    */
   public void onSnackbarActionPressed(Snackbar snackbar) {
+    // Override if needed
   }
 
   /**
@@ -62,6 +70,7 @@ public abstract class SnackbarCallback {
    * @param snackbar The Snackbar.
    */
   public void onSnackbarSwiped(Snackbar snackbar) {
+    // Override if needed
   }
 
   /**
@@ -71,6 +80,7 @@ public abstract class SnackbarCallback {
    * @param snackbar The Snackbar.
    */
   public void onSnackbarTimedOut(Snackbar snackbar) {
+    // Override if needed
   }
 
   /**
@@ -79,6 +89,7 @@ public abstract class SnackbarCallback {
    * @param snackbar The Snackbar.
    */
   public void onSnackbarManuallyDismissed(Snackbar snackbar) {
+    // Override if needed
   }
 
   /**
@@ -87,6 +98,7 @@ public abstract class SnackbarCallback {
    * @param snackbar The Snackbar.
    */
   public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
+    // Override if needed
   }
 
 }

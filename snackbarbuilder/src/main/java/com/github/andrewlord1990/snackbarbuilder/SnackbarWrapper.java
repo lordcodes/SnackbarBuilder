@@ -50,12 +50,12 @@ public final class SnackbarWrapper {
 
   Context context;
 
-  private Snackbar snackbar;
-  private TextView messageView;
-  private Button actionView;
+  private final Snackbar snackbar;
+  private final TextView messageView;
+  private final Button actionView;
+  private final SnackbarIconBuilder iconBuilder;
 
   private Callback callback;
-  private SnackbarIconBuilder iconBuilder;
 
   /**
    * Create by wrapping a {@link Snackbar}.

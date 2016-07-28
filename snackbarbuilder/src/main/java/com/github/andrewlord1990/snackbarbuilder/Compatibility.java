@@ -20,15 +20,18 @@ import android.widget.TextView;
 final class Compatibility {
 
   private static Compatibility instance;
+  private static final Object lock = new Object();
 
   private Compatibility() {
   }
 
   static Compatibility getInstance() {
-    if (instance == null) {
-      instance = new Compatibility();
+    synchronized (lock) {
+      if (instance == null) {
+        instance = new Compatibility();
+      }
+      return instance;
     }
-    return instance;
   }
 
   private boolean isApiAtLeast14() {

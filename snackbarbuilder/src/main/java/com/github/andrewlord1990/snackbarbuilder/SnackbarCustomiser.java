@@ -24,7 +24,7 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallba
 
 class SnackbarCustomiser {
 
-  private Snackbar snackbar;
+  private final Snackbar snackbar;
 
   SnackbarCustomiser(Snackbar snackbar) {
     this.snackbar = snackbar;
@@ -58,6 +58,7 @@ class SnackbarCustomiser {
       clickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
+          // Empty click listener
         }
       };
     }
