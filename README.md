@@ -56,7 +56,17 @@ Check out the sample project to see examples of how the library can be used.
 
 ### Callback
 
-Extend the `SnackbarCallback` class and override only the methods you are interested in. Rather than needing to check the `dismissEvent` integer in the `Snackbar.Callback` class, there is a separate method to override for each dismiss type.
+Simply implement the interface for the callback you are interested in and call the appropriate method on the `SnackbarBuilder`. It is as simple as that!
+
+- Shown = `showCallback(SnackbarShowCallback callback)`
+- Dismissed = `dismissCallback(SnackbarDismissCallback callback)`
+- Dismissed (action pressed) = `actionDismissCallback(SnackbarActionDismissCallback callback)`
+- Dismissed (swiped away) = `swipeDismissCallback(SnackbarSwipeDismissCallback callback)`
+- Dismissed (timeout) = `timeoutDismissCallback(SnackbarTimeoutDismissCallback callback)`
+- Dismissed (manual dismiss call) = `manualDismissCallback(SnackbarManualDismissCallback callback)`
+- Dismissed (another Snackbar shown) = `consecutiveDismissCallback(SnackbarConsecutiveDismissCallback callback)`
+
+Alternatively, if you would rather handle all the callbacks with a single class, then you can do that too. Simply extend the `SnackbarCallback` class and override only the methods you are interested in. Rather than needing to check the `dismissEvent` integer in the `Snackbar.Callback` class, there is a separate method to override for each dismiss type.
 
 ```java
 private class MySnackbarCallback extends SnackbarCallback {
