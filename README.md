@@ -66,6 +66,17 @@ Simply implement the interface for the callback you are interested in and call t
 - Dismissed (manual dismiss call) = `manualDismissCallback(SnackbarManualDismissCallback callback)`
 - Dismissed (another Snackbar shown) = `consecutiveDismissCallback(SnackbarConsecutiveDismissCallback callback)`
 
+```java
+  new SnackbarBuilder(this)
+      .message("Message")
+      .actionText("Action")
+      .showCallback(new MyShowCallback())
+      .actionDismissCallback(new MyActionDismissCallback())
+      .timeoutDismissCallback(new MyTimeoutDismissCallback())
+      .build()
+      .show();
+```
+
 Alternatively, if you would rather handle all the callbacks with a single class, then you can do that too. Simply extend the `SnackbarCallback` class and override only the methods you are interested in. Rather than needing to check the `dismissEvent` integer in the `Snackbar.Callback` class, there is a separate method to override for each dismiss type.
 
 ```java
