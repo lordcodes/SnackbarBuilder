@@ -5,6 +5,6 @@ import android.view.View;
 
 public interface SnackbarParentFinder {
 
-    View findSnackbarParent(Activity activity);
+  View findSnackbarParent(Activity activity);
 
 }

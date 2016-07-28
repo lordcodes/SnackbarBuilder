@@ -1,77 +1,77 @@
 buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1x'
-        classpath 'com.novoda:bintray-release:0.3.4'
-    }
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.1.2'
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1x'
+    classpath 'com.novoda:bintray-release:0.3.4'
+  }
 }
 
 allprojects {
-    repositories {
-        jcenter()
-    }
+  repositories {
+    jcenter()
+  }
 }
 
 subprojects { project ->
 
-    apply plugin: 'checkstyle'
+  apply plugin: 'checkstyle'
 
-    checkstyle {
-        toolVersion '7.0'
+  checkstyle {
+    toolVersion '7.0'
+  }
+
+  task checkstyle(type: Checkstyle) {
+    configFile rootProject.file('config/checkstyle/checkstyle.xml')
+    source 'src/main/java'
+    include '**/*.java'
+    ignoreFailures false
+    showViolations true
+
+    classpath = files()
+
+    reports {
+      html.enabled true
     }
-
-    task checkstyle(type: Checkstyle) {
-        configFile rootProject.file('config/checkstyle/checkstyle.xml')
-        source 'src/main/java'
-        include '**/*.java'
-        ignoreFailures false
-        showViolations true
-
-        classpath = files()
-
-        reports {
-            html.enabled true
-        }
-    }
+  }
 
 }
 
 afterEvaluate {
-    if (project.tasks.findByName('check')) {
-        check.dependsOn('checkstyle')
-    }
+  if (project.tasks.findByName('check')) {
+    check.dependsOn('checkstyle')
+  }
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+  delete rootProject.buildDir
 }
 
 ext {
-    versionMajor = 0
-    versionMinor = 5
-    versionPatch = 0
+  versionMajor = 0
+  versionMinor = 5
+  versionPatch = 0
 
-    targetSdk = 23
-    compileSdk = 23
-    minSdk = 7
+  targetSdk = 23
+  compileSdk = 23
+  minSdk = 7
 
-    buildToolsVersion = '23.0.3'
+  buildToolsVersion = '23.0.3'
 
-    sourceCompatibilityVersion = JavaVersion.VERSION_1_7
-    targetCompatibilityVersion = JavaVersion.VERSION_1_7
+  sourceCompatibilityVersion = JavaVersion.VERSION_1_7
+  targetCompatibilityVersion = JavaVersion.VERSION_1_7
 
-    generateVersionCode = {
-        def minSdkPart = String.format("%02d", rootProject.ext.minSdk)
-        def majorPart = String.format("%01d", rootProject.ext.versionMajor)
-        def minorPart = String.format("%03d", rootProject.ext.versionMinor)
-        def patchPart = String.format("%03d", rootProject.ext.versionPatch)
-        return "${minSdkPart}${majorPart}${minorPart}${patchPart}".toInteger()
-    }
+  generateVersionCode = {
+    def minSdkPart = String.format("%02d", rootProject.ext.minSdk)
+    def majorPart = String.format("%01d", rootProject.ext.versionMajor)
+    def minorPart = String.format("%03d", rootProject.ext.versionMinor)
+    def patchPart = String.format("%03d", rootProject.ext.versionPatch)
+    return "${minSdkPart}${majorPart}${minorPart}${patchPart}".toInteger()
+  }
 
-    generateVersionName = {
-        return "${rootProject.ext.versionMajor}.${rootProject.ext.versionMinor}.${rootProject.ext.versionPatch}"
-    }
+  generateVersionName = {
+    return "${rootProject.ext.versionMajor}.${rootProject.ext.versionMinor}.${rootProject.ext.versionPatch}"
+  }
 }

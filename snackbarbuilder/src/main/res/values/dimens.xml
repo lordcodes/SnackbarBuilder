@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Copyright (C) 2016 Andrew Lord
   ~
@@ -12,6 +13,6 @@
   -->
 
 <resources>
-    <dimen name="snackbarbuilder_icon_margin_start_default">12dp</dimen>
-    <dimen name="snackbarbuilder_icon_margin_end_default">8dp</dimen>
+  <dimen name="snackbarbuilder_icon_margin_start_default">12dp</dimen>
+  <dimen name="snackbarbuilder_icon_margin_end_default">8dp</dimen>
 </resources>

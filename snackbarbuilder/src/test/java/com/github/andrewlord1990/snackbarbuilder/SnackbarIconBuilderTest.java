@@ -31,68 +31,66 @@ import static org.assertj.android.api.Assertions.assertThat;
 @RunWith(RobolectricGradleTestRunner.class)
 public class SnackbarIconBuilderTest {
 
-    private CoordinatorLayout snackbarParentView;
+  @Mock
+  Drawable icon1;
+  @Mock
+  Drawable icon2;
+  private CoordinatorLayout snackbarParentView;
 
-    @Mock
-    Drawable icon1;
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
 
-    @Mock
-    Drawable icon2;
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    snackbarParentView = new CoordinatorLayout(RuntimeEnvironment.application);
+  }
 
-    @Before
-    public void before() {
-        MockitoAnnotations.initMocks(this);
+  @Test
+  public void givenIconAlready_whenBindToSnackbar_thenIconUpdated() {
+    Snackbar snackbar = new SnackbarBuilder(snackbarParentView)
+        .icon(icon1)
+        .iconMarginStart(50)
+        .iconMarginEnd(100)
+        .build();
+    SnackbarIconBuilder iconBuilder = new SnackbarIconBuilder(snackbar);
+    int expectedMarginStart = 10;
+    int expectedMarginEnd = 20;
 
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
-        snackbarParentView = new CoordinatorLayout(RuntimeEnvironment.application);
-    }
+    iconBuilder
+        .icon(icon2)
+        .iconMarginStartPixels(expectedMarginStart)
+        .iconMarginEndPixels(expectedMarginEnd)
+        .bindToSnackbar();
 
-    @Test
-    public void givenIconAlready_whenBindToSnackbar_thenIconUpdated() {
-        Snackbar snackbar = new SnackbarBuilder(snackbarParentView)
-                .icon(icon1)
-                .iconMarginStart(50)
-                .iconMarginEnd(100)
-                .build();
-        SnackbarIconBuilder iconBuilder = new SnackbarIconBuilder(snackbar);
-        int expectedMarginStart = 10;
-        int expectedMarginEnd = 20;
+    ImageView iconView = getIconView(iconBuilder.snackbar);
+    assertThat(iconView).hasDrawable(icon2);
+    assertThat((SnackbarLayout.LayoutParams) iconView.getLayoutParams())
+        .hasLeftMargin(expectedMarginStart)
+        .hasRightMargin(expectedMarginEnd);
+  }
 
-        iconBuilder
-                .icon(icon2)
-                .iconMarginStartPixels(expectedMarginStart)
-                .iconMarginEndPixels(expectedMarginEnd)
-                .bindToSnackbar();
+  @Test
+  public void givenNoIconAlready_whenBindToSnackbar_thenIconAdded() {
+    int expectedMarginStart = 10;
+    int expectedMarginEnd = 20;
+    Snackbar snackbar = new SnackbarBuilder(snackbarParentView).build();
+    SnackbarIconBuilder iconBuilder = new SnackbarIconBuilder(snackbar);
 
-        ImageView iconView = getIconView(iconBuilder.snackbar);
-        assertThat(iconView).hasDrawable(icon2);
-        assertThat((SnackbarLayout.LayoutParams) iconView.getLayoutParams())
-                .hasLeftMargin(expectedMarginStart)
-                .hasRightMargin(expectedMarginEnd);
-    }
+    iconBuilder
+        .icon(icon2)
+        .iconMarginStartPixels(expectedMarginStart)
+        .iconMarginEndPixels(expectedMarginEnd)
+        .bindToSnackbar();
 
-    @Test
-    public void givenNoIconAlready_whenBindToSnackbar_thenIconAdded() {
-        int expectedMarginStart = 10;
-        int expectedMarginEnd = 20;
-        Snackbar snackbar = new SnackbarBuilder(snackbarParentView).build();
-        SnackbarIconBuilder iconBuilder = new SnackbarIconBuilder(snackbar);
+    ImageView iconView = getIconView(iconBuilder.snackbar);
+    assertThat(iconView).hasDrawable(icon2);
+    assertThat((SnackbarLayout.LayoutParams) iconView.getLayoutParams())
+        .hasLeftMargin(expectedMarginStart)
+        .hasRightMargin(expectedMarginEnd);
+  }
 
-        iconBuilder
-                .icon(icon2)
-                .iconMarginStartPixels(expectedMarginStart)
-                .iconMarginEndPixels(expectedMarginEnd)
-                .bindToSnackbar();
-
-        ImageView iconView = getIconView(iconBuilder.snackbar);
-        assertThat(iconView).hasDrawable(icon2);
-        assertThat((SnackbarLayout.LayoutParams) iconView.getLayoutParams())
-                .hasLeftMargin(expectedMarginStart)
-                .hasRightMargin(expectedMarginEnd);
-    }
-
-    private ImageView getIconView(Snackbar snackbar) {
-        return (ImageView) snackbar.getView().findViewById(R.id.snackbarbuilder_icon);
-    }
+  private ImageView getIconView(Snackbar snackbar) {
+    return (ImageView) snackbar.getView().findViewById(R.id.snackbarbuilder_icon);
+  }
 
 }

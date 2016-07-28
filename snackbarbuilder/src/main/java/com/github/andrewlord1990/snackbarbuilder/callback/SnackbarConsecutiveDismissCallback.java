@@ -19,11 +19,11 @@ import android.support.design.widget.Snackbar;
  */
 public interface SnackbarConsecutiveDismissCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to another Snackbar being shown.
-     *
-     * @param snackbar The Snackbar.
-     */
-    void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar);
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to another Snackbar being shown.
+   *
+   * @param snackbar The Snackbar.
+   */
+  void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar);
 
 }

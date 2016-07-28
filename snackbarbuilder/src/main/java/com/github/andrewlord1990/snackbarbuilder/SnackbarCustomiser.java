@@ -24,78 +24,78 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallba
 
 class SnackbarCustomiser {
 
-    private Snackbar snackbar;
+  private Snackbar snackbar;
 
-    SnackbarCustomiser(Snackbar snackbar) {
-        this.snackbar = snackbar;
+  SnackbarCustomiser(Snackbar snackbar) {
+    this.snackbar = snackbar;
+  }
+
+  SnackbarCustomiser customiseMessage(@ColorInt int messageTextColor, CharSequence appendMessages) {
+    if (messageTextColor != 0) {
+      TextView messageView = getMessageView();
+      messageView.setTextColor(messageTextColor);
+      if (appendMessages != null) {
+        messageView.append(appendMessages);
+      }
     }
+    return this;
+  }
 
-    SnackbarCustomiser customiseMessage(@ColorInt int messageTextColor, CharSequence appendMessages) {
-        if (messageTextColor != 0) {
-            TextView messageView = getMessageView();
-            messageView.setTextColor(messageTextColor);
-            if (appendMessages != null) {
-                messageView.append(appendMessages);
-            }
+  TextView getMessageView() {
+    return (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
+  }
+
+  SnackbarCustomiser setBackgroundColor(@ColorInt int backgroundColor) {
+    if (backgroundColor != 0) {
+      snackbar.getView().setBackgroundColor(backgroundColor);
+    }
+    return this;
+  }
+
+  SnackbarCustomiser setAction(CharSequence actionText, OnClickListener actionClickListener) {
+    OnClickListener clickListener = actionClickListener;
+    if (clickListener == null) {
+      clickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
         }
-        return this;
+      };
     }
+    if (actionText != null) {
+      snackbar.setAction(actionText, clickListener);
+    }
+    return this;
+  }
 
-    TextView getMessageView() {
-        return (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
+  SnackbarCustomiser setActionTextColor(@ColorInt int actionTextColor) {
+    if (actionTextColor != 0) {
+      snackbar.setActionTextColor(actionTextColor);
     }
+    return this;
+  }
 
-    SnackbarCustomiser setBackgroundColor(@ColorInt int backgroundColor) {
-        if (backgroundColor != 0) {
-            snackbar.getView().setBackgroundColor(backgroundColor);
-        }
-        return this;
-    }
+  SnackbarCustomiser setActionAllCaps(boolean actionAllCaps) {
+    Compatibility.getInstance().setAllCaps(getActionView(), actionAllCaps);
+    return this;
+  }
 
-    SnackbarCustomiser setAction(CharSequence actionText, OnClickListener actionClickListener) {
-        OnClickListener clickListener = actionClickListener;
-        if (clickListener == null) {
-            clickListener = new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            };
-        }
-        if (actionText != null) {
-            snackbar.setAction(actionText, clickListener);
-        }
-        return this;
-    }
+  SnackbarCustomiser setCallbacks(SnackbarCombinedCallback combinedCallback) {
+    snackbar.setCallback(combinedCallback);
+    return this;
+  }
 
-    SnackbarCustomiser setActionTextColor(@ColorInt int actionTextColor) {
-        if (actionTextColor != 0) {
-            snackbar.setActionTextColor(actionTextColor);
-        }
-        return this;
+  SnackbarCustomiser setIcon(Drawable icon, int iconMarginStartPixels, int iconMarginEndPixels) {
+    if (icon != null) {
+      SnackbarIconBuilder.builder(snackbar)
+          .icon(icon)
+          .iconMarginStartPixels(iconMarginStartPixels)
+          .iconMarginEndPixels(iconMarginEndPixels)
+          .bindToSnackbar();
     }
+    return this;
+  }
 
-    SnackbarCustomiser setActionAllCaps(boolean actionAllCaps) {
-        Compatibility.getInstance().setAllCaps(getActionView(), actionAllCaps);
-        return this;
-    }
-
-    SnackbarCustomiser setCallbacks(SnackbarCombinedCallback combinedCallback) {
-        snackbar.setCallback(combinedCallback);
-        return this;
-    }
-
-    SnackbarCustomiser setIcon(Drawable icon, int iconMarginStartPixels, int iconMarginEndPixels) {
-        if (icon != null) {
-            SnackbarIconBuilder.builder(snackbar)
-                    .icon(icon)
-                    .iconMarginStartPixels(iconMarginStartPixels)
-                    .iconMarginEndPixels(iconMarginEndPixels)
-                    .bindToSnackbar();
-        }
-        return this;
-    }
-
-    Button getActionView() {
-        return (Button) snackbar.getView().findViewById(R.id.snackbar_action);
-    }
+  Button getActionView() {
+    return (Button) snackbar.getView().findViewById(R.id.snackbar_action);
+  }
 }

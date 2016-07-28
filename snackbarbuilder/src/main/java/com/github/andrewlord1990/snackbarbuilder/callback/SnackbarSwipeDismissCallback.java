@@ -19,11 +19,11 @@ import android.support.design.widget.Snackbar;
  */
 public interface SnackbarSwipeDismissCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to being swiped away.
-     *
-     * @param snackbar The Snackbar.
-     */
-    void onSnackbarSwiped(Snackbar snackbar);
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to being swiped away.
+   *
+   * @param snackbar The Snackbar.
+   */
+  void onSnackbarSwiped(Snackbar snackbar);
 
 }

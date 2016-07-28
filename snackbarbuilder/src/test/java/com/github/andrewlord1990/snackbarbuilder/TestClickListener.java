@@ -17,19 +17,19 @@ import android.view.View.OnClickListener;
 
 class TestClickListener implements OnClickListener {
 
-    private ClickListenerVerifier verifier = new ClickListenerVerifier();
+  private ClickListenerVerifier verifier = new ClickListenerVerifier();
 
-    @Override
-    public void onClick(View v) {
-        verifier.clicked = true;
-    }
+  @Override
+  public void onClick(View v) {
+    verifier.clicked = true;
+  }
 
-    public boolean isClicked() {
-        return verifier.clicked;
-    }
+  public boolean isClicked() {
+    return verifier.clicked;
+  }
 
-    private static class ClickListenerVerifier {
-        private boolean clicked = false;
-    }
+  private static class ClickListenerVerifier {
+    private boolean clicked = false;
+  }
 
 }

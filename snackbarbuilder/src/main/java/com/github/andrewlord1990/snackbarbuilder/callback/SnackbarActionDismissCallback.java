@@ -20,11 +20,11 @@ import android.support.design.widget.Snackbar;
  */
 public interface SnackbarActionDismissCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to the action being pressed.
-     *
-     * @param snackbar The Snackbar.
-     */
-    void onSnackbarActionPressed(Snackbar snackbar);
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to the action being pressed.
+   *
+   * @param snackbar The Snackbar.
+   */
+  void onSnackbarActionPressed(Snackbar snackbar);
 
 }

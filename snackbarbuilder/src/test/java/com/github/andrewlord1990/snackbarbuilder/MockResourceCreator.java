@@ -23,55 +23,55 @@ import static org.mockito.Mockito.when;
 
 class MockResourceCreator {
 
-    private SnackbarBuilder builder;
-    private SnackbarWrapper wrapper;
-    private Context context;
-    private Resources resources;
+  private SnackbarBuilder builder;
+  private SnackbarWrapper wrapper;
+  private Context context;
+  private Resources resources;
 
-    static MockResourceCreator fromBuilder(SnackbarBuilder builder) {
-        MockResourceCreator creator = new MockResourceCreator();
-        creator.builder = builder;
-        return creator;
-    }
+  static MockResourceCreator fromBuilder(SnackbarBuilder builder) {
+    MockResourceCreator creator = new MockResourceCreator();
+    creator.builder = builder;
+    return creator;
+  }
 
-    static MockResourceCreator fromWrapper(SnackbarWrapper wrapper) {
-        MockResourceCreator creator = new MockResourceCreator();
-        creator.wrapper = wrapper;
-        return creator;
-    }
+  static MockResourceCreator fromWrapper(SnackbarWrapper wrapper) {
+    MockResourceCreator creator = new MockResourceCreator();
+    creator.wrapper = wrapper;
+    return creator;
+  }
 
-    MockResourceCreator withContext(Context context) {
-        this.context = context;
-        return this;
-    }
+  MockResourceCreator withContext(Context context) {
+    this.context = context;
+    return this;
+  }
 
-    MockResourceCreator withResources(Resources resources) {
-        this.resources = resources;
-        return this;
-    }
+  MockResourceCreator withResources(Resources resources) {
+    this.resources = resources;
+    return this;
+  }
 
-    @TargetApi(21)
-    void createMockDrawableResId(@DrawableRes int drawableResId, Drawable drawable) {
-        setMockContext();
-        when(context.getDrawable(drawableResId)).thenReturn(drawable);
-    }
+  @TargetApi(21)
+  void createMockDrawableResId(@DrawableRes int drawableResId, Drawable drawable) {
+    setMockContext();
+    when(context.getDrawable(drawableResId)).thenReturn(drawable);
+  }
 
-    @DimenRes
-    int getDimensionPixelSize(int pixels) {
-        setMockContext();
-        @DimenRes int dimenResId = 50;
-        when(resources.getDimensionPixelSize(dimenResId)).thenReturn(pixels);
-        return dimenResId;
-    }
+  @DimenRes
+  int getDimensionPixelSize(int pixels) {
+    setMockContext();
+    @DimenRes int dimenResId = 50;
+    when(resources.getDimensionPixelSize(dimenResId)).thenReturn(pixels);
+    return dimenResId;
+  }
 
-    private void setMockContext() {
-        if (builder != null) {
-            builder.context = context;
-        }
-        if (wrapper != null) {
-            wrapper.context = context;
-        }
-        when(context.getResources()).thenReturn(resources);
+  private void setMockContext() {
+    if (builder != null) {
+      builder.context = context;
     }
+    if (wrapper != null) {
+      wrapper.context = context;
+    }
+    when(context.getResources()).thenReturn(resources);
+  }
 
 }

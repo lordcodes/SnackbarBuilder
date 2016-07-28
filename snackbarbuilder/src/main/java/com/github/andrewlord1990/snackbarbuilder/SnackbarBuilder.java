@@ -58,549 +58,549 @@ import com.github.andrewlord1990.snackbarbuilder.parent.SnackbarParentFinder;
  */
 public final class SnackbarBuilder {
 
-    Context context;
-    View parentView;
-    SpannableStringBuilder appendMessages;
-    CharSequence message;
+  Context context;
+  View parentView;
+  SpannableStringBuilder appendMessages;
+  CharSequence message;
 
-    @Duration
-    int duration = Snackbar.LENGTH_LONG;
+  @Duration
+  int duration = Snackbar.LENGTH_LONG;
 
-    CharSequence actionText;
-    OnClickListener actionClickListener;
-    SnackbarCombinedCallback.Builder callbackBuilder = SnackbarCombinedCallback.builder();
-    boolean actionAllCaps = true;
-    int backgroundColor;
-    int actionTextColor;
-    int messageTextColor;
-    int parentViewId;
-    Drawable icon;
-    int iconMarginStart;
-    int iconMarginEnd;
+  CharSequence actionText;
+  OnClickListener actionClickListener;
+  SnackbarCombinedCallback.Builder callbackBuilder = SnackbarCombinedCallback.builder();
+  boolean actionAllCaps = true;
+  int backgroundColor;
+  int actionTextColor;
+  int messageTextColor;
+  int parentViewId;
+  Drawable icon;
+  int iconMarginStart;
+  int iconMarginEnd;
 
-    /**
-     * Create a builder to create a Snackbar. The Snackbar will be attached to the specified
-     * parent view.
-     *
-     * @param view Parent view to attach the Snackbar to.
-     */
-    public SnackbarBuilder(View view) {
-        setup(view.getContext());
-        parentView = view;
+  /**
+   * Create a builder to create a Snackbar. The Snackbar will be attached to the specified
+   * parent view.
+   *
+   * @param view Parent view to attach the Snackbar to.
+   */
+  public SnackbarBuilder(View view) {
+    setup(view.getContext());
+    parentView = view;
+  }
+
+  /**
+   * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
+   * specified through the attribute snackbarBuilder_parentViewId. This attribute is within a
+   * style provided through the theme attribute snackbarBuilderStyle. The parent view will be
+   * found using this ID and the Snackbar will be attached to it.
+   *
+   * @param activity Activity to show the Snackbar in, it should contain a view with the ID
+   *                 specified in the style attribute snackbarBuilder_parentViewId.
+   */
+  public SnackbarBuilder(Activity activity) {
+    setup(activity);
+    parentView = activity.findViewById(parentViewId);
+  }
+
+  /**
+   * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
+   * found using the provided SnackbarParentFinder. This gives you the flexibility of not
+   * using a single ID for the parent view, or to have fallback view IDs in the case that
+   * the usual one isn't found in a particular activity.
+   *
+   * @param activity     Activity to show the Snackbar in.
+   * @param parentFinder Used to find the parent view to attach the Snackbar to.
+   */
+  public SnackbarBuilder(Activity activity, SnackbarParentFinder parentFinder) {
+    setup(activity);
+    parentView = parentFinder.findSnackbarParent(activity);
+  }
+
+  private void setup(Context context) {
+    this.context = context;
+    loadThemeAttributes();
+  }
+
+  /**
+   * Set the text to display on the {@link Snackbar}.
+   *
+   * @param message Text to display.
+   * @return This instance.
+   */
+  public SnackbarBuilder message(CharSequence message) {
+    this.message = message;
+    return this;
+  }
+
+  /**
+   * Set the text to display on the {@link Snackbar}.
+   *
+   * @param messageResId String resource of the text to display.
+   * @return This instance.
+   */
+  public SnackbarBuilder message(@StringRes int messageResId) {
+    this.message = context.getString(messageResId);
+    return this;
+  }
+
+  /**
+   * Set the colour to display the message on the {@link Snackbar}.
+   *
+   * @param messageTextColor Colour to display the message.
+   * @return This instance.
+   */
+  public SnackbarBuilder messageTextColor(@ColorInt int messageTextColor) {
+    this.messageTextColor = messageTextColor;
+    return this;
+  }
+
+  /**
+   * Set the colour to display the message on the {@link Snackbar}.
+   *
+   * @param messageTextColor Resource of the colour to display the message.
+   * @return This instance.
+   */
+  public SnackbarBuilder messageTextColorRes(@ColorRes int messageTextColor) {
+    this.messageTextColor = getColor(messageTextColor);
+    return this;
+  }
+
+  /**
+   * Add some text to append to the end of the message shown on the {@link Snackbar}.
+   *
+   * @param message Text to append to the Snackbar message.
+   * @return This instance.
+   */
+  public SnackbarBuilder appendMessage(CharSequence message) {
+    initialiseAppendMessages();
+    appendMessages.append(message);
+    return this;
+  }
+
+  /**
+   * Add some text to append to the message shown on the {@link Snackbar}.
+   *
+   * @param messageResId String resource of the text to append to the Snackbar message.
+   * @return This instance.
+   */
+  public SnackbarBuilder appendMessage(@StringRes int messageResId) {
+    return appendMessage(context.getString(messageResId));
+  }
+
+  /**
+   * Add some text to append to the message shown on the {@link Snackbar} and a colour to make it.
+   *
+   * @param message Text to append to the Snackbar message.
+   * @param color   Colour to make the appended text.
+   * @return This instance.
+   */
+  public SnackbarBuilder appendMessage(CharSequence message, @ColorInt int color) {
+    initialiseAppendMessages();
+    Spannable spannable = new SpannableString(message);
+    spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    appendMessages.append(spannable);
+    return this;
+  }
+
+  /**
+   * Add some text to append to the message shown on the {@link Snackbar} and a colour to make it.
+   *
+   * @param messageResId String resource of the text to append to the
+   *                     Snackbar message.
+   * @param colorResId   Resource of the colour to make the appended text.
+   * @return This instance.
+   */
+  public SnackbarBuilder appendMessage(@StringRes int messageResId,
+                                       @ColorRes int colorResId) {
+    return appendMessage(context.getString(messageResId),
+        getColor(colorResId));
+  }
+
+  /**
+   * Set the duration to show the {@link Snackbar} for.
+   *
+   * @param duration The duration.
+   * @return This instance.
+   */
+  public SnackbarBuilder duration(@Duration int duration) {
+    this.duration = duration;
+    return this;
+  }
+
+  /**
+   * Set the text to display as an action on the {@link Snackbar}.
+   *
+   * @param actionText The text to set as an action.
+   * @return This instance.
+   */
+  public SnackbarBuilder actionText(CharSequence actionText) {
+    this.actionText = actionText;
+    return this;
+  }
+
+  /**
+   * Set the text to display as an action on the {@link Snackbar}.
+   *
+   * @param actionTextResId The string resource of the text to set as an action.
+   * @return This instance.
+   */
+  public SnackbarBuilder actionText(@StringRes int actionTextResId) {
+    this.actionText = context.getString(actionTextResId);
+    return this;
+  }
+
+  /**
+   * Set the colour to display the action on the {@link Snackbar}.
+   *
+   * @param actionTextColor Colour to display the action.
+   * @return This instance.
+   */
+  public SnackbarBuilder actionTextColor(@ColorInt int actionTextColor) {
+    this.actionTextColor = actionTextColor;
+    return this;
+  }
+
+  /**
+   * Set the colour to display the action on the {@link Snackbar}.
+   *
+   * @param actionTextColorResId Resource of the colour to display the action.
+   * @return This instance.
+   */
+  public SnackbarBuilder actionTextColorRes(@ColorRes int actionTextColorResId) {
+    this.actionTextColor = getColor(actionTextColorResId);
+    return this;
+  }
+
+  /**
+   * Set the click listener for the action on the {@link Snackbar}.
+   *
+   * @param actionClickListener Click listener for the action.
+   * @return This instance.
+   */
+  public SnackbarBuilder actionClickListener(OnClickListener actionClickListener) {
+    this.actionClickListener = actionClickListener;
+    return this;
+  }
+
+  /**
+   * Set the colour to make the background of the {@link Snackbar}.
+   *
+   * @param backgroundColor The background colour.
+   * @return This instance.
+   */
+  public SnackbarBuilder backgroundColor(@ColorInt int backgroundColor) {
+    this.backgroundColor = backgroundColor;
+    return this;
+  }
+
+  /**
+   * Set the colour to make the background of the {@link Snackbar}.
+   *
+   * @param backgroundColorResId The resource of the background colour.
+   * @return This instance.
+   */
+  public SnackbarBuilder backgroundColorRes(@ColorRes int backgroundColorResId) {
+    this.backgroundColor = getColor(backgroundColorResId);
+    return this;
+  }
+
+  /**
+   * Set the standard callback for being informed of the {@link Snackbar} being shown or
+   * dismissed.
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder callback(Snackbar.Callback callback) {
+    callbackBuilder.callback(callback);
+    return this;
+  }
+
+  /**
+   * Set the enhanced callback for being informed of the {@link Snackbar} being shown or
+   * dismissed, through individual callback methods.
+   *
+   * @param snackbarCallback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder snackbarCallback(SnackbarCallback snackbarCallback) {
+    callbackBuilder.snackbarCallback(snackbarCallback);
+    return this;
+  }
+
+  /**
+   * Set the callback to be informed of the {@link Snackbar} being shown.
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder showCallback(SnackbarShowCallback callback) {
+    callbackBuilder.showCallback(callback);
+    return this;
+  }
+
+  /**
+   * Set the callback to be informed of the {@link Snackbar} being dismissed through some means.
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder dismissCallback(SnackbarDismissCallback callback) {
+    callbackBuilder.dismissCallback(callback);
+    return this;
+  }
+
+  /**
+   * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action
+   * being pressed.
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder actionDismissCallback(SnackbarActionDismissCallback callback) {
+    callbackBuilder.actionDismissCallback(callback);
+    return this;
+  }
+
+  /**
+   * Set the callback to be informed of the {@link Snackbar} being dismissed due to being
+   * swiped away.
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder swipeDismissCallback(SnackbarSwipeDismissCallback callback) {
+    callbackBuilder.swipeDismissCallback(callback);
+    return this;
+  }
+
+  /**
+   * Set the callback to be informed of the {@link Snackbar} being dismissed due to a timeout.
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder timeoutDismissCallback(SnackbarTimeoutDismissCallback callback) {
+    callbackBuilder.timeoutDismissCallback(callback);
+    return this;
+  }
+
+  /**
+   * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a
+   * call to dismiss().
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder manualDismissCallback(SnackbarManualDismissCallback callback) {
+    callbackBuilder.manualDismissCallback(callback);
+    return this;
+  }
+
+  /**
+   * Set the callback to be informed of the {@link Snackbar} being dismissed due to another
+   * Snackbar being shown.
+   *
+   * @param callback The callback.
+   * @return This instance.
+   */
+  public SnackbarBuilder consecutiveDismissCallback(
+      SnackbarConsecutiveDismissCallback callback) {
+    callbackBuilder.consecutiveDismissCallback(callback);
+    return this;
+  }
+
+  /**
+   * Make the action be displayed with the first letter uppercase and the rest lowercase. This
+   * is useful due to the action being displayed all uppercase by default on API 14 and above.
+   *
+   * @return This instance.
+   */
+  public SnackbarBuilder lowercaseAction() {
+    actionAllCaps = false;
+    return this;
+  }
+
+  /**
+   * Set an icon to display on the {@link Snackbar} next to the message.
+   *
+   * @param icon The drawable of the icon.
+   * @return This instance.
+   */
+  public SnackbarBuilder icon(Drawable icon) {
+    this.icon = icon;
+    return this;
+  }
+
+  /**
+   * Set an icon to display on the {@link Snackbar} next to the message.
+   *
+   * @param iconResId The drawable resource of the icon.
+   * @return This instance.
+   */
+  public SnackbarBuilder icon(@DrawableRes int iconResId) {
+    icon = getDrawable(iconResId);
+    return this;
+  }
+
+  /**
+   * Set the margin to be displayed before the icon in pixels. On platform versions that support
+   * bi-directional layouts, this will be the start margin, on platforms before this it will just
+   * be the left margin.
+   *
+   * @param iconMarginStart The margin before the icon.
+   * @return This instance.
+   */
+  public SnackbarBuilder iconMarginStart(int iconMarginStart) {
+    this.iconMarginStart = iconMarginStart;
+    return this;
+  }
+
+  /**
+   * Set the margin to be displayed before the icon. On platform versions that support
+   * bi-directional layouts, this will be the start margin, on platforms before this it will just
+   * be the left margin.
+   *
+   * @param iconMarginStartResId The dimension resource of the margin before the icon.
+   * @return This instance.
+   */
+  public SnackbarBuilder iconMarginStartRes(@DimenRes int iconMarginStartResId) {
+    return iconMarginStart(
+        context.getResources().getDimensionPixelSize(iconMarginStartResId));
+  }
+
+  /**
+   * Set the margin to be displayed after the icon in pixels. On platform versions that support
+   * bi-directional layouts, this will be the end margin, on platforms before this it will just
+   * be the right margin.
+   *
+   * @param iconMarginEnd The margin after the icon in pixels.
+   * @return This instance.
+   */
+  public SnackbarBuilder iconMarginEnd(int iconMarginEnd) {
+    this.iconMarginEnd = iconMarginEnd;
+    return this;
+  }
+
+  /**
+   * Set the margin to be displayed after the icon. On platform versions that support
+   * bi-directional layouts, this will be the end margin, on platforms before this it will just
+   * be the right margin.
+   *
+   * @param iconMarginEndResId The margin after the icon.
+   * @return This instance.
+   */
+  public SnackbarBuilder iconMarginEndRes(@DimenRes int iconMarginEndResId) {
+    return iconMarginEnd(
+        context.getResources().getDimensionPixelSize(iconMarginEndResId));
+  }
+
+  /**
+   * Build a Snackbar using the options specified in the builder. Wrap this Snackbar into a
+   * SnackbarWrapper, which allows further customisation.
+   *
+   * @return A SnackbarWrapper, a class which wraps a Snackbar for further customisation.
+   */
+  public SnackbarWrapper buildWrapper() {
+    return new SnackbarWrapper(build());
+  }
+
+  /**
+   * Build a Snackbar using the options specified in the builder.
+   *
+   * @return A Snackbar.
+   */
+  public Snackbar build() {
+    Snackbar snackbar = Snackbar.make(parentView, message, duration);
+
+    new SnackbarCustomiser(snackbar)
+        .customiseMessage(messageTextColor, appendMessages)
+        .setBackgroundColor(backgroundColor)
+        .setAction(actionText, actionClickListener)
+        .setActionTextColor(actionTextColor)
+        .setActionAllCaps(actionAllCaps)
+        .setCallbacks(callbackBuilder.build())
+        .setIcon(icon, iconMarginStart, iconMarginEnd);
+
+    return snackbar;
+  }
+
+  private void initialiseAppendMessages() {
+    if (appendMessages == null) {
+      appendMessages = new SpannableStringBuilder();
     }
+  }
 
-    /**
-     * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
-     * specified through the attribute snackbarBuilder_parentViewId. This attribute is within a
-     * style provided through the theme attribute snackbarBuilderStyle. The parent view will be
-     * found using this ID and the Snackbar will be attached to it.
-     *
-     * @param activity Activity to show the Snackbar in, it should contain a view with the ID
-     *                 specified in the style attribute snackbarBuilder_parentViewId.
-     */
-    public SnackbarBuilder(Activity activity) {
-        setup(activity);
-        parentView = activity.findViewById(parentViewId);
+  private void loadThemeAttributes() {
+    TypedArray attrs = context.obtainStyledAttributes(
+        null, R.styleable.SnackbarBuilderStyle, R.attr.snackbarBuilderStyle, 0);
+    try {
+      loadMessageTextColor(attrs);
+      loadActionTextColor(attrs);
+      loadParentViewId(attrs);
+      loadDuration(attrs);
+      loadBackgroundColor(attrs);
+
+      loadFallbackAttributes(attrs);
+    } finally {
+      attrs.recycle();
     }
+  }
 
-    /**
-     * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
-     * found using the provided SnackbarParentFinder. This gives you the flexibility of not
-     * using a single ID for the parent view, or to have fallback view IDs in the case that
-     * the usual one isn't found in a particular activity.
-     *
-     * @param activity Activity to show the Snackbar in.
-     * @param parentFinder Used to find the parent view to attach the Snackbar to.
-     */
-    public SnackbarBuilder(Activity activity, SnackbarParentFinder parentFinder) {
-        setup(activity);
-        parentView = parentFinder.findSnackbarParent(activity);
+  private void loadBackgroundColor(TypedArray attrs) {
+    backgroundColor = attrs.getColor(
+        R.styleable.SnackbarBuilderStyle_snackbarBuilder_backgroundColor, 0);
+  }
+
+  private void loadDuration(TypedArray attrs) {
+    int durationAttr = attrs.getInteger(
+        R.styleable.SnackbarBuilderStyle_snackbarBuilder_duration, Integer.MIN_VALUE);
+    if (durationAttr > Integer.MIN_VALUE) {
+      duration = durationAttr;
     }
+  }
 
-    private void setup(Context context) {
-        this.context = context;
-        loadThemeAttributes();
+  private void loadParentViewId(TypedArray attrs) {
+    parentViewId = attrs.getResourceId(
+        R.styleable.SnackbarBuilderStyle_snackbarBuilder_parentViewId, 0);
+  }
+
+  private void loadActionTextColor(TypedArray attrs) {
+    actionTextColor = attrs.getColor(
+        R.styleable.SnackbarBuilderStyle_snackbarBuilder_actionTextColor, 0);
+  }
+
+  private void loadMessageTextColor(TypedArray attrs) {
+    messageTextColor = attrs.getColor(
+        R.styleable.SnackbarBuilderStyle_snackbarBuilder_messageTextColor, 0);
+  }
+
+  private void loadFallbackAttributes(TypedArray attrs) {
+    if (messageTextColor == 0) {
+      messageTextColor = getColor(R.color.snackbarbuilder_default_message);
     }
-
-    /**
-     * Set the text to display on the {@link Snackbar}.
-     *
-     * @param message Text to display.
-     * @return This instance.
-     */
-    public SnackbarBuilder message(CharSequence message) {
-        this.message = message;
-        return this;
+    if (actionTextColor == 0) {
+      actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
     }
-
-    /**
-     * Set the text to display on the {@link Snackbar}.
-     *
-     * @param messageResId String resource of the text to display.
-     * @return This instance.
-     */
-    public SnackbarBuilder message(@StringRes int messageResId) {
-        this.message = context.getString(messageResId);
-        return this;
+    if (iconMarginStart == 0) {
+      iconMarginStart = context.getResources()
+          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
     }
-
-    /**
-     * Set the colour to display the message on the {@link Snackbar}.
-     *
-     * @param messageTextColor Colour to display the message.
-     * @return This instance.
-     */
-    public SnackbarBuilder messageTextColor(@ColorInt int messageTextColor) {
-        this.messageTextColor = messageTextColor;
-        return this;
+    if (iconMarginEnd == 0) {
+      iconMarginEnd = context.getResources()
+          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
     }
+  }
 
-    /**
-     * Set the colour to display the message on the {@link Snackbar}.
-     *
-     * @param messageTextColor Resource of the colour to display the message.
-     * @return This instance.
-     */
-    public SnackbarBuilder messageTextColorRes(@ColorRes int messageTextColor) {
-        this.messageTextColor = getColor(messageTextColor);
-        return this;
-    }
+  private int getColor(@ColorRes int color) {
+    return ContextCompat.getColor(context, color);
+  }
 
-    /**
-     * Add some text to append to the end of the message shown on the {@link Snackbar}.
-     *
-     * @param message Text to append to the Snackbar message.
-     * @return This instance.
-     */
-    public SnackbarBuilder appendMessage(CharSequence message) {
-        initialiseAppendMessages();
-        appendMessages.append(message);
-        return this;
-    }
-
-    /**
-     * Add some text to append to the message shown on the {@link Snackbar}.
-     *
-     * @param messageResId String resource of the text to append to the Snackbar message.
-     * @return This instance.
-     */
-    public SnackbarBuilder appendMessage(@StringRes int messageResId) {
-        return appendMessage(context.getString(messageResId));
-    }
-
-    /**
-     * Add some text to append to the message shown on the {@link Snackbar} and a colour to make it.
-     *
-     * @param message Text to append to the Snackbar message.
-     * @param color   Colour to make the appended text.
-     * @return This instance.
-     */
-    public SnackbarBuilder appendMessage(CharSequence message, @ColorInt int color) {
-        initialiseAppendMessages();
-        Spannable spannable = new SpannableString(message);
-        spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        appendMessages.append(spannable);
-        return this;
-    }
-
-    /**
-     * Add some text to append to the message shown on the {@link Snackbar} and a colour to make it.
-     *
-     * @param messageResId String resource of the text to append to the
-     *                     Snackbar message.
-     * @param colorResId   Resource of the colour to make the appended text.
-     * @return This instance.
-     */
-    public SnackbarBuilder appendMessage(@StringRes int messageResId,
-                                         @ColorRes int colorResId) {
-        return appendMessage(context.getString(messageResId),
-                getColor(colorResId));
-    }
-
-    /**
-     * Set the duration to show the {@link Snackbar} for.
-     *
-     * @param duration The duration.
-     * @return This instance.
-     */
-    public SnackbarBuilder duration(@Duration int duration) {
-        this.duration = duration;
-        return this;
-    }
-
-    /**
-     * Set the text to display as an action on the {@link Snackbar}.
-     *
-     * @param actionText The text to set as an action.
-     * @return This instance.
-     */
-    public SnackbarBuilder actionText(CharSequence actionText) {
-        this.actionText = actionText;
-        return this;
-    }
-
-    /**
-     * Set the text to display as an action on the {@link Snackbar}.
-     *
-     * @param actionTextResId The string resource of the text to set as an action.
-     * @return This instance.
-     */
-    public SnackbarBuilder actionText(@StringRes int actionTextResId) {
-        this.actionText = context.getString(actionTextResId);
-        return this;
-    }
-
-    /**
-     * Set the colour to display the action on the {@link Snackbar}.
-     *
-     * @param actionTextColor Colour to display the action.
-     * @return This instance.
-     */
-    public SnackbarBuilder actionTextColor(@ColorInt int actionTextColor) {
-        this.actionTextColor = actionTextColor;
-        return this;
-    }
-
-    /**
-     * Set the colour to display the action on the {@link Snackbar}.
-     *
-     * @param actionTextColorResId Resource of the colour to display the action.
-     * @return This instance.
-     */
-    public SnackbarBuilder actionTextColorRes(@ColorRes int actionTextColorResId) {
-        this.actionTextColor = getColor(actionTextColorResId);
-        return this;
-    }
-
-    /**
-     * Set the click listener for the action on the {@link Snackbar}.
-     *
-     * @param actionClickListener Click listener for the action.
-     * @return This instance.
-     */
-    public SnackbarBuilder actionClickListener(OnClickListener actionClickListener) {
-        this.actionClickListener = actionClickListener;
-        return this;
-    }
-
-    /**
-     * Set the colour to make the background of the {@link Snackbar}.
-     *
-     * @param backgroundColor The background colour.
-     * @return This instance.
-     */
-    public SnackbarBuilder backgroundColor(@ColorInt int backgroundColor) {
-        this.backgroundColor = backgroundColor;
-        return this;
-    }
-
-    /**
-     * Set the colour to make the background of the {@link Snackbar}.
-     *
-     * @param backgroundColorResId The resource of the background colour.
-     * @return This instance.
-     */
-    public SnackbarBuilder backgroundColorRes(@ColorRes int backgroundColorResId) {
-        this.backgroundColor = getColor(backgroundColorResId);
-        return this;
-    }
-
-    /**
-     * Set the standard callback for being informed of the {@link Snackbar} being shown or
-     * dismissed.
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder callback(Snackbar.Callback callback) {
-        callbackBuilder.callback(callback);
-        return this;
-    }
-
-    /**
-     * Set the enhanced callback for being informed of the {@link Snackbar} being shown or
-     * dismissed, through individual callback methods.
-     *
-     * @param snackbarCallback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder snackbarCallback(SnackbarCallback snackbarCallback) {
-        callbackBuilder.snackbarCallback(snackbarCallback);
-        return this;
-    }
-
-    /**
-     * Set the callback to be informed of the {@link Snackbar} being shown.
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder showCallback(SnackbarShowCallback callback) {
-        callbackBuilder.showCallback(callback);
-        return this;
-    }
-
-    /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed through some means.
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder dismissCallback(SnackbarDismissCallback callback) {
-        callbackBuilder.dismissCallback(callback);
-        return this;
-    }
-
-    /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action
-     * being pressed.
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder actionDismissCallback(SnackbarActionDismissCallback callback) {
-        callbackBuilder.actionDismissCallback(callback);
-        return this;
-    }
-
-    /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to being
-     * swiped away.
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder swipeDismissCallback(SnackbarSwipeDismissCallback callback) {
-        callbackBuilder.swipeDismissCallback(callback);
-        return this;
-    }
-
-    /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to a timeout.
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder timeoutDismissCallback(SnackbarTimeoutDismissCallback callback) {
-        callbackBuilder.timeoutDismissCallback(callback);
-        return this;
-    }
-
-    /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a
-     * call to dismiss().
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder manualDismissCallback(SnackbarManualDismissCallback callback) {
-        callbackBuilder.manualDismissCallback(callback);
-        return this;
-    }
-
-    /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to another
-     * Snackbar being shown.
-     *
-     * @param callback The callback.
-     * @return This instance.
-     */
-    public SnackbarBuilder consecutiveDismissCallback(
-            SnackbarConsecutiveDismissCallback callback) {
-        callbackBuilder.consecutiveDismissCallback(callback);
-        return this;
-    }
-
-    /**
-     * Make the action be displayed with the first letter uppercase and the rest lowercase. This
-     * is useful due to the action being displayed all uppercase by default on API 14 and above.
-     *
-     * @return This instance.
-     */
-    public SnackbarBuilder lowercaseAction() {
-        actionAllCaps = false;
-        return this;
-    }
-
-    /**
-     * Set an icon to display on the {@link Snackbar} next to the message.
-     *
-     * @param icon The drawable of the icon.
-     * @return This instance.
-     */
-    public SnackbarBuilder icon(Drawable icon) {
-        this.icon = icon;
-        return this;
-    }
-
-    /**
-     * Set an icon to display on the {@link Snackbar} next to the message.
-     *
-     * @param iconResId The drawable resource of the icon.
-     * @return This instance.
-     */
-    public SnackbarBuilder icon(@DrawableRes int iconResId) {
-        icon = getDrawable(iconResId);
-        return this;
-    }
-
-    /**
-     * Set the margin to be displayed before the icon in pixels. On platform versions that support
-     * bi-directional layouts, this will be the start margin, on platforms before this it will just
-     * be the left margin.
-     *
-     * @param iconMarginStart The margin before the icon.
-     * @return This instance.
-     */
-    public SnackbarBuilder iconMarginStart(int iconMarginStart) {
-        this.iconMarginStart = iconMarginStart;
-        return this;
-    }
-
-    /**
-     * Set the margin to be displayed before the icon. On platform versions that support
-     * bi-directional layouts, this will be the start margin, on platforms before this it will just
-     * be the left margin.
-     *
-     * @param iconMarginStartResId The dimension resource of the margin before the icon.
-     * @return This instance.
-     */
-    public SnackbarBuilder iconMarginStartRes(@DimenRes int iconMarginStartResId) {
-        return iconMarginStart(
-                context.getResources().getDimensionPixelSize(iconMarginStartResId));
-    }
-
-    /**
-     * Set the margin to be displayed after the icon in pixels. On platform versions that support
-     * bi-directional layouts, this will be the end margin, on platforms before this it will just
-     * be the right margin.
-     *
-     * @param iconMarginEnd The margin after the icon in pixels.
-     * @return This instance.
-     */
-    public SnackbarBuilder iconMarginEnd(int iconMarginEnd) {
-        this.iconMarginEnd = iconMarginEnd;
-        return this;
-    }
-
-    /**
-     * Set the margin to be displayed after the icon. On platform versions that support
-     * bi-directional layouts, this will be the end margin, on platforms before this it will just
-     * be the right margin.
-     *
-     * @param iconMarginEndResId The margin after the icon.
-     * @return This instance.
-     */
-    public SnackbarBuilder iconMarginEndRes(@DimenRes int iconMarginEndResId) {
-        return iconMarginEnd(
-                context.getResources().getDimensionPixelSize(iconMarginEndResId));
-    }
-
-    /**
-     * Build a Snackbar using the options specified in the builder. Wrap this Snackbar into a
-     * SnackbarWrapper, which allows further customisation.
-     *
-     * @return A SnackbarWrapper, a class which wraps a Snackbar for further customisation.
-     */
-    public SnackbarWrapper buildWrapper() {
-        return new SnackbarWrapper(build());
-    }
-
-    /**
-     * Build a Snackbar using the options specified in the builder.
-     *
-     * @return A Snackbar.
-     */
-    public Snackbar build() {
-        Snackbar snackbar = Snackbar.make(parentView, message, duration);
-
-        new SnackbarCustomiser(snackbar)
-                .customiseMessage(messageTextColor, appendMessages)
-                .setBackgroundColor(backgroundColor)
-                .setAction(actionText, actionClickListener)
-                .setActionTextColor(actionTextColor)
-                .setActionAllCaps(actionAllCaps)
-                .setCallbacks(callbackBuilder.build())
-                .setIcon(icon, iconMarginStart, iconMarginEnd);
-
-        return snackbar;
-    }
-
-    private void initialiseAppendMessages() {
-        if (appendMessages == null) {
-            appendMessages = new SpannableStringBuilder();
-        }
-    }
-
-    private void loadThemeAttributes() {
-        TypedArray attrs = context.obtainStyledAttributes(
-                null, R.styleable.SnackbarBuilderStyle, R.attr.snackbarBuilderStyle, 0);
-        try {
-            loadMessageTextColor(attrs);
-            loadActionTextColor(attrs);
-            loadParentViewId(attrs);
-            loadDuration(attrs);
-            loadBackgroundColor(attrs);
-
-            loadFallbackAttributes(attrs);
-        } finally {
-            attrs.recycle();
-        }
-    }
-
-    private void loadBackgroundColor(TypedArray attrs) {
-        backgroundColor = attrs.getColor(
-                R.styleable.SnackbarBuilderStyle_snackbarBuilder_backgroundColor, 0);
-    }
-
-    private void loadDuration(TypedArray attrs) {
-        int durationAttr = attrs.getInteger(
-                R.styleable.SnackbarBuilderStyle_snackbarBuilder_duration, Integer.MIN_VALUE);
-        if (durationAttr > Integer.MIN_VALUE) {
-            duration = durationAttr;
-        }
-    }
-
-    private void loadParentViewId(TypedArray attrs) {
-        parentViewId = attrs.getResourceId(
-                R.styleable.SnackbarBuilderStyle_snackbarBuilder_parentViewId, 0);
-    }
-
-    private void loadActionTextColor(TypedArray attrs) {
-        actionTextColor = attrs.getColor(
-                R.styleable.SnackbarBuilderStyle_snackbarBuilder_actionTextColor, 0);
-    }
-
-    private void loadMessageTextColor(TypedArray attrs) {
-        messageTextColor = attrs.getColor(
-                R.styleable.SnackbarBuilderStyle_snackbarBuilder_messageTextColor, 0);
-    }
-
-    private void loadFallbackAttributes(TypedArray attrs) {
-        if (messageTextColor == 0) {
-            messageTextColor = getColor(R.color.snackbarbuilder_default_message);
-        }
-        if (actionTextColor == 0) {
-            actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
-        }
-        if (iconMarginStart == 0) {
-            iconMarginStart = context.getResources()
-                    .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
-        }
-        if (iconMarginEnd == 0) {
-            iconMarginEnd = context.getResources()
-                    .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
-        }
-    }
-
-    private int getColor(@ColorRes int color) {
-        return ContextCompat.getColor(context, color);
-    }
-
-    private Drawable getDrawable(@DrawableRes int drawableResId) {
-        return ContextCompat.getDrawable(context, drawableResId);
-    }
+  private Drawable getDrawable(@DrawableRes int drawableResId) {
+    return ContextCompat.getDrawable(context, drawableResId);
+  }
 
 }
 

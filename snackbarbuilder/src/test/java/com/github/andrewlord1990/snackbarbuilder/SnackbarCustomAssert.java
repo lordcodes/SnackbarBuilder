@@ -25,32 +25,32 @@ import java.util.List;
 
 public class SnackbarCustomAssert extends AbstractAssert<SnackbarCustomAssert, Snackbar> {
 
-    protected SnackbarCustomAssert(Snackbar actual, Class<?> selfType) {
-        super(actual, selfType);
-    }
+  protected SnackbarCustomAssert(Snackbar actual, Class<?> selfType) {
+    super(actual, selfType);
+  }
 
-    public static SnackbarCustomAssert assertThat(Snackbar actual) {
-        return new SnackbarCustomAssert(actual, SnackbarCustomAssert.class);
-    }
+  public static SnackbarCustomAssert assertThat(Snackbar actual) {
+    return new SnackbarCustomAssert(actual, SnackbarCustomAssert.class);
+  }
 
-    public SnackbarCustomAssert hasMessagesAppended(List<Pair<String, Integer>> expected) {
-        TextView messageView = (TextView) actual.getView().findViewById(R.id.snackbar_text);
-        SpannableString message = SpannableString.valueOf(messageView.getText());
-        int size = expected.size();
-        for (int i = 0; i < size; i++) {
-            Pair<String, Integer> pair = expected.get(i);
-            int length = pair.first.length();
-            Assertions.assertThat(message.subSequence(0, length).toString()).isEqualTo(pair.first);
-            ForegroundColorSpan[] spans = message
-                    .getSpans(0, length, ForegroundColorSpan.class);
-            if (pair.second == 0) {
-                Assertions.assertThat(spans).isEmpty();
-            } else {
-                Assertions.assertThat(spans).hasSize(1);
-                Assertions.assertThat(spans[0].getForegroundColor()).isEqualTo(pair.second);
-            }
-            message = SpannableString.valueOf(message.subSequence(length, message.length()));
-        }
-        return this;
+  public SnackbarCustomAssert hasMessagesAppended(List<Pair<String, Integer>> expected) {
+    TextView messageView = (TextView) actual.getView().findViewById(R.id.snackbar_text);
+    SpannableString message = SpannableString.valueOf(messageView.getText());
+    int size = expected.size();
+    for (int i = 0; i < size; i++) {
+      Pair<String, Integer> pair = expected.get(i);
+      int length = pair.first.length();
+      Assertions.assertThat(message.subSequence(0, length).toString()).isEqualTo(pair.first);
+      ForegroundColorSpan[] spans = message
+          .getSpans(0, length, ForegroundColorSpan.class);
+      if (pair.second == 0) {
+        Assertions.assertThat(spans).isEmpty();
+      } else {
+        Assertions.assertThat(spans).hasSize(1);
+        Assertions.assertThat(spans[0].getForegroundColor()).isEqualTo(pair.second);
+      }
+      message = SpannableString.valueOf(message.subSequence(length, message.length()));
     }
+    return this;
+  }
 }

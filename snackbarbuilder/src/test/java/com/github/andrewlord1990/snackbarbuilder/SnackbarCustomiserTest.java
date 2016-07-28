@@ -42,117 +42,114 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 public class SnackbarCustomiserTest {
 
-    private Snackbar snackbar;
-    private SnackbarCustomiser customiser;
+  @Mock
+  Drawable drawable;
+  @Mock
+  Callback callback;
+  @Mock
+  SnackbarCallback snackbarCallback;
+  private Snackbar snackbar;
+  private SnackbarCustomiser customiser;
 
-    @Mock
-    Drawable drawable;
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
 
-    @Mock
-    Callback callback;
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+    snackbar = new SnackbarBuilder(parent).build();
+    customiser = new SnackbarCustomiser(snackbar);
+  }
 
-    @Mock
-    SnackbarCallback snackbarCallback;
+  @Test
+  public void whenCustomiseMessage_thenMessageTextColorSetAndMessagesAppended() {
+    SpannableStringBuilder appendMessages = new SpannableStringBuilder();
+    appendMessages.append("one");
+    appendMessages.append("two");
+    appendMessages.append("three");
 
-    @Before
-    public void before() {
-        MockitoAnnotations.initMocks(this);
+    customiser.customiseMessage(Color.GREEN, appendMessages);
 
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
-        CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
-        snackbar = new SnackbarBuilder(parent).build();
-        customiser = new SnackbarCustomiser(snackbar);
-    }
+    assertThat(customiser.getMessageView()).hasCurrentTextColor(Color.GREEN);
+    assertThat(customiser.getMessageView()).hasText("onetwothree");
+  }
 
-    @Test
-    public void whenCustomiseMessage_thenMessageTextColorSetAndMessagesAppended() {
-        SpannableStringBuilder appendMessages = new SpannableStringBuilder();
-        appendMessages.append("one");
-        appendMessages.append("two");
-        appendMessages.append("three");
+  @Test
+  public void whenSetBackgroundColor_thenBackgroundColorSet() {
+    customiser.setBackgroundColor(Color.GRAY);
 
-        customiser.customiseMessage(Color.GREEN, appendMessages);
+    assertThat((ColorDrawable) snackbar.getView().getBackground())
+        .hasColor(Color.GRAY);
+  }
 
-        assertThat(customiser.getMessageView()).hasCurrentTextColor(Color.GREEN);
-        assertThat(customiser.getMessageView()).hasText("onetwothree");
-    }
+  @Test
+  public void whenSetAction_thenActionClickListenerAndTextSet() {
+    String text = "some action text";
+    TestClickListener clickListener = new TestClickListener();
 
-    @Test
-    public void whenSetBackgroundColor_thenBackgroundColorSet() {
-        customiser.setBackgroundColor(Color.GRAY);
+    customiser.setAction(text, clickListener);
+    customiser.getActionView().performClick();
 
-        assertThat((ColorDrawable) snackbar.getView().getBackground())
-                .hasColor(Color.GRAY);
-    }
+    assertThat(customiser.getActionView()).hasText(text);
+    Assertions.assertThat(clickListener.isClicked()).isTrue();
+  }
 
-    @Test
-    public void whenSetAction_thenActionClickListenerAndTextSet() {
-        String text = "some action text";
-        TestClickListener clickListener = new TestClickListener();
+  @Test
+  public void givenNoClickListener_whenSetAction_thenTextSet() {
+    String text = "some text";
 
-        customiser.setAction(text, clickListener);
-        customiser.getActionView().performClick();
+    customiser.setAction(text, null);
+    customiser.getActionView().performClick();
 
-        assertThat(customiser.getActionView()).hasText(text);
-        Assertions.assertThat(clickListener.isClicked()).isTrue();
-    }
+    assertThat(customiser.getActionView()).hasText(text);
+  }
 
-    @Test
-    public void givenNoClickListener_whenSetAction_thenTextSet() {
-        String text = "some text";
+  @Test
+  public void whenSetActionTextColor_thenActionTextColorSet() {
+    customiser.setActionTextColor(Color.YELLOW);
 
-        customiser.setAction(text, null);
-        customiser.getActionView().performClick();
+    assertThat(customiser.getActionView()).hasCurrentTextColor(Color.YELLOW);
+  }
 
-        assertThat(customiser.getActionView()).hasText(text);
-    }
+  @Test
+  public void givenAllCapsFalse_whenSetActionAllCaps_thenLowercaseAction() {
+    customiser.setActionAllCaps(false);
 
-    @Test
-    public void whenSetActionTextColor_thenActionTextColorSet() {
-        customiser.setActionTextColor(Color.YELLOW);
+    Assertions.assertThat(customiser.getActionView().getTransformationMethod()).isNull();
+  }
 
-        assertThat(customiser.getActionView()).hasCurrentTextColor(Color.YELLOW);
-    }
+  @Test
+  public void givenAllCapsTrue_whenSetActionAllCaps_thenUppercaseAction() {
+    customiser.setActionAllCaps(true);
 
-    @Test
-    public void givenAllCapsFalse_whenSetActionAllCaps_thenLowercaseAction() {
-        customiser.setActionAllCaps(false);
+    Assertions.assertThat(customiser.getActionView().getTransformationMethod()).isNotNull();
+  }
 
-        Assertions.assertThat(customiser.getActionView().getTransformationMethod()).isNull();
-    }
+  @Test
+  public void whenSetCallbacks_thenCallbacksSetup() {
+    snackbar.show();
+    SnackbarCombinedCallback combinedCallback = new SnackbarCombinedCallback(
+        snackbarCallback, callback);
 
-    @Test
-    public void givenAllCapsTrue_whenSetActionAllCaps_thenUppercaseAction() {
-        customiser.setActionAllCaps(true);
+    customiser.setCallbacks(combinedCallback);
+    snackbar.dismiss();
 
-        Assertions.assertThat(customiser.getActionView().getTransformationMethod()).isNotNull();
-    }
+    verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
+    verify(callback).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
+  }
 
-    @Test
-    public void whenSetCallbacks_thenCallbacksSetup() {
-        snackbar.show();
-        SnackbarCombinedCallback combinedCallback = new SnackbarCombinedCallback(
-                snackbarCallback, callback);
+  @Test
+  public void whenSetIcon_thenIconAndIconMarginsSet() {
+    customiser.setIcon(drawable, 10, 20);
 
-        customiser.setCallbacks(combinedCallback);
-        snackbar.dismiss();
-
-        verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
-        verify(callback).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
-    }
-
-    @Test
-    public void whenSetIcon_thenIconAndIconMarginsSet() {
-        customiser.setIcon(drawable, 10, 20);
-
-        SnackbarLayout layout = (SnackbarLayout) snackbar.getView();
-        View firstChildView = layout.getChildAt(0);
-        assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
-        ImageView iconView = (ImageView) firstChildView;
-        assertThat(iconView).hasDrawable(drawable);
-        assertThat((LayoutParams) iconView.getLayoutParams())
-                .hasLeftMargin(10)
-                .hasRightMargin(20);
-    }
+    SnackbarLayout layout = (SnackbarLayout) snackbar.getView();
+    View firstChildView = layout.getChildAt(0);
+    assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
+    ImageView iconView = (ImageView) firstChildView;
+    assertThat(iconView).hasDrawable(drawable);
+    assertThat((LayoutParams) iconView.getLayoutParams())
+        .hasLeftMargin(10)
+        .hasRightMargin(20);
+  }
 
 }

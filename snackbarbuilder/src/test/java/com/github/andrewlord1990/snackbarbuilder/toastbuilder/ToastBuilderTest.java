@@ -48,223 +48,221 @@ import static org.mockito.Mockito.when;
 @Config(shadows = {CustomShadowToast.class})
 public class ToastBuilderTest {
 
-    private ToastBuilder builderUnderTest;
+  @Mock
+  Context context;
+  @Mock
+  Resources resources;
+  private ToastBuilder builderUnderTest;
 
-    @Mock
-    Context context;
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
+  }
 
-    @Mock
-    Resources resources;
+  @Test
+  public void whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
 
-    @Before
-    public void before() {
-        MockitoAnnotations.initMocks(this);
+    ToastBuilder builder = new ToastBuilder(RuntimeEnvironment.application);
+
+    assertThat(builder.messageTextColor).isEqualTo(0xFF123456);
+  }
+
+  @Test
+  public void whenCreated_thenDurationFromCustomThemeAttribute() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
+
+    ToastBuilder builder = new ToastBuilder(RuntimeEnvironment.application);
+
+    assertThat(builder.duration).isEqualTo(Toast.LENGTH_SHORT);
+  }
+
+  @Test
+  public void whenCustomView_thenCustomViewSet() {
+    createBuilder();
+    View customView = new View(RuntimeEnvironment.application);
+
+    builderUnderTest.customView(customView);
+
+    assertThat(builderUnderTest.customView).isEqualTo(customView);
+  }
+
+  @Test
+  public void whenCustomViewMessageViewId_thenCustomViewMessageViewIdSet() {
+    createBuilder();
+
+    builderUnderTest.customViewMessageViewId(R.id.snackbarbuilder_icon);
+
+    assertThat(builderUnderTest.customViewMessageViewId).isEqualTo(R.id.snackbarbuilder_icon);
+  }
+
+  @Test
+  public void whenMessageWithString_thenMessageSet() {
+    createBuilder();
+
+    builderUnderTest.message("message");
+
+    assertThat(builderUnderTest.message).isEqualTo("message");
+  }
+
+  @Test
+  public void whenMessageWithStringResource_thenMessageSet() {
+    createBuilder();
+    @StringRes int stringResId = getStringResourceId("Test");
+
+    builderUnderTest.message(stringResId);
+
+    assertThat(builderUnderTest.message).isEqualTo("Test");
+  }
+
+  @Test
+  public void whenMessageTextColorRes_thenMessageTextColorSet() {
+    createBuilder();
+    @ColorRes int colorResId = getColorResourceId(0xFF223344);
+
+    builderUnderTest.messageTextColorRes(colorResId);
+
+    assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF223344);
+  }
+
+  @Test
+  public void whenMessageTextColor_thenMessageTextColorSet() {
+    createBuilder();
+
+    builderUnderTest.messageTextColor(0xFF333333);
+
+    assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF333333);
+  }
+
+  @Test
+  public void whenDuration_thenDurationSet() {
+    createBuilder();
+
+    builderUnderTest.duration(Toast.LENGTH_LONG);
+
+    assertThat(builderUnderTest.duration).isEqualTo(Toast.LENGTH_LONG);
+  }
+
+  @Test
+  public void whenGravity_thenGravitySet() {
+    createBuilder();
+    int expected = Gravity.TOP | Gravity.END;
+
+    builderUnderTest.gravity(expected);
+
+    assertThat(builderUnderTest.gravity).isEqualTo(expected);
+  }
+
+  @Test
+  public void whenGravityOffsetX_thenGravityOffsetXSet() {
+    createBuilder();
+    int expected = 600;
+
+    builderUnderTest.gravityOffsetX(expected);
+
+    assertThat(builderUnderTest.gravityOffsetX).isEqualTo(expected);
+  }
+
+  @Test
+  public void whenGravityOffsetY_thenGravityOffsetYSet() {
+    createBuilder();
+    int expected = -30;
+
+    builderUnderTest.gravityOffsetY(expected);
+
+    assertThat(builderUnderTest.gravityOffsetY).isEqualTo(expected);
+  }
+
+  @Test
+  public void whenBuild_thenToastSetup() {
+    int messageTextColor = 0xFF111111;
+    String message = "message";
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+
+    Toast toast = new ToastBuilder(RuntimeEnvironment.application)
+        .messageTextColor(messageTextColor)
+        .message(message)
+        .duration(Toast.LENGTH_SHORT)
+        .gravity(Gravity.TOP)
+        .build();
+
+    assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_SHORT);
+
+    TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
+    assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
+    assertThat(textView.getText().toString()).isEqualTo(message);
+
+    assertThat(toast.getGravity()).isEqualTo(Gravity.TOP);
+  }
+
+  @Test
+  public void givenCustomView_whenBuild_thenCustomViewSetup() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    View customView = new View(RuntimeEnvironment.application);
+
+    Toast toast = new ToastBuilder(RuntimeEnvironment.application)
+        .customView(customView)
+        .duration(Toast.LENGTH_LONG)
+        .build();
+
+    assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_LONG);
+    assertThat(toast.getView()).isEqualTo(customView);
+  }
+
+  @Test
+  public void givenCustomViewAndMessageViewId_whenBuild_thenCustomViewSetup() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    LinearLayout customView = new LinearLayout(RuntimeEnvironment.application);
+    customView.setLayoutParams(new LayoutParams(
+        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+    TextView messageView = new TextView(RuntimeEnvironment.application);
+    messageView.setLayoutParams(new LayoutParams(
+        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+    messageView.setId(R.id.snackbarbuilder_icon);
+    customView.addView(messageView);
+    int messageTextColor = 0xFF111111;
+    String message = "message";
+
+    Toast toast = new ToastBuilder(RuntimeEnvironment.application)
+        .customView(customView)
+        .customViewMessageViewId(R.id.snackbarbuilder_icon)
+        .messageTextColor(messageTextColor)
+        .message(message)
+        .duration(Toast.LENGTH_LONG)
+        .build();
+
+    assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_LONG);
+    assertThat(toast.getView()).isEqualTo(customView);
+
+    TextView textView = (TextView) toast.getView().findViewById(R.id.snackbarbuilder_icon);
+    assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
+    assertThat(textView.getText().toString()).isEqualTo(message);
+  }
+
+  private void createBuilder() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    builderUnderTest = new ToastBuilder(RuntimeEnvironment.application);
+  }
+
+  @ColorRes
+  private int getColorResourceId(@ColorInt int color) {
+    if (builderUnderTest != null) {
+      builderUnderTest.context = context;
     }
+    @ColorRes int colorResId = 50;
+    when(context.getResources()).thenReturn(resources);
+    when(resources.getColor(colorResId)).thenReturn(color);
+    return colorResId;
+  }
 
-    @Test
-    public void whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
-
-        ToastBuilder builder = new ToastBuilder(RuntimeEnvironment.application);
-
-        assertThat(builder.messageTextColor).isEqualTo(0xFF123456);
+  @StringRes
+  private int getStringResourceId(String string) {
+    if (builderUnderTest != null) {
+      builderUnderTest.context = context;
     }
-
-    @Test
-    public void whenCreated_thenDurationFromCustomThemeAttribute() {
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
-
-        ToastBuilder builder = new ToastBuilder(RuntimeEnvironment.application);
-
-        assertThat(builder.duration).isEqualTo(Toast.LENGTH_SHORT);
-    }
-
-    @Test
-    public void whenCustomView_thenCustomViewSet() {
-        createBuilder();
-        View customView = new View(RuntimeEnvironment.application);
-
-        builderUnderTest.customView(customView);
-
-        assertThat(builderUnderTest.customView).isEqualTo(customView);
-    }
-
-    @Test
-    public void whenCustomViewMessageViewId_thenCustomViewMessageViewIdSet() {
-        createBuilder();
-
-        builderUnderTest.customViewMessageViewId(R.id.snackbarbuilder_icon);
-
-        assertThat(builderUnderTest.customViewMessageViewId).isEqualTo(R.id.snackbarbuilder_icon);
-    }
-
-    @Test
-    public void whenMessageWithString_thenMessageSet() {
-        createBuilder();
-
-        builderUnderTest.message("message");
-
-        assertThat(builderUnderTest.message).isEqualTo("message");
-    }
-
-    @Test
-    public void whenMessageWithStringResource_thenMessageSet() {
-        createBuilder();
-        @StringRes int stringResId = getStringResourceId("Test");
-
-        builderUnderTest.message(stringResId);
-
-        assertThat(builderUnderTest.message).isEqualTo("Test");
-    }
-
-    @Test
-    public void whenMessageTextColorRes_thenMessageTextColorSet() {
-        createBuilder();
-        @ColorRes int colorResId = getColorResourceId(0xFF223344);
-
-        builderUnderTest.messageTextColorRes(colorResId);
-
-        assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF223344);
-    }
-
-    @Test
-    public void whenMessageTextColor_thenMessageTextColorSet() {
-        createBuilder();
-
-        builderUnderTest.messageTextColor(0xFF333333);
-
-        assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF333333);
-    }
-
-    @Test
-    public void whenDuration_thenDurationSet() {
-        createBuilder();
-
-        builderUnderTest.duration(Toast.LENGTH_LONG);
-
-        assertThat(builderUnderTest.duration).isEqualTo(Toast.LENGTH_LONG);
-    }
-
-    @Test
-    public void whenGravity_thenGravitySet() {
-        createBuilder();
-        int expected = Gravity.TOP | Gravity.END;
-
-        builderUnderTest.gravity(expected);
-
-        assertThat(builderUnderTest.gravity).isEqualTo(expected);
-    }
-
-    @Test
-    public void whenGravityOffsetX_thenGravityOffsetXSet() {
-        createBuilder();
-        int expected = 600;
-
-        builderUnderTest.gravityOffsetX(expected);
-
-        assertThat(builderUnderTest.gravityOffsetX).isEqualTo(expected);
-    }
-
-    @Test
-    public void whenGravityOffsetY_thenGravityOffsetYSet() {
-        createBuilder();
-        int expected = -30;
-
-        builderUnderTest.gravityOffsetY(expected);
-
-        assertThat(builderUnderTest.gravityOffsetY).isEqualTo(expected);
-    }
-
-    @Test
-    public void whenBuild_thenToastSetup() {
-        int messageTextColor = 0xFF111111;
-        String message = "message";
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
-
-        Toast toast = new ToastBuilder(RuntimeEnvironment.application)
-                .messageTextColor(messageTextColor)
-                .message(message)
-                .duration(Toast.LENGTH_SHORT)
-                .gravity(Gravity.TOP)
-                .build();
-
-        assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_SHORT);
-
-        TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
-        assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
-        assertThat(textView.getText().toString()).isEqualTo(message);
-
-        assertThat(toast.getGravity()).isEqualTo(Gravity.TOP);
-    }
-
-    @Test
-    public void givenCustomView_whenBuild_thenCustomViewSetup() {
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
-        View customView = new View(RuntimeEnvironment.application);
-
-        Toast toast = new ToastBuilder(RuntimeEnvironment.application)
-                .customView(customView)
-                .duration(Toast.LENGTH_LONG)
-                .build();
-
-        assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_LONG);
-        assertThat(toast.getView()).isEqualTo(customView);
-    }
-
-    @Test
-    public void givenCustomViewAndMessageViewId_whenBuild_thenCustomViewSetup() {
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
-        LinearLayout customView = new LinearLayout(RuntimeEnvironment.application);
-        customView.setLayoutParams(new LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        TextView messageView = new TextView(RuntimeEnvironment.application);
-        messageView.setLayoutParams(new LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        messageView.setId(R.id.snackbarbuilder_icon);
-        customView.addView(messageView);
-        int messageTextColor = 0xFF111111;
-        String message = "message";
-
-        Toast toast = new ToastBuilder(RuntimeEnvironment.application)
-                .customView(customView)
-                .customViewMessageViewId(R.id.snackbarbuilder_icon)
-                .messageTextColor(messageTextColor)
-                .message(message)
-                .duration(Toast.LENGTH_LONG)
-                .build();
-
-        assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_LONG);
-        assertThat(toast.getView()).isEqualTo(customView);
-
-        TextView textView = (TextView) toast.getView().findViewById(R.id.snackbarbuilder_icon);
-        assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
-        assertThat(textView.getText().toString()).isEqualTo(message);
-    }
-
-    private void createBuilder() {
-        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
-        builderUnderTest = new ToastBuilder(RuntimeEnvironment.application);
-    }
-
-    @ColorRes
-    private int getColorResourceId(@ColorInt int color) {
-        if (builderUnderTest != null) {
-            builderUnderTest.context = context;
-        }
-        @ColorRes int colorResId = 50;
-        when(context.getResources()).thenReturn(resources);
-        when(resources.getColor(colorResId)).thenReturn(color);
-        return colorResId;
-    }
-
-    @StringRes
-    private int getStringResourceId(String string) {
-        if (builderUnderTest != null) {
-            builderUnderTest.context = context;
-        }
-        @StringRes int stringResId = 50;
-        when(context.getString(stringResId)).thenReturn(string);
-        return stringResId;
-    }
+    @StringRes int stringResId = 50;
+    when(context.getString(stringResId)).thenReturn(string);
+    return stringResId;
+  }
 
 }

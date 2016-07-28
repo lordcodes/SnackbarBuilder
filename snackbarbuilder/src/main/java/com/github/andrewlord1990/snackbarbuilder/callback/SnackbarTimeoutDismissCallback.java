@@ -21,12 +21,12 @@ import android.support.design.widget.Snackbar;
  */
 public interface SnackbarTimeoutDismissCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to a timeout, specified by the
-     * duration set.
-     *
-     * @param snackbar The Snackbar.
-     */
-    void onSnackbarTimedOut(Snackbar snackbar);
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to a timeout, specified by the
+   * duration set.
+   *
+   * @param snackbar The Snackbar.
+   */
+  void onSnackbarTimedOut(Snackbar snackbar);
 
 }

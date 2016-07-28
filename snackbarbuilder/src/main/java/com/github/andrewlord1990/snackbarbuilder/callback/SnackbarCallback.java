@@ -23,70 +23,70 @@ import android.support.design.widget.Snackbar.Callback.DismissEvent;
  */
 public abstract class SnackbarCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was shown (made visible).
-     *
-     * @param snackbar The Snackbar.
-     */
-    public void onSnackbarShown(Snackbar snackbar) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was shown (made visible).
+   *
+   * @param snackbar The Snackbar.
+   */
+  public void onSnackbarShown(Snackbar snackbar) {
+  }
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed through any means.
-     *
-     * @param snackbar The Snackbar.
-     */
-    public void onSnackbarDismissed(Snackbar snackbar) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was dismissed through any means.
+   *
+   * @param snackbar The Snackbar.
+   */
+  public void onSnackbarDismissed(Snackbar snackbar) {
+  }
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed through any means.
-     *
-     * @param snackbar     The Snackbar.
-     * @param dismissEvent The event through which it was dismissed.
-     */
-    public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was dismissed through any means.
+   *
+   * @param snackbar     The Snackbar.
+   * @param dismissEvent The event through which it was dismissed.
+   */
+  public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+  }
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to the action being pressed.
-     *
-     * @param snackbar The Snackbar.
-     */
-    public void onSnackbarActionPressed(Snackbar snackbar) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to the action being pressed.
+   *
+   * @param snackbar The Snackbar.
+   */
+  public void onSnackbarActionPressed(Snackbar snackbar) {
+  }
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to being swiped away.
-     *
-     * @param snackbar The Snackbar.
-     */
-    public void onSnackbarSwiped(Snackbar snackbar) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to being swiped away.
+   *
+   * @param snackbar The Snackbar.
+   */
+  public void onSnackbarSwiped(Snackbar snackbar) {
+  }
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to a timeout, specified by the
-     * duration set.
-     *
-     * @param snackbar The Snackbar.
-     */
-    public void onSnackbarTimedOut(Snackbar snackbar) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to a timeout, specified by the
+   * duration set.
+   *
+   * @param snackbar The Snackbar.
+   */
+  public void onSnackbarTimedOut(Snackbar snackbar) {
+  }
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed manually via a call to dismiss().
-     *
-     * @param snackbar The Snackbar.
-     */
-    public void onSnackbarManuallyDismissed(Snackbar snackbar) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was dismissed manually via a call to dismiss().
+   *
+   * @param snackbar The Snackbar.
+   */
+  public void onSnackbarManuallyDismissed(Snackbar snackbar) {
+  }
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed due to another Snackbar being shown.
-     *
-     * @param snackbar The Snackbar.
-     */
-    public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
-    }
+  /**
+   * Indicates that the {@link Snackbar} was dismissed due to another Snackbar being shown.
+   *
+   * @param snackbar The Snackbar.
+   */
+  public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
+  }
 
 }

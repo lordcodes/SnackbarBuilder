@@ -38,136 +38,135 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(RobolectricGradleTestRunner.class)
 public class SnackbarCallbackTest {
 
-    private SnackbarCallback callbackUnderTest;
+  @Mock
+  Snackbar snackbar;
+  private SnackbarCallback callbackUnderTest;
 
-    @Mock
-    Snackbar snackbar;
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
 
-    @Before
-    public void before() {
-        MockitoAnnotations.initMocks(this);
+    callbackUnderTest = new SnackbarCallback() {
+      @Override
+      public void onSnackbarShown(Snackbar snackbar) {
+        super.onSnackbarShown(snackbar);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarShown");
+      }
 
-        callbackUnderTest = new SnackbarCallback() {
-            @Override
-            public void onSnackbarShown(Snackbar snackbar) {
-                super.onSnackbarShown(snackbar);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarShown");
-            }
+      @Override
+      public void onSnackbarDismissed(Snackbar snackbar) {
+        super.onSnackbarDismissed(snackbar);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissed");
+      }
 
-            @Override
-            public void onSnackbarDismissed(Snackbar snackbar) {
-                super.onSnackbarDismissed(snackbar);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissed");
-            }
+      @Override
+      public void onSnackbarDismissed(Snackbar snackbar, @Callback.DismissEvent int dismissEvent) {
+        super.onSnackbarDismissed(snackbar, dismissEvent);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissed method = " + dismissEvent);
+      }
 
-            @Override
-            public void onSnackbarDismissed(Snackbar snackbar, @Callback.DismissEvent int dismissEvent) {
-                super.onSnackbarDismissed(snackbar, dismissEvent);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissed method = " + dismissEvent);
-            }
+      @Override
+      public void onSnackbarActionPressed(Snackbar snackbar) {
+        super.onSnackbarActionPressed(snackbar);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarActionPressed");
+      }
 
-            @Override
-            public void onSnackbarActionPressed(Snackbar snackbar) {
-                super.onSnackbarActionPressed(snackbar);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarActionPressed");
-            }
+      @Override
+      public void onSnackbarSwiped(Snackbar snackbar) {
+        super.onSnackbarSwiped(snackbar);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarSwiped");
+      }
 
-            @Override
-            public void onSnackbarSwiped(Snackbar snackbar) {
-                super.onSnackbarSwiped(snackbar);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarSwiped");
-            }
+      @Override
+      public void onSnackbarTimedOut(Snackbar snackbar) {
+        super.onSnackbarTimedOut(snackbar);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarTimedOut");
+      }
 
-            @Override
-            public void onSnackbarTimedOut(Snackbar snackbar) {
-                super.onSnackbarTimedOut(snackbar);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarTimedOut");
-            }
+      @Override
+      public void onSnackbarManuallyDismissed(Snackbar snackbar) {
+        super.onSnackbarManuallyDismissed(snackbar);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarManuallyDismissed");
+      }
 
-            @Override
-            public void onSnackbarManuallyDismissed(Snackbar snackbar) {
-                super.onSnackbarManuallyDismissed(snackbar);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarManuallyDismissed");
-            }
+      @Override
+      public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
+        super.onSnackbarDismissedAfterAnotherShown(snackbar);
+        Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissedAfterAnotherShown");
+      }
+    };
+  }
 
-            @Override
-            public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
-                super.onSnackbarDismissedAfterAnotherShown(snackbar);
-                Log.v(SnackbarCallback.class.getSimpleName(), "onSnackbarDismissedAfterAnotherShown");
-            }
-        };
-    }
+  @Test
+  public void whenOnSnackbarShown_thenSnackbarShownMessageLogged() {
+    callbackUnderTest.onSnackbarShown(snackbar);
 
-    @Test
-    public void whenOnSnackbarShown_thenSnackbarShownMessageLogged() {
-        callbackUnderTest.onSnackbarShown(snackbar);
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarShown");
+  }
 
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarShown");
-    }
+  @Test
+  public void whenOnSnackbarDismissed_thenSnackbarDismissedMessageLogged() {
+    callbackUnderTest.onSnackbarDismissed(snackbar);
 
-    @Test
-    public void whenOnSnackbarDismissed_thenSnackbarDismissedMessageLogged() {
-        callbackUnderTest.onSnackbarDismissed(snackbar);
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed");
+  }
 
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed");
-    }
+  @Test
+  public void whenOnSnackbarDismissedWithEventType_thenSnackbarDismissedMessageLogged() {
+    callbackUnderTest.onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_TIMEOUT);
 
-    @Test
-    public void whenOnSnackbarDismissedWithEventType_thenSnackbarDismissedMessageLogged() {
-        callbackUnderTest.onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_TIMEOUT);
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed method = 2");
+  }
 
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed method = 2");
-    }
+  @Test
+  public void whenOnSnackbarActionPressed_thenSnackbarActionPressedMessageLogged() {
+    callbackUnderTest.onSnackbarActionPressed(snackbar);
 
-    @Test
-    public void whenOnSnackbarActionPressed_thenSnackbarActionPressedMessageLogged() {
-        callbackUnderTest.onSnackbarActionPressed(snackbar);
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarActionPressed");
+  }
 
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarActionPressed");
-    }
+  @Test
+  public void whenOnSnackbarSwiped_thenSnackbarSwipedMessageLogged() {
+    callbackUnderTest.onSnackbarSwiped(snackbar);
 
-    @Test
-    public void whenOnSnackbarSwiped_thenSnackbarSwipedMessageLogged() {
-        callbackUnderTest.onSnackbarSwiped(snackbar);
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarSwiped");
+  }
 
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarSwiped");
-    }
+  @Test
+  public void whenOnSnackbarTimedOut_thenSnackbarTimedOutMessageLogged() {
+    callbackUnderTest.onSnackbarTimedOut(snackbar);
 
-    @Test
-    public void whenOnSnackbarTimedOut_thenSnackbarTimedOutMessageLogged() {
-        callbackUnderTest.onSnackbarTimedOut(snackbar);
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarTimedOut");
+  }
 
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarTimedOut");
-    }
+  @Test
+  public void whenOnSnackbarManuallyDismissed_thenSnackbarManuallyDismissedMessageLogged() {
+    callbackUnderTest.onSnackbarManuallyDismissed(snackbar);
 
-    @Test
-    public void whenOnSnackbarManuallyDismissed_thenSnackbarManuallyDismissedMessageLogged() {
-        callbackUnderTest.onSnackbarManuallyDismissed(snackbar);
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarManuallyDismissed");
+  }
 
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarManuallyDismissed");
-    }
+  @Test
+  public void whenOnSnackbarDismissedAfterAnotherShown_thenSnackbarDismissedAfterAnotherShownMessageLogged() {
+    callbackUnderTest.onSnackbarDismissedAfterAnotherShown(snackbar);
 
-    @Test
-    public void whenOnSnackbarDismissedAfterAnotherShown_thenSnackbarDismissedAfterAnotherShownMessageLogged() {
-        callbackUnderTest.onSnackbarDismissedAfterAnotherShown(snackbar);
-
-        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissedAfterAnotherShown");
-    }
+    List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+    assertThat(logs).hasSize(1);
+    assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissedAfterAnotherShown");
+  }
 
 }

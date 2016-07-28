@@ -18,26 +18,26 @@ import android.widget.TextView;
 
 final class Compatibility {
 
-    private static Compatibility instance;
+  private static Compatibility instance;
 
-    private Compatibility() {
-    }
+  private Compatibility() {
+  }
 
-    static Compatibility getInstance() {
-        if (instance == null) {
-            instance = new Compatibility();
-        }
-        return instance;
+  static Compatibility getInstance() {
+    if (instance == null) {
+      instance = new Compatibility();
     }
+    return instance;
+  }
 
-    private boolean isApiAtLeast14() {
-        return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
-    }
+  private boolean isApiAtLeast14() {
+    return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
+  }
 
-    void setAllCaps(TextView textView, boolean allCaps) {
-        if (isApiAtLeast14()) {
-            textView.setAllCaps(allCaps);
-        }
+  void setAllCaps(TextView textView, boolean allCaps) {
+    if (isApiAtLeast14()) {
+      textView.setAllCaps(allCaps);
     }
+  }
 
 }

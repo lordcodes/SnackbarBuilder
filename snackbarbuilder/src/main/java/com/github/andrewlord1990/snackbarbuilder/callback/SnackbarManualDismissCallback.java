@@ -20,11 +20,11 @@ import android.support.design.widget.Snackbar;
  */
 public interface SnackbarManualDismissCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed manually via a call to dismiss().
-     *
-     * @param snackbar The Snackbar.
-     */
-    void onSnackbarManuallyDismissed(Snackbar snackbar);
+  /**
+   * Indicates that the {@link Snackbar} was dismissed manually via a call to dismiss().
+   *
+   * @param snackbar The Snackbar.
+   */
+  void onSnackbarManuallyDismissed(Snackbar snackbar);
 
 }

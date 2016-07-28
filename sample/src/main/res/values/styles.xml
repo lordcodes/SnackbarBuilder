@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Copyright (C) 2015 Andrew Lord
   ~
@@ -12,33 +14,34 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="snackbarBuilderStyle">@style/SampleSnackbarStyle</item>
-        <item name="toastBuilderStyle">@style/SampleToastStyle</item>
-    </style>
+    <item name="snackbarBuilderStyle">@style/SampleSnackbarStyle</item>
+    <item name="toastBuilderStyle">@style/SampleToastStyle</item>
+  </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="SampleSnackbarStyle" parent="SnackbarBuilder">
-        <item name="snackbarBuilder_parentViewId">@id/coordinator</item>
-        <item name="snackbarBuilder_duration">shortTime</item>
-        <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
-        <item name="snackbarBuilder_actionTextColor">@color/colorAccent</item>
-    </style>
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="SampleToastStyle" parent="ToastBuilder">
-        <item name="toastBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
-        <item name="toastBuilder_duration">shortTime</item>
-    </style>
+  <style name="SampleSnackbarStyle" parent="SnackbarBuilder">
+    <item name="snackbarBuilder_parentViewId">@id/coordinator</item>
+    <item name="snackbarBuilder_duration">shortTime</item>
+    <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
+    <item name="snackbarBuilder_actionTextColor">@color/colorAccent</item>
+  </style>
+
+  <style name="SampleToastStyle" parent="ToastBuilder">
+    <item name="toastBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
+    <item name="toastBuilder_duration">shortTime</item>
+  </style>
 
 </resources>

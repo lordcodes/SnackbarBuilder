@@ -21,8 +21,6 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
 
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallbackWrapper;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,39 +34,37 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 public class SnackbarCallbackWrapperTest {
 
-    private SnackbarCallbackWrapper callbackUnderTest;
+  @Mock
+  Callback callback;
+  @Mock
+  Snackbar snackbar;
+  private SnackbarCallbackWrapper callbackUnderTest;
 
-    @Mock
-    Callback callback;
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
 
-    @Mock
-    Snackbar snackbar;
+    callbackUnderTest = new SnackbarCallbackWrapper(callback);
+  }
 
-    @Before
-    public void before() {
-        MockitoAnnotations.initMocks(this);
+  @Test
+  public void whenCreated_thenSetupCorrectly() throws Exception {
+    assertThat(callbackUnderTest.callback).isEqualTo(callback);
+  }
 
-        callbackUnderTest = new SnackbarCallbackWrapper(callback);
-    }
+  @Test
+  public void whenOnDismissed_thenCallbackInformedOfEvent() {
+    int dismissEvent = Callback.DISMISS_EVENT_MANUAL;
 
-    @Test
-    public void whenCreated_thenSetupCorrectly() throws Exception {
-        assertThat(callbackUnderTest.callback).isEqualTo(callback);
-    }
+    callbackUnderTest.onDismissed(snackbar, dismissEvent);
 
-    @Test
-    public void whenOnDismissed_thenCallbackInformedOfEvent() {
-        int dismissEvent = Callback.DISMISS_EVENT_MANUAL;
+    verify(callback).onDismissed(snackbar, dismissEvent);
+  }
 
-        callbackUnderTest.onDismissed(snackbar, dismissEvent);
+  @Test
+  public void whenOnShown_thenCallbackInformedOfEvent() {
+    callbackUnderTest.onShown(snackbar);
 
-        verify(callback).onDismissed(snackbar, dismissEvent);
-    }
-
-    @Test
-    public void whenOnShown_thenCallbackInformedOfEvent() {
-        callbackUnderTest.onShown(snackbar);
-
-        verify(callback).onShown(snackbar);
-    }
+    verify(callback).onShown(snackbar);
+  }
 }

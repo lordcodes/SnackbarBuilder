@@ -20,66 +20,66 @@ import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
 
 public class SnackbarCombinedCallbackBuilderAssert extends AbstractAssert<
-        SnackbarCombinedCallbackBuilderAssert, Builder> {
+    SnackbarCombinedCallbackBuilderAssert, Builder> {
 
-    protected SnackbarCombinedCallbackBuilderAssert(Builder actual, Class<?> selfType) {
-        super(actual, selfType);
-    }
+  protected SnackbarCombinedCallbackBuilderAssert(Builder actual, Class<?> selfType) {
+    super(actual, selfType);
+  }
 
-    public static SnackbarCombinedCallbackBuilderAssert assertThat(Builder actual) {
-        return new SnackbarCombinedCallbackBuilderAssert(actual,
-                SnackbarCombinedCallbackBuilderAssert.class);
-    }
+  public static SnackbarCombinedCallbackBuilderAssert assertThat(Builder actual) {
+    return new SnackbarCombinedCallbackBuilderAssert(actual,
+        SnackbarCombinedCallbackBuilderAssert.class);
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasCallback(Callback callback) {
-        Assertions.assertThat(actual.callback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasCallback(Callback callback) {
+    Assertions.assertThat(actual.callback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasSnackbarCallback(SnackbarCallback callback) {
-        Assertions.assertThat(actual.snackbarCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasSnackbarCallback(SnackbarCallback callback) {
+    Assertions.assertThat(actual.snackbarCallback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasShowCallback(SnackbarShowCallback callback) {
-        Assertions.assertThat(actual.showCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasShowCallback(SnackbarShowCallback callback) {
+    Assertions.assertThat(actual.showCallback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasDismissCallback(
-            SnackbarDismissCallback callback) {
-        Assertions.assertThat(actual.dismissCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasDismissCallback(
+      SnackbarDismissCallback callback) {
+    Assertions.assertThat(actual.dismissCallback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasActionDismissCallback(
-            SnackbarActionDismissCallback callback) {
-        Assertions.assertThat(actual.actionDismissCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasActionDismissCallback(
+      SnackbarActionDismissCallback callback) {
+    Assertions.assertThat(actual.actionDismissCallback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasSwipeDismissCallback(
-            SnackbarSwipeDismissCallback callback) {
-        Assertions.assertThat(actual.swipeDismissCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasSwipeDismissCallback(
+      SnackbarSwipeDismissCallback callback) {
+    Assertions.assertThat(actual.swipeDismissCallback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasTimeoutDismissCallback(
-            SnackbarTimeoutDismissCallback callback) {
-        Assertions.assertThat(actual.timeoutDismissCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasTimeoutDismissCallback(
+      SnackbarTimeoutDismissCallback callback) {
+    Assertions.assertThat(actual.timeoutDismissCallback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasManualDismissCallback(
-            SnackbarManualDismissCallback callback) {
-        Assertions.assertThat(actual.manualDismissCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasManualDismissCallback(
+      SnackbarManualDismissCallback callback) {
+    Assertions.assertThat(actual.manualDismissCallback).isEqualTo(callback);
+    return this;
+  }
 
-    public SnackbarCombinedCallbackBuilderAssert hasConsecutiveDismissCallback(
-            SnackbarConsecutiveDismissCallback callback) {
-        Assertions.assertThat(actual.consecutiveDismissCallback).isEqualTo(callback);
-        return this;
-    }
+  public SnackbarCombinedCallbackBuilderAssert hasConsecutiveDismissCallback(
+      SnackbarConsecutiveDismissCallback callback) {
+    Assertions.assertThat(actual.consecutiveDismissCallback).isEqualTo(callback);
+    return this;
+  }
 
 }

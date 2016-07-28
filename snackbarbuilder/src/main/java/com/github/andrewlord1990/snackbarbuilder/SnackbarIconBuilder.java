@@ -22,58 +22,58 @@ import android.widget.LinearLayout.LayoutParams;
 
 class SnackbarIconBuilder {
 
-    Snackbar snackbar;
-    private ImageView iconView;
-    private Drawable icon;
-    private int iconMarginStartPixels;
-    private int iconMarginEndPixels;
+  Snackbar snackbar;
+  private ImageView iconView;
+  private Drawable icon;
+  private int iconMarginStartPixels;
+  private int iconMarginEndPixels;
 
-    SnackbarIconBuilder(Snackbar snackbar) {
-        this.snackbar = snackbar;
-        iconView = (ImageView) snackbar.getView().findViewById(R.id.snackbarbuilder_icon);
+  SnackbarIconBuilder(Snackbar snackbar) {
+    this.snackbar = snackbar;
+    iconView = (ImageView) snackbar.getView().findViewById(R.id.snackbarbuilder_icon);
+  }
+
+  static SnackbarIconBuilder builder(Snackbar snackbar) {
+    return new SnackbarIconBuilder(snackbar);
+  }
+
+  SnackbarIconBuilder icon(Drawable icon) {
+    this.icon = icon;
+    return this;
+  }
+
+  SnackbarIconBuilder iconMarginStartPixels(int iconMarginStartPixels) {
+    this.iconMarginStartPixels = iconMarginStartPixels;
+    return this;
+  }
+
+  SnackbarIconBuilder iconMarginEndPixels(int iconMarginEndPixels) {
+    this.iconMarginEndPixels = iconMarginEndPixels;
+    return this;
+  }
+
+  ImageView bindToSnackbar() {
+    LayoutParams params = getIconViewLayoutParams();
+    if (iconView == null) {
+      iconView = new ImageView(snackbar.getView().getContext());
+      iconView.setId(R.id.snackbarbuilder_icon);
+
+      SnackbarLayout view = (SnackbarLayout) snackbar.getView();
+      view.addView(iconView, 0);
     }
+    iconView.setLayoutParams(params);
+    iconView.setImageDrawable(icon);
+    return iconView;
+  }
 
-    SnackbarIconBuilder icon(Drawable icon) {
-        this.icon = icon;
-        return this;
-    }
-
-    SnackbarIconBuilder iconMarginStartPixels(int iconMarginStartPixels) {
-        this.iconMarginStartPixels = iconMarginStartPixels;
-        return this;
-    }
-
-    SnackbarIconBuilder iconMarginEndPixels(int iconMarginEndPixels) {
-        this.iconMarginEndPixels = iconMarginEndPixels;
-        return this;
-    }
-
-    ImageView bindToSnackbar() {
-        LayoutParams params = getIconViewLayoutParams();
-        if (iconView == null) {
-            iconView = new ImageView(snackbar.getView().getContext());
-            iconView.setId(R.id.snackbarbuilder_icon);
-
-            SnackbarLayout view = (SnackbarLayout) snackbar.getView();
-            view.addView(iconView, 0);
-        }
-        iconView.setLayoutParams(params);
-        iconView.setImageDrawable(icon);
-        return iconView;
-    }
-
-    private LayoutParams getIconViewLayoutParams() {
-        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
-        params.weight = 0;
-        MarginLayoutParamsCompat.setMarginStart(params, iconMarginStartPixels);
-        MarginLayoutParamsCompat.setMarginEnd(params, iconMarginEndPixels);
-        return params;
-    }
-
-    static SnackbarIconBuilder builder(Snackbar snackbar) {
-        return new SnackbarIconBuilder(snackbar);
-    }
+  private LayoutParams getIconViewLayoutParams() {
+    LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+        LayoutParams.WRAP_CONTENT);
+    params.gravity = Gravity.CENTER_VERTICAL;
+    params.weight = 0;
+    MarginLayoutParamsCompat.setMarginStart(params, iconMarginStartPixels);
+    MarginLayoutParamsCompat.setMarginEnd(params, iconMarginEndPixels);
+    return params;
+  }
 
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Copyright (C) 2016 Andrew Lord
   ~
@@ -12,5 +13,5 @@
   -->
 
 <resources>
-    <string name="snackbarbuilder_action_undo">Undo</string>
+  <string name="snackbarbuilder_action_undo">Undo</string>
 </resources>

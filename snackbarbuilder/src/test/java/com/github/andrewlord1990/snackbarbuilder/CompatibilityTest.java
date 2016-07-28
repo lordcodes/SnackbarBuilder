@@ -29,20 +29,20 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 public class CompatibilityTest {
 
-    @Mock
-    TextView textView;
+  @Mock
+  TextView textView;
 
-    @Before
-    public void before() {
-        MockitoAnnotations.initMocks(this);
-    }
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
+  }
 
-    @Test
-    @TargetApi(VERSION_CODES.ICE_CREAM_SANDWICH)
-    public void givenAfterSdk14_whenSetAllCaps_thenSetAllCapsCalled() {
-        Compatibility.getInstance().setAllCaps(textView, false);
+  @Test
+  @TargetApi(VERSION_CODES.ICE_CREAM_SANDWICH)
+  public void givenAfterSdk14_whenSetAllCaps_thenSetAllCapsCalled() {
+    Compatibility.getInstance().setAllCaps(textView, false);
 
-        verify(textView).setAllCaps(anyBoolean());
-    }
+    verify(textView).setAllCaps(anyBoolean());
+  }
 
 }

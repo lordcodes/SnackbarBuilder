@@ -19,11 +19,11 @@ import android.support.design.widget.Snackbar;
  */
 public interface SnackbarShowCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was shown (made visible).
-     *
-     * @param snackbar The Snackbar.
-     */
-    void onSnackbarShown(Snackbar snackbar);
+  /**
+   * Indicates that the {@link Snackbar} was shown (made visible).
+   *
+   * @param snackbar The Snackbar.
+   */
+  void onSnackbarShown(Snackbar snackbar);
 
 }

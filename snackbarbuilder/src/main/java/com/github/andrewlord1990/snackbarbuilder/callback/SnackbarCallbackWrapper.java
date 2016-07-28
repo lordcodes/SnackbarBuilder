@@ -21,39 +21,39 @@ import android.support.design.widget.Snackbar.Callback;
  */
 public class SnackbarCallbackWrapper extends Callback {
 
-    protected Callback callback;
+  protected Callback callback;
 
-    /**
-     * Create the callback wrapper from a standard Callback.
-     *
-     * @param callback The callback to wrap.
-     */
-    public SnackbarCallbackWrapper(Callback callback) {
-        this.callback = callback;
-    }
+  /**
+   * Create the callback wrapper from a standard Callback.
+   *
+   * @param callback The callback to wrap.
+   */
+  public SnackbarCallbackWrapper(Callback callback) {
+    this.callback = callback;
+  }
 
-    /**
-     * Notifies that the {@link Snackbar} has been dismissed through some means.
-     *
-     * @param snackbar The Snackbar which has been dismissed.
-     * @param event    The event which caused the dismissal.
-     */
-    @Override
-    public void onDismissed(Snackbar snackbar, @DismissEvent int event) {
-        if (callback != null) {
-            callback.onDismissed(snackbar, event);
-        }
+  /**
+   * Notifies that the {@link Snackbar} has been dismissed through some means.
+   *
+   * @param snackbar The Snackbar which has been dismissed.
+   * @param event    The event which caused the dismissal.
+   */
+  @Override
+  public void onDismissed(Snackbar snackbar, @DismissEvent int event) {
+    if (callback != null) {
+      callback.onDismissed(snackbar, event);
     }
+  }
 
-    /**
-     * Notifies that the {@link Snackbar} has been shown (made visible).
-     *
-     * @param snackbar The Snackbar which has been shown.
-     */
-    @Override
-    public void onShown(Snackbar snackbar) {
-        if (callback != null) {
-            callback.onShown(snackbar);
-        }
+  /**
+   * Notifies that the {@link Snackbar} has been shown (made visible).
+   *
+   * @param snackbar The Snackbar which has been shown.
+   */
+  @Override
+  public void onShown(Snackbar snackbar) {
+    if (callback != null) {
+      callback.onShown(snackbar);
     }
+  }
 }

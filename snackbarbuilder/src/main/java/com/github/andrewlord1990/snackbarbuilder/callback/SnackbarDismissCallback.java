@@ -20,12 +20,12 @@ import android.support.design.widget.Snackbar.Callback.DismissEvent;
  */
 public interface SnackbarDismissCallback {
 
-    /**
-     * Indicates that the {@link Snackbar} was dismissed through any means.
-     *
-     * @param snackbar     The Snackbar.
-     * @param dismissEvent The event through which it was dismissed.
-     */
-    void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent);
+  /**
+   * Indicates that the {@link Snackbar} was dismissed through any means.
+   *
+   * @param snackbar     The Snackbar.
+   * @param dismissEvent The event through which it was dismissed.
+   */
+  void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent);
 
 }

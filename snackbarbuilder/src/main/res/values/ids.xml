@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Copyright (C) 2015 Andrew Lord
   ~
@@ -12,5 +13,5 @@
   -->
 
 <resources>
-    <item name="snackbarbuilder_icon" type="id" />
+  <item name="snackbarbuilder_icon" type="id" />
 </resources>
