@@ -66,6 +66,10 @@ subprojects { project ->
 
   apply plugin: 'pmd'
 
+  pmd {
+    toolVersion '5.5.1'
+  }
+
   task pmd(type: Pmd) {
     group 'verification'
 
@@ -81,6 +85,7 @@ subprojects { project ->
   afterEvaluate {
     check.dependsOn('checkstyle')
     check.dependsOn('findbugs')
+    check.dependsOn('pmd')
   }
 
 }
