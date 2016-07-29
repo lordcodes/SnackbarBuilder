@@ -1,0 +1,74 @@
+subprojects { project ->
+
+  apply plugin: 'checkstyle'
+
+  checkstyle {
+    toolVersion '7.0'
+  }
+
+  task checkstyle(type: Checkstyle) {
+    group "Verification"
+
+    configFile rootProject.file('config/checkstyle/checkstyle.xml')
+    source 'src'
+    include '**/*.java'
+    ignoreFailures false
+    showViolations true
+
+    classpath = files()
+
+    reports {
+      xml.enabled = true
+      html.enabled true
+    }
+  }
+
+  apply plugin: 'findbugs'
+
+  findbugs {
+    toolVersion '3.0.1'
+  }
+
+  task findbugs(type: FindBugs) {
+    group "Verification"
+
+    excludeFilter = rootProject.file('config/findbugs/findbugs-filter.xml')
+    classes = files(project.file('build/intermediates/classes'))
+    source = fileTree('src/main/java/')
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+
+    classpath = files()
+
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+  }
+
+  apply plugin: 'pmd'
+
+  pmd {
+    toolVersion '5.5.1'
+  }
+
+  task pmd(type: Pmd) {
+    group 'verification'
+
+    ruleSetFiles = rootProject.files('config/pmd/pmd-ruleset.xml')
+    source = fileTree('src/main/java/')
+
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+  }
+
+  afterEvaluate {
+    check.dependsOn('checkstyle')
+    check.dependsOn('findbugs')
+    check.dependsOn('pmd')
+  }
+
+}
