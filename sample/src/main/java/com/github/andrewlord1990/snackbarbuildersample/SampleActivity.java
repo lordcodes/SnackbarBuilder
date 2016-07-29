@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.design.widget.Snackbar.Callback.DismissEvent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -188,8 +187,8 @@ public class SampleActivity extends AppCompatActivity {
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .icon(R.drawable.ic_android_24dp)
-            .iconMarginStart(R.dimen.snackbar_icon_margin)
-            .iconMarginEnd(R.dimen.snackbar_icon_margin)
+            .iconMarginStartRes(R.dimen.snackbar_icon_margin)
+            .iconMarginEndRes(R.dimen.snackbar_icon_margin)
             .message("This has an icon on it")
             .duration(Snackbar.LENGTH_LONG)
             .build()
