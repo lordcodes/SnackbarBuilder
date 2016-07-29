@@ -9,7 +9,7 @@ android:
     - extra-android-support
     - extra-android-m2repository
 
-script: ./gradlew findbugs --debug
+script: ./gradlew clean check --debug
 
 branches:
   only:
