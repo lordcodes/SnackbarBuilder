@@ -32,7 +32,7 @@
     </module>
 
     <module name="LineLength">
-      <property name="max" value="500" />
+      <property name="max" value="120" />
       <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
     </module>
 
@@ -52,7 +52,7 @@
     <module name="NeedBraces" />
 
     <module name="LeftCurly">
-      <property name="maxLineLength" value="500" />
+      <property name="maxLineLength" value="120" />
     </module>
 
     <module name="RightCurly" />
