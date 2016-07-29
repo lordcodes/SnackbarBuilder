@@ -1,12 +1,16 @@
 /*
- * Copyright (C) 2015 Andrew Lord
+ * Copyright (C) 2016 Andrew Lord
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License.
+ *
  * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
@@ -43,18 +47,19 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismiss
 import com.github.andrewlord1990.snackbarbuilder.parent.SnackbarParentFinder;
 
 /**
- * A builder pattern to easily create and customise Android Design Support library Snackbars. On
- * top of the customisations you can make through the Snackbar API, there are some additional ones.
+ * A builder pattern to easily create and customise Android Design Support library Snackbars. On top of the
+ * customisations you can make through the Snackbar API, there are some additional ones.
+ * <p/>
  * These include:
  * - Altering text and background colours
  * - Easier-to-use callbacks
  * - Appending messages
  * - Adding an icon
  * - Providing defaults for all SnackbarBuilders through theme attributes
- * The builder can either output a constructed Snackbar or a SnackbarWrapper. The SnackbarWrapper
- * allows you to further customise the Snackbar after creation and gives you more control than the
- * Snackbar API. Various default values can be loaded from a style specified within your theme.
- * These values can be overridden by the builder methods.
+ * <p/>
+ * The builder can either output a constructed Snackbar or a SnackbarWrapper. The SnackbarWrapper allows you to further
+ * customise the Snackbar after creation and gives you more control than the Snackbar API. Various default values can
+ * be loaded from a style specified within your theme. These values can be overridden by the builder methods.
  */
 public final class SnackbarBuilder {
 
@@ -79,8 +84,7 @@ public final class SnackbarBuilder {
   int iconMarginEnd;
 
   /**
-   * Create a builder to create a Snackbar. The Snackbar will be attached to the specified
-   * parent view.
+   * Create a builder to create a Snackbar. The Snackbar will be attached to the specified parent view.
    *
    * @param view Parent view to attach the Snackbar to.
    */
@@ -90,13 +94,12 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
-   * specified through the attribute snackbarBuilder_parentViewId. This attribute is within a
-   * style provided through the theme attribute snackbarBuilderStyle. The parent view will be
-   * found using this ID and the Snackbar will be attached to it.
+   * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is specified through the
+   * attribute snackbarBuilder_parentViewId. This attribute is within a style provided through the theme attribute
+   * snackbarBuilderStyle. The parent view will be found using this ID and the Snackbar will be attached to it.
    *
-   * @param activity Activity to show the Snackbar in, it should contain a view with the ID
-   *                 specified in the style attribute snackbarBuilder_parentViewId.
+   * @param activity Activity to show the Snackbar in, it should contain a view with the ID specified in the style
+   *                 attribute snackbarBuilder_parentViewId.
    */
   public SnackbarBuilder(Activity activity) {
     setup(activity);
@@ -104,10 +107,9 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is
-   * found using the provided SnackbarParentFinder. This gives you the flexibility of not
-   * using a single ID for the parent view, or to have fallback view IDs in the case that
-   * the usual one isn't found in a particular activity.
+   * Create a builder to create a Snackbar. The parent view to attach the Snackbar to is found using the provided
+   * SnackbarParentFinder. This gives you the flexibility of not using a single ID for the parent view, or to have
+   * fallback view IDs in the case that the usual one isn't found in a particular activity.
    *
    * @param activity     Activity to show the Snackbar in.
    * @param parentFinder Used to find the parent view to attach the Snackbar to.
@@ -207,8 +209,7 @@ public final class SnackbarBuilder {
   /**
    * Add some text to append to the message shown on the {@link Snackbar} and a colour to make it.
    *
-   * @param messageResId String resource of the text to append to the
-   *                     Snackbar message.
+   * @param messageResId String resource of the text to append to the Snackbar message.
    * @param colorResId   Resource of the colour to make the appended text.
    * @return This instance.
    */
@@ -319,8 +320,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the enhanced callback for being informed of the {@link Snackbar} being shown or
-   * dismissed, through individual callback methods.
+   * Set the enhanced callback for being informed of the {@link Snackbar} being shown or dismissed, through individual
+   * callback methods.
    *
    * @param snackbarCallback The callback.
    * @return This instance.
@@ -353,8 +354,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action
-   * being pressed.
+   * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action being pressed.
    *
    * @param callback The callback.
    * @return This instance.
@@ -365,8 +365,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed due to being
-   * swiped away.
+   * Set the callback to be informed of the {@link Snackbar} being dismissed due to being swiped away.
    *
    * @param callback The callback.
    * @return This instance.
@@ -388,8 +387,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a
-   * call to dismiss().
+   * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a call to dismiss().
    *
    * @param callback The callback.
    * @return This instance.
@@ -400,8 +398,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed due to another
-   * Snackbar being shown.
+   * Set the callback to be informed of the {@link Snackbar} being dismissed due to another Snackbar being shown.
    *
    * @param callback The callback.
    * @return This instance.
@@ -413,8 +410,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Make the action be displayed with the first letter uppercase and the rest lowercase. This
-   * is useful due to the action being displayed all uppercase by default on API 14 and above.
+   * Make the action be displayed with the first letter uppercase and the rest lowercase. This is useful due to the
+   * action being displayed all uppercase by default on API 14 and above.
    *
    * @return This instance.
    */
@@ -446,9 +443,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the margin to be displayed before the icon in pixels. On platform versions that support
-   * bi-directional layouts, this will be the start margin, on platforms before this it will just
-   * be the left margin.
+   * Set the margin to be displayed before the icon in pixels. On platform versions that support bi-directional layouts,
+   * this will be the start margin, on platforms before this it will just be the left margin.
    *
    * @param iconMarginStart The margin before the icon.
    * @return This instance.
@@ -459,9 +455,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the margin to be displayed before the icon. On platform versions that support
-   * bi-directional layouts, this will be the start margin, on platforms before this it will just
-   * be the left margin.
+   * Set the margin to be displayed before the icon. On platform versions that support bi-directional layouts, this will
+   * be the start margin, on platforms before this it will just be the left margin.
    *
    * @param iconMarginStartResId The dimension resource of the margin before the icon.
    * @return This instance.
@@ -472,9 +467,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the margin to be displayed after the icon in pixels. On platform versions that support
-   * bi-directional layouts, this will be the end margin, on platforms before this it will just
-   * be the right margin.
+   * Set the margin to be displayed after the icon in pixels. On platform versions that support bi-directional layouts,
+   * this will be the end margin, on platforms before this it will just be the right margin.
    *
    * @param iconMarginEnd The margin after the icon in pixels.
    * @return This instance.
@@ -485,9 +479,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the margin to be displayed after the icon. On platform versions that support
-   * bi-directional layouts, this will be the end margin, on platforms before this it will just
-   * be the right margin.
+   * Set the margin to be displayed after the icon. On platform versions that support bi-directional layouts, this will
+   * be the end margin, on platforms before this it will just be the right margin.
    *
    * @param iconMarginEndResId The margin after the icon.
    * @return This instance.
@@ -498,8 +491,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Build a Snackbar using the options specified in the builder. Wrap this Snackbar into a
-   * SnackbarWrapper, which allows further customisation.
+   * Build a Snackbar using the options specified in the builder. Wrap this Snackbar into a SnackbarWrapper, which
+   * allows further customisation.
    *
    * @return A SnackbarWrapper, a class which wraps a Snackbar for further customisation.
    */

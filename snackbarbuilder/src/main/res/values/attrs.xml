@@ -3,40 +3,44 @@
 <!--
   ~ Copyright (C) 2015 Andrew Lord
   ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+  ~ the License.
+  ~
   ~ You may obtain a copy of the License at
   ~
   ~ http://www.apache.org/licenses/LICENSE-2.0
   ~
-  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+  ~ an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~
   ~ See the License for the specific language governing permissions and limitations under the License.
   -->
 
 <resources>
 
-  <attr name="toastBuilderStyle" format="reference" />
+  <attr name="toastBuilderStyle" format="reference"/>
 
   <declare-styleable name="ToastBuilderStyle">
-    <attr name="toastBuilder_messageTextColor" format="color" />
+    <attr name="toastBuilder_messageTextColor" format="color"/>
     <attr name="toastBuilder_duration">
-      <enum name="shortTime" value="0" />
-      <enum name="longTime" value="1" />
+      <enum name="shortTime" value="0"/>
+      <enum name="longTime" value="1"/>
     </attr>
   </declare-styleable>
 
-  <attr name="snackbarBuilderStyle" format="reference" />
+  <attr name="snackbarBuilderStyle" format="reference"/>
 
   <declare-styleable name="SnackbarBuilderStyle">
-    <attr name="snackbarBuilder_messageTextColor" format="color" />
-    <attr name="snackbarBuilder_actionTextColor" format="color" />
-    <attr name="snackbarBuilder_backgroundColor" format="color" />
-    <attr name="snackbarBuilder_parentViewId" format="reference" />
+    <attr name="snackbarBuilder_messageTextColor" format="color"/>
+    <attr name="snackbarBuilder_actionTextColor" format="color"/>
+    <attr name="snackbarBuilder_backgroundColor" format="color"/>
+    <attr name="snackbarBuilder_parentViewId" format="reference"/>
     <attr name="snackbarBuilder_duration" format="integer">
-      <enum name="longTime" value="0" />
-      <enum name="shortTime" value="-1" />
-      <enum name="indefinite" value="-2" />
+      <enum name="longTime" value="0"/>
+      <enum name="shortTime" value="-1"/>
+      <enum name="indefinite" value="-2"/>
     </attr>
-    <attr name="colorAccent" />
+    <attr name="colorAccent"/>
   </declare-styleable>
 
 </resources>

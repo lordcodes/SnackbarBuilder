@@ -1,12 +1,16 @@
 /*
- * Copyright (C) 2015 Andrew Lord
+ * Copyright (C) 2016 Andrew Lord
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License.
+ *
  * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
@@ -16,10 +20,9 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback.DismissEvent;
 
 /**
- * A callback for use with SnackbarBuilder that allows you to easily respond to the events you are
- * interested in by overriding the appropriate methods. You know longer have to check the value of
- * the dismiss event, as you do with the standard Callback class. Override whichever callback
- * methods you are interested in.
+ * A callback for use with SnackbarBuilder that allows you to easily respond to the events you are interested in by
+ * overriding the appropriate methods. You know longer have to check the value of the dismiss event, as you do with the
+ * standard Callback class. Override whichever callback methods you are interested in.
  */
 public class SnackbarCallback {
 

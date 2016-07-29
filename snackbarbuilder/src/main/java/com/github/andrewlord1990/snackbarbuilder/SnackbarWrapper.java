@@ -1,12 +1,16 @@
 /*
  * Copyright (C) 2016 Andrew Lord
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License.
+ *
  * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
@@ -37,14 +41,12 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
 /**
- * SnackbarWrapper is an extension to the {@link Snackbar} available within the Android Design
- * Support library.
- * By wrapping a {@link Snackbar} within it, it provides many customisations that are not
- * available without it. The setter methods also return the {@link SnackbarWrapper} instance,
- * allowing you to chain the calls together fluently.
- * In order to create a {@link SnackbarWrapper} there is the SnackbarBuilder.buildWrapper()
- * method. Alternatively, if you already have a {@link Snackbar} instance, you can just create
- * your own {@link SnackbarWrapper} and pass the {@link Snackbar} into it.
+ * SnackbarWrapper is an extension to the {@link Snackbar} available within the Android Design Support library. By
+ * wrapping a {@link Snackbar} within it, it provides many customisations that are not available without it. The setter
+ * methods also return the {@link SnackbarWrapper} instance, allowing you to chain the calls together fluently. In
+ * order to create a {@link SnackbarWrapper} there is the SnackbarBuilder.buildWrapper() method. Alternatively, if you
+ * already have a {@link Snackbar} instance, you can just create your own {@link SnackbarWrapper} and pass the
+ * {@link Snackbar} into it.
  */
 public final class SnackbarWrapper {
 
@@ -122,8 +124,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the
-   * action is clicked.
+   * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the action is clicked.
    *
    * @param actionText          String resource to display as an action.
    * @param actionClickListener Callback to be invoked when the action is clicked.
@@ -136,8 +137,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the
-   * action is clicked.
+   * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the action is clicked.
    *
    * @param actionText          Text to display as an action.
    * @param actionClickListener Callback to be invoked when the action is clicked.
@@ -225,9 +225,9 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action text on the {@link Snackbar} to start with an uppercase letter and for the
-   * remaining letters to be lowercase. By default on API 14 and above the action will be
-   * displayed all uppercase, this allows you to customise that.
+   * Set the action text on the {@link Snackbar} to start with an uppercase letter and for the remaining letters to be
+   * lowercase. By default on API 14 and above the action will be displayed all uppercase, this allows you to customise
+   * that.
    *
    * @return This instance.
    */
@@ -258,8 +258,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Update the message in the {@link Snackbar}. This will overwrite the whole message that is
-   * currently shown.
+   * Update the message in the {@link Snackbar}. This will overwrite the whole message that is currently shown.
    *
    * @param message String resource of the new message.
    * @return This instance.
@@ -271,8 +270,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Update the message in this {@link Snackbar}. This will overwrite the whole message that is
-   * currently shown.
+   * Update the message in this {@link Snackbar}. This will overwrite the whole message that is currently shown.
    *
    * @param message The new message.
    * @return This instance.
@@ -417,9 +415,8 @@ public final class SnackbarWrapper {
   /**
    * Set the total time to show the {@link Snackbar} for.
    *
-   * @param duration The length of time for which to show the {@link Snackbar}, can either be one
-   *                 of the predefined lengths: LENGTH_SHORT, LENGTH_LONG or a custom duration
-   *                 in milliseconds.
+   * @param duration The length of time for which to show the {@link Snackbar}, can either be one of the predefined
+   *                 lengths: LENGTH_SHORT, LENGTH_LONG or a custom duration in milliseconds.
    * @return This instance.
    */
   @NonNull
@@ -461,8 +458,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the callback to be called when the {@link Snackbar} changes visibility. This will
-   * overwrite any callback that has already been set on the {@link Snackbar}.
+   * Set the callback to be called when the {@link Snackbar} changes visibility. This will overwrite any callback that
+   * has already been set on the {@link Snackbar}.
    *
    * @param callback The callback to be called.
    * @return This instance.
@@ -475,9 +472,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the callback to be called when the {@link Snackbar} changes visibility. If
-   * setCallback(Callback) has already been called, then that callback will be
-   * combined with the SnackbarCallback specified here.
+   * Set the callback to be called when the {@link Snackbar} changes visibility. If setCallback(Callback) has already
+   * been called, then that callback will be combined with the SnackbarCallback specified here.
    *
    * @param callback The callback to be called.
    * @return This instance.
@@ -488,8 +484,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the icon at the start of the {@link Snackbar}.  If there is no icon it will be added,
-   * or if there is then it will be replaced.
+   * Set the icon at the start of the {@link Snackbar}.  If there is no icon it will be added, or if there is then it
+   * will be replaced.
    *
    * @param icon The icon drawable resource to display.
    * @return This instance.
@@ -499,8 +495,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the icon at the start of the {@link Snackbar}. If there is no icon it will be added,
-   * or if there is then it will be replaced.
+   * Set the icon at the start of the {@link Snackbar}. If there is no icon it will be added, or if there is then it
+   * will be replaced.
    *
    * @param icon The icon to display.
    * @return This instance.
@@ -513,9 +509,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the margin to be displayed before the icon. On platform versions that support
-   * bi-directional layouts, this will be the start margin, on platforms before this it will just
-   * be the left margin.
+   * Set the margin to be displayed before the icon. On platform versions that support bi-directional layouts, this will
+   * be the start margin, on platforms before this it will just be the left margin.
    *
    * @param iconMarginStart The margin before the icon.
    * @return This instance.
@@ -525,9 +520,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the margin to be displayed before the icon in pixels. On platform versions that support
-   * bi-directional layouts, this will be the start margin, on platforms before this it will just
-   * be the left margin.
+   * Set the margin to be displayed before the icon in pixels. On platform versions that support bi-directional layouts,
+   * this will be the start margin, on platforms before this it will just be the left margin.
    *
    * @param iconMarginStartPixels The margin before the icon.
    * @return This instance.
@@ -540,9 +534,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the margin to be displayed after the icon. On platform versions that support
-   * bi-directional layouts, this will be the end margin, on platforms before this it will just
-   * be the right margin.
+   * Set the margin to be displayed after the icon. On platform versions that support bi-directional layouts, this will
+   * be the end margin, on platforms before this it will just be the right margin.
    *
    * @param iconMarginEnd The margin after the icon.
    * @return This instance.
@@ -552,9 +545,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the margin to be displayed after the icon in pixels. On platform versions that support
-   * bi-directional layouts, this will be the end margin, on platforms before this it will just
-   * be the right margin.
+   * Set the margin to be displayed after the icon in pixels. On platform versions that support bi-directional layouts,
+   * this will be the end margin, on platforms before this it will just be the right margin.
    *
    * @param iconMarginEndPixels The margin after the icon.
    * @return This instance.
