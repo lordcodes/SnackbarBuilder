@@ -132,7 +132,7 @@ public class ToastBuilder {
    * @param duration Duration which can be either LENGTH_SHORT or LENGTH_LONG.
    * @return This instance.
    */
-  public ToastBuilder duration(@Duration int duration) {
+  public ToastBuilder duration(int duration) {
     this.duration = duration;
     return this;
   }
