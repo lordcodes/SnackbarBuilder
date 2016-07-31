@@ -49,14 +49,14 @@ import com.github.andrewlord1990.snackbarbuilder.parent.SnackbarParentFinder;
 /**
  * A builder pattern to easily create and customise Android Design Support library Snackbars. On top of the
  * customisations you can make through the Snackbar API, there are some additional ones.
- * <p/>
+ *
  * These include:
  * - Altering text and background colours
  * - Easier-to-use callbacks
  * - Appending messages
  * - Adding an icon
  * - Providing defaults for all SnackbarBuilders through theme attributes
- * <p/>
+ *
  * The builder can either output a constructed Snackbar or a SnackbarWrapper. The SnackbarWrapper allows you to further
  * customise the Snackbar after creation and gives you more control than the Snackbar API. Various default values can
  * be loaded from a style specified within your theme. These values can be overridden by the builder methods.
