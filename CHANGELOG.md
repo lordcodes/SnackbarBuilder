@@ -5,10 +5,10 @@
 ### Features
 
 - New constructor that takes a `SnackbarParentFinder`, which is used to look for a parent view to attach to - allowing fallback parent views when one is not found.
+- Separate callback interfaces rather than needing to override a single class to handle all the different callbacks. E.g. `SnackbarShowCallback` and `SnackbarSwipeDismissCallback`.
 
 ### API Changes
 
- - `SnackbarCombinedCallback` is now final.
  - `SnackbarBuilder.iconMarginStartPixels` -> `iconMarginStart`
  - `SnackbarBuilder.iconMarginStart` -> `iconMarginStartRes`
  - `SnackbarBuilder.iconMarginEndPixels` -> `iconMarginEnd`
@@ -16,14 +16,15 @@
  
 ### Improvements
 
-- Tidied up Gradle files
-- Removed logging from `SnackbarCallback`
-- Tidied up some JavaDoc comments
+- Removed logging from `SnackbarCallback`.
+- Added code quality checks: CheckStyle, FindBugs and PMD.
+- Reformatted whole project code style.
+- Improved JavaDocs.
 
 ### Dependencies
 
-- Updated Gradle plugin to `2.1.2`
-- Updated build tools to `23.0.3`
+- Updated to target API 24
+- Updated Android support library to v24.1.1
 
 ## v0.5.0 (06/03/16)
 
