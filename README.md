@@ -1,11 +1,11 @@
 # SnackbarBuilder
 
-[![Download](https://api.bintray.com/packages/andrewlord1990/maven/snackbar-builder/images/download.svg) ](https://bintray.com/andrewlord1990/maven/snackbar-builder/_latestVersion)
 [![Build Status](https://travis-ci.org/andrewlord1990/SnackbarBuilder.svg?branch=master)](https://travis-ci.org/andrewlord1990/SnackbarBuilder)
 [![Coverage Status](https://coveralls.io/repos/andrewlord1990/SnackbarBuilder/badge.svg?branch=master&service=github)](https://coveralls.io/github/andrewlord1990/SnackbarBuilder?branch=master)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SnackbarBuilder-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/3357)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg) ](https://github.com/andrewlord1990/SnackbarBuilder/blob/master/LICENSE)
 [![API](https://img.shields.io/badge/API-7%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=7)
+[![Download](https://api.bintray.com/packages/andrewlord1990/maven/snackbar-builder/images/download.svg) ](https://bintray.com/andrewlord1990/maven/snackbar-builder/_latestVersion)
 
 The Android Design Support library introduced the `Snackbar`. SnackbarBuilder provides a builder pattern that not only makes Snackbars easier to create, but it also provides some extra customisations.
 
@@ -46,11 +46,11 @@ It is really easy to build and customise snackbars.
 
 ```java
 Snackbar snackbar = new SnackbarBuilder(this)
-              .message("message")
-              .actionText("Action")
-              .snackbarCallback(new MySnackbarCallback())
-              .build()
-              .show();
+      .message("message")
+      .actionText("Action")
+      .snackbarCallback(new MySnackbarCallback())
+      .build()
+      .show();
 ```
 
 Check out the sample project to see examples of how the library can be used.
@@ -80,34 +80,6 @@ Simply implement the interface for the callback you are interested in and call t
 
 Alternatively, if you would rather handle all the callbacks with a single class, then you can do that too. Simply extend the `SnackbarCallback` class and override only the methods you are interested in. Rather than needing to check the `dismissEvent` integer in the `Snackbar.Callback` class, there is a separate method to override for each dismiss type.
 
-```java
-private class MySnackbarCallback extends SnackbarCallback {
-
-    public void onSnackbarShown(Snackbar snackbar) {
-        // Snackbar shown
-    }
-
-    public void onSnackbarActionPressed(Snackbar snackbar) {
-        // Snackbar action button pressed
-    }
-
-    public void onSnackbarSwiped(Snackbar snackbar) {
-        // Snackbar dismissed via swipe
-    }
-
-    public void onSnackbarTimedOut(Snackbar snackbar) {
-        // Snackbar dismissed via timeout (after duration passed)
-    }
-
-    public void onSnackbarManuallyDismissed(Snackbar snackbar) {
-        // Snackbar dimissed via call to dismiss()
-    }
-
-    public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
-        // Snackbar dismissed because another Snackbar shown
-    }
-}
-```
 
 ### ToastBuilder
 
