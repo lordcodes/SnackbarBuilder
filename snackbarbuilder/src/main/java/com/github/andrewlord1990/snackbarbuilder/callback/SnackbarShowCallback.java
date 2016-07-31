@@ -19,12 +19,12 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 import android.support.design.widget.Snackbar;
 
 /**
- * A callback that will be notified when the {@link Snackbar} has been shown (has become visible).
+ * A callback that will be notified when the Snackbar has been shown (has become visible).
  */
 public interface SnackbarShowCallback {
 
   /**
-   * Indicates that the {@link Snackbar} was shown (made visible).
+   * Indicates that the Snackbar was shown (made visible).
    *
    * @param snackbar The Snackbar.
    */

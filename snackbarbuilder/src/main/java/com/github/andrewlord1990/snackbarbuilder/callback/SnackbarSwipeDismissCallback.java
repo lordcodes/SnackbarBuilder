@@ -19,12 +19,12 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 import android.support.design.widget.Snackbar;
 
 /**
- * A callback to be notified when the {@link Snackbar} is dismissed due to being swiped away.
+ * A callback to be notified when the Snackbar is dismissed due to being swiped away.
  */
 public interface SnackbarSwipeDismissCallback {
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed due to being swiped away.
+   * Indicates that the Snackbar was dismissed due to being swiped away.
    *
    * @param snackbar The Snackbar.
    */

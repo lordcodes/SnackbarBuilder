@@ -19,12 +19,12 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 import android.support.design.widget.Snackbar;
 
 /**
- * A callback to be notified when a {@link Snackbar} is dismissed due to another being shown.
+ * A callback to be notified when a Snackbar is dismissed due to another being shown.
  */
 public interface SnackbarConsecutiveDismissCallback {
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed due to another Snackbar being shown.
+   * Indicates that the Snackbar was dismissed due to another Snackbar being shown.
    *
    * @param snackbar The Snackbar.
    */

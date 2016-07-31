@@ -37,7 +37,7 @@ public class SnackbarCallbackWrapper extends Callback {
   }
 
   /**
-   * Notifies that the {@link Snackbar} has been dismissed through some means.
+   * Notifies that the Snackbar has been dismissed through some means.
    *
    * @param snackbar The Snackbar which has been dismissed.
    * @param event    The event which caused the dismissal.
@@ -50,7 +50,7 @@ public class SnackbarCallbackWrapper extends Callback {
   }
 
   /**
-   * Notifies that the {@link Snackbar} has been shown (made visible).
+   * Notifies that the Snackbar has been shown (made visible).
    *
    * @param snackbar The Snackbar which has been shown.
    */

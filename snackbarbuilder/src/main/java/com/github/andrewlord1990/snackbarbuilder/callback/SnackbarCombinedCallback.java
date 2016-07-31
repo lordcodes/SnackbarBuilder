@@ -77,8 +77,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
   }
 
   /**
-   * Notifies that the {@link Snackbar} has been dismissed through some event, for example swiping or the action being
-   * pressed.
+   * Notifies that the Snackbar has been dismissed through some event, for example swiping or the action being pressed.
    *
    * @param snackbar The Snackbar which has been dismissed.
    * @param event    The event which caused the dismissal.
@@ -152,7 +151,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
   }
 
   /**
-   * Notifies that the {@link Snackbar} has been shown (made visible).
+   * Notifies that the Snackbar has been shown (made visible).
    *
    * @param snackbar The Snackbar which has been shown.
    */
@@ -186,7 +185,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     SnackbarConsecutiveDismissCallback consecutiveDismissCallback;
 
     /**
-     * Set the standard callback for being informed of the {@link Snackbar} being shown or dismissed.
+     * Set the standard callback for being informed of the Snackbar being shown or dismissed.
      *
      * @param callback The callback.
      * @return This instance.
@@ -197,8 +196,8 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the enhanced callback for being informed of the {@link Snackbar} being shown or dismissed, through
-     * individual callback methods.
+     * Set the enhanced callback for being informed of the Snackbar being shown or dismissed, through individual
+     * callback methods.
      *
      * @param snackbarCallback The callback.
      * @return This instance.
@@ -209,7 +208,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the callback to be informed of the {@link Snackbar} being shown.
+     * Set the callback to be informed of the Snackbar being shown.
      *
      * @param callback The callback.
      * @return This instance.
@@ -220,7 +219,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed through some means.
+     * Set the callback to be informed of the Snackbar being dismissed through some means.
      *
      * @param callback The callback.
      * @return This instance.
@@ -231,7 +230,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action being pressed.
+     * Set the callback to be informed of the Snackbar being dismissed due to the action being pressed.
      *
      * @param callback The callback.
      * @return This instance.
@@ -242,7 +241,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to being swiped away.
+     * Set the callback to be informed of the Snackbar being dismissed due to being swiped away.
      *
      * @param callback The callback.
      * @return This instance.
@@ -253,7 +252,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to a timeout.
+     * Set the callback to be informed of the Snackbar being dismissed due to a timeout.
      *
      * @param callback The callback.
      * @return This instance.
@@ -264,7 +263,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a call to dismiss().
+     * Set the callback to be informed of the Snackbar being dismissed manually, due to a call to dismiss().
      *
      * @param callback The callback.
      * @return This instance.
@@ -275,7 +274,7 @@ public final class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Set the callback to be informed of the {@link Snackbar} being dismissed due to another Snackbar being shown.
+     * Set the callback to be informed of the Snackbar being dismissed due to another Snackbar being shown.
      *
      * @param callback The callback.
      * @return This instance.

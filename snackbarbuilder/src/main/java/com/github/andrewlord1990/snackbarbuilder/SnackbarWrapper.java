@@ -41,12 +41,11 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
 /**
- * SnackbarWrapper is an extension to the {@link Snackbar} available within the Android Design Support library. By
- * wrapping a {@link Snackbar} within it, it provides many customisations that are not available without it. The setter
- * methods also return the {@link SnackbarWrapper} instance, allowing you to chain the calls together fluently. In
- * order to create a {@link SnackbarWrapper} there is the SnackbarBuilder.buildWrapper() method. Alternatively, if you
- * already have a {@link Snackbar} instance, you can just create your own {@link SnackbarWrapper} and pass the
- * {@link Snackbar} into it.
+ * SnackbarWrapper is an extension to the Snackbar available within the Android Design Support library. By wrapping a
+ * Snackbar within it, it provides many customisations that are not available without it. The setter methods also return
+ * the SnackbarWrapper instance, allowing you to chain the calls together fluently. In order to create a SnackbarWrapper
+ * there is the SnackbarBuilder.buildWrapper() method. Alternatively, if you already have a Snackbar instance, you can
+ * just create your own SnackbarWrapper and pass the Snackbar into it.
  */
 public final class SnackbarWrapper {
 
@@ -60,9 +59,9 @@ public final class SnackbarWrapper {
   private Callback callback;
 
   /**
-   * Create by wrapping a {@link Snackbar}.
+   * Create by wrapping a Snackbar.
    *
-   * @param snackbar The {@link Snackbar} to wrap.
+   * @param snackbar The Snackbar to wrap.
    */
   public SnackbarWrapper(Snackbar snackbar) {
     this.snackbar = snackbar;
@@ -73,16 +72,16 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the {@link Snackbar} that has been wrapped.
+   * Get the Snackbar that has been wrapped.
    *
-   * @return The {@link Snackbar}.
+   * @return The Snackbar.
    */
   public Snackbar getSnackbar() {
     return snackbar;
   }
 
   /**
-   * Get the action displayed in the {@link Snackbar}.
+   * Get the action displayed in the Snackbar.
    *
    * @return Text displayed as an action.
    */
@@ -91,7 +90,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action to be displayed in the {@link Snackbar}.
+   * Set the action to be displayed in the Snackbar.
    *
    * @param actionText String resource of the text to display as an action.
    * @return This instance.
@@ -102,7 +101,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action to be displayed in the {@link Snackbar}.
+   * Set the action to be displayed in the Snackbar.
    *
    * @param actionText Text to display as an action.
    * @return This instance.
@@ -124,7 +123,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the action is clicked.
+   * Set the action to be displayed in the Snackbar and the callback to invoke when the action is clicked.
    *
    * @param actionText          String resource to display as an action.
    * @param actionClickListener Callback to be invoked when the action is clicked.
@@ -137,7 +136,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the action is clicked.
+   * Set the action to be displayed in the Snackbar and the callback to invoke when the action is clicked.
    *
    * @param actionText          Text to display as an action.
    * @param actionClickListener Callback to be invoked when the action is clicked.
@@ -150,7 +149,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the text color for the action on the {@link Snackbar}.
+   * Set the text color for the action on the Snackbar.
    *
    * @param colors Colors state list to apply to the action text.
    * @return This instance.
@@ -162,7 +161,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the text color for the action on the {@link Snackbar}.
+   * Set the text color for the action on the Snackbar.
    *
    * @param color Color to make the action text.
    * @return This instance.
@@ -174,7 +173,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the text color for the action on the {@link Snackbar}.
+   * Set the text color for the action on the Snackbar.
    *
    * @param color Resource of the color to make the action text.
    * @return This instance.
@@ -186,7 +185,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the text color for the action on the {@link Snackbar}.
+   * Get the text color for the action on the Snackbar.
    *
    * @return The action text color.
    */
@@ -195,7 +194,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the text color for the action on the {@link Snackbar}.
+   * Get the text color for the action on the Snackbar.
    *
    * @return The action text color.
    */
@@ -205,7 +204,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the visibility of the action on the {@link Snackbar}.
+   * Get the visibility of the action on the Snackbar.
    *
    * @return The action visibility.
    */
@@ -214,7 +213,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the visibility of the action on the {@link Snackbar}.
+   * Set the visibility of the action on the Snackbar.
    *
    * @param visibility The action visibility.
    * @return This instance.
@@ -225,7 +224,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the action text on the {@link Snackbar} to start with an uppercase letter and for the remaining letters to be
+   * Set the action text on the Snackbar to start with an uppercase letter and for the remaining letters to be
    * lowercase. By default on API 14 and above the action will be displayed all uppercase, this allows you to customise
    * that.
    *
@@ -238,7 +237,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Make the action text on the {@link Snackbar} all uppercase.
+   * Make the action text on the Snackbar all uppercase.
    *
    * @return This instance.
    */
@@ -249,7 +248,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the message shown in the {@link Snackbar}.
+   * Get the message shown in the Snackbar.
    *
    * @return The message shown.
    */
@@ -258,7 +257,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Update the message in the {@link Snackbar}. This will overwrite the whole message that is currently shown.
+   * Update the message in the Snackbar. This will overwrite the whole message that is currently shown.
    *
    * @param message String resource of the new message.
    * @return This instance.
@@ -270,7 +269,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Update the message in this {@link Snackbar}. This will overwrite the whole message that is currently shown.
+   * Update the message in this Snackbar. This will overwrite the whole message that is currently shown.
    *
    * @param message The new message.
    * @return This instance.
@@ -282,7 +281,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the text color for the message shown in the {@link Snackbar}.
+   * Set the text color for the message shown in the Snackbar.
    *
    * @param color The message text color.
    * @return This instance.
@@ -293,7 +292,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the text color for the message shown in the {@link Snackbar}.
+   * Set the text color for the message shown in the Snackbar.
    *
    * @param colors The message text color state list.
    * @return This instance.
@@ -304,7 +303,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the text color for the message shown in the {@link Snackbar}.
+   * Set the text color for the message shown in the Snackbar.
    *
    * @param color The message text color resource.
    * @return This instance.
@@ -315,7 +314,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the text color for the message on the {@link Snackbar}.
+   * Get the text color for the message on the Snackbar.
    *
    * @return The message text color.
    */
@@ -324,7 +323,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the text color for the message on the {@link Snackbar}.
+   * Get the text color for the message on the Snackbar.
    *
    * @return The message text color.
    */
@@ -334,7 +333,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Append text to the {@link Snackbar} message.
+   * Append text to the Snackbar message.
    *
    * @param message The text to append.
    * @return This instance.
@@ -345,7 +344,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Append text to the {@link Snackbar} message.
+   * Append text to the Snackbar message.
    *
    * @param message The string resource of the text to append.
    * @return This instance.
@@ -355,7 +354,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Append text in the specified color to the {@link Snackbar}.
+   * Append text in the specified color to the Snackbar.
    *
    * @param message The text to append.
    * @param color   The color to apply to the text.
@@ -370,7 +369,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Append text in the specified color to the {@link Snackbar}.
+   * Append text in the specified color to the Snackbar.
    *
    * @param message The string resource of the text to append.
    * @param color   The resource of the color to apply to the text.
@@ -383,7 +382,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the visibility of the message on the {@link Snackbar}.
+   * Get the visibility of the message on the Snackbar.
    *
    * @return The message visibility.
    */
@@ -392,7 +391,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the visibility of the message on the {@link Snackbar}.
+   * Set the visibility of the message on the Snackbar.
    *
    * @param visibility The message visibility.
    * @return This instance.
@@ -403,7 +402,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the total duration to show the {@link Snackbar} for.
+   * Get the total duration to show the Snackbar for.
    *
    * @return The total duration to show for.
    */
@@ -413,10 +412,10 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the total time to show the {@link Snackbar} for.
+   * Set the total time to show the Snackbar for.
    *
-   * @param duration The length of time for which to show the {@link Snackbar}, can either be one of the predefined
-   *                 lengths: LENGTH_SHORT, LENGTH_LONG or a custom duration in milliseconds.
+   * @param duration The length of time for which to show the Snackbar, can either be one of the predefined lengths:
+   *                 LENGTH_SHORT, LENGTH_LONG or a custom duration in milliseconds.
    * @return This instance.
    */
   @NonNull
@@ -426,9 +425,9 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get the {@link Snackbar}'s view.
+   * Get the Snackbar's view.
    *
-   * @return This {@link Snackbar}'s view.
+   * @return This Snackbar's view.
    */
   @NonNull
   public View getView() {
@@ -436,7 +435,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the background color of the {@link Snackbar}.
+   * Set the background color of the Snackbar.
    *
    * @param color The background color.
    * @return This instance.
@@ -447,7 +446,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the background color of the {@link Snackbar}.
+   * Set the background color of the Snackbar.
    *
    * @param color The background color resource.
    * @return This instance.
@@ -458,8 +457,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the callback to be called when the {@link Snackbar} changes visibility. This will overwrite any callback that
-   * has already been set on the {@link Snackbar}.
+   * Set the callback to be called when the Snackbar changes visibility. This will overwrite any callback that has
+   * already been set on the Snackbar.
    *
    * @param callback The callback to be called.
    * @return This instance.
@@ -472,8 +471,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the callback to be called when the {@link Snackbar} changes visibility. If setCallback(Callback) has already
-   * been called, then that callback will be combined with the SnackbarCallback specified here.
+   * Set the callback to be called when the Snackbar changes visibility. If setCallback(Callback) has already been
+   * called, then that callback will be combined with the SnackbarCallback specified here.
    *
    * @param callback The callback to be called.
    * @return This instance.
@@ -484,8 +483,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the icon at the start of the {@link Snackbar}.  If there is no icon it will be added, or if there is then it
-   * will be replaced.
+   * Set the icon at the start of the Snackbar.  If there is no icon it will be added, or if there is then it will be
+   * replaced.
    *
    * @param icon The icon drawable resource to display.
    * @return This instance.
@@ -495,8 +494,8 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set the icon at the start of the {@link Snackbar}. If there is no icon it will be added, or if there is then it
-   * will be replaced.
+   * Set the icon at the start of the Snackbar. If there is no icon it will be added, or if there is then it will be
+   * replaced.
    *
    * @param icon The icon to display.
    * @return This instance.
@@ -559,7 +558,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Show the {@link Snackbar}.
+   * Show the Snackbar.
    *
    * @return This instance.
    */
@@ -569,7 +568,7 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Dismiss the {@link Snackbar}.
+   * Dismiss the Snackbar.
    *
    * @return This instance.
    */
@@ -579,18 +578,18 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Get whether the {@link Snackbar} is showing.
+   * Get whether the Snackbar is showing.
    *
-   * @return Whether this {@link Snackbar} is currently being shown.
+   * @return Whether this Snackbar is currently being shown.
    */
   public boolean isShown() {
     return snackbar.isShown();
   }
 
   /**
-   * Get whether the {@link Snackbar} is showing, or is queued to be shown next.
+   * Get whether the Snackbar is showing, or is queued to be shown next.
    *
-   * @return Whether the {@link Snackbar} is currently being shown, or is queued to be shown next.
+   * @return Whether the Snackbar is currently being shown, or is queued to be shown next.
    */
   public boolean isShownOrQueued() {
     return snackbar.isShownOrQueued();

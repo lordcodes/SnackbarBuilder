@@ -31,7 +31,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was shown (made visible).
+   * Indicates that the Snackbar was shown (made visible).
    *
    * @param snackbar The Snackbar.
    */
@@ -40,7 +40,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed through any means.
+   * Indicates that the Snackbar was dismissed through any means.
    *
    * @param snackbar The Snackbar.
    */
@@ -49,7 +49,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed through any means.
+   * Indicates that the Snackbar was dismissed through any means.
    *
    * @param snackbar     The Snackbar.
    * @param dismissEvent The event through which it was dismissed.
@@ -59,7 +59,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed due to the action being pressed.
+   * Indicates that the Snackbar was dismissed due to the action being pressed.
    *
    * @param snackbar The Snackbar.
    */
@@ -68,7 +68,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed due to being swiped away.
+   * Indicates that the Snackbar was dismissed due to being swiped away.
    *
    * @param snackbar The Snackbar.
    */
@@ -77,7 +77,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed due to a timeout, specified by the
+   * Indicates that the Snackbar was dismissed due to a timeout, specified by the
    * duration set.
    *
    * @param snackbar The Snackbar.
@@ -87,7 +87,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed manually via a call to dismiss().
+   * Indicates that the Snackbar was dismissed manually via a call to dismiss().
    *
    * @param snackbar The Snackbar.
    */
@@ -96,7 +96,7 @@ public class SnackbarCallback {
   }
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed due to another Snackbar being shown.
+   * Indicates that the Snackbar was dismissed due to another Snackbar being shown.
    *
    * @param snackbar The Snackbar.
    */

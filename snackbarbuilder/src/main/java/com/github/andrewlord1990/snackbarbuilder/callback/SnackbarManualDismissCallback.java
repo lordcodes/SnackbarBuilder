@@ -19,12 +19,12 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 import android.support.design.widget.Snackbar;
 
 /**
- * A callback to be notified when the {@link Snackbar} was dismissed manually via a call to dismiss().
+ * A callback to be notified when the Snackbar was dismissed manually via a call to dismiss().
  */
 public interface SnackbarManualDismissCallback {
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed manually via a call to dismiss().
+   * Indicates that the Snackbar was dismissed manually via a call to dismiss().
    *
    * @param snackbar The Snackbar.
    */

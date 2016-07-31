@@ -19,13 +19,13 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 import android.support.design.widget.Snackbar;
 
 /**
- * A callback to be notified when the {@link Snackbar} is dismissed due to a timeout. The occurs when the specified
- * duration (when the {@link Snackbar} is created) has passed, from when the {@link Snackbar} was shown.
+ * A callback to be notified when the Snackbar is dismissed due to a timeout. The occurs when the specified duration
+ * (when the Snackbar is created) has passed, from when the Snackbar was shown.
  */
 public interface SnackbarTimeoutDismissCallback {
 
   /**
-   * Indicates that the {@link Snackbar} was dismissed due to a timeout, specified by the duration set.
+   * Indicates that the Snackbar was dismissed due to a timeout, specified by the duration set.
    *
    * @param snackbar The Snackbar.
    */

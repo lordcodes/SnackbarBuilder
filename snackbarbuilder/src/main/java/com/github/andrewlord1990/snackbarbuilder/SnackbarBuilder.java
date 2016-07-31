@@ -49,14 +49,12 @@ import com.github.andrewlord1990.snackbarbuilder.parent.SnackbarParentFinder;
 /**
  * A builder pattern to easily create and customise Android Design Support library Snackbars. On top of the
  * customisations you can make through the Snackbar API, there are some additional ones.
- *
  * These include:
  * - Altering text and background colours
  * - Easier-to-use callbacks
  * - Appending messages
  * - Adding an icon
  * - Providing defaults for all SnackbarBuilders through theme attributes
- *
  * The builder can either output a constructed Snackbar or a SnackbarWrapper. The SnackbarWrapper allows you to further
  * customise the Snackbar after creation and gives you more control than the Snackbar API. Various default values can
  * be loaded from a style specified within your theme. These values can be overridden by the builder methods.
@@ -125,7 +123,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the text to display on the {@link Snackbar}.
+   * Set the text to display on the Snackbar.
    *
    * @param message Text to display.
    * @return This instance.
@@ -136,7 +134,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the text to display on the {@link Snackbar}.
+   * Set the text to display on the Snackbar.
    *
    * @param messageResId String resource of the text to display.
    * @return This instance.
@@ -147,7 +145,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the colour to display the message on the {@link Snackbar}.
+   * Set the colour to display the message on the Snackbar.
    *
    * @param messageTextColor Colour to display the message.
    * @return This instance.
@@ -158,7 +156,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the colour to display the message on the {@link Snackbar}.
+   * Set the colour to display the message on the Snackbar.
    *
    * @param messageTextColor Resource of the colour to display the message.
    * @return This instance.
@@ -169,7 +167,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Add some text to append to the end of the message shown on the {@link Snackbar}.
+   * Add some text to append to the end of the message shown on the Snackbar.
    *
    * @param message Text to append to the Snackbar message.
    * @return This instance.
@@ -181,7 +179,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Add some text to append to the message shown on the {@link Snackbar}.
+   * Add some text to append to the message shown on the Snackbar.
    *
    * @param messageResId String resource of the text to append to the Snackbar message.
    * @return This instance.
@@ -191,7 +189,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Add some text to append to the message shown on the {@link Snackbar} and a colour to make it.
+   * Add some text to append to the message shown on the Snackbar and a colour to make it.
    *
    * @param message Text to append to the Snackbar message.
    * @param color   Colour to make the appended text.
@@ -207,7 +205,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Add some text to append to the message shown on the {@link Snackbar} and a colour to make it.
+   * Add some text to append to the message shown on the Snackbar and a colour to make it.
    *
    * @param messageResId String resource of the text to append to the Snackbar message.
    * @param colorResId   Resource of the colour to make the appended text.
@@ -220,7 +218,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the duration to show the {@link Snackbar} for.
+   * Set the duration to show the Snackbar for.
    *
    * @param duration The duration.
    * @return This instance.
@@ -231,7 +229,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the text to display as an action on the {@link Snackbar}.
+   * Set the text to display as an action on the Snackbar.
    *
    * @param actionText The text to set as an action.
    * @return This instance.
@@ -242,7 +240,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the text to display as an action on the {@link Snackbar}.
+   * Set the text to display as an action on the Snackbar.
    *
    * @param actionTextResId The string resource of the text to set as an action.
    * @return This instance.
@@ -253,7 +251,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the colour to display the action on the {@link Snackbar}.
+   * Set the colour to display the action on the Snackbar.
    *
    * @param actionTextColor Colour to display the action.
    * @return This instance.
@@ -264,7 +262,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the colour to display the action on the {@link Snackbar}.
+   * Set the colour to display the action on the Snackbar.
    *
    * @param actionTextColorResId Resource of the colour to display the action.
    * @return This instance.
@@ -275,7 +273,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the click listener for the action on the {@link Snackbar}.
+   * Set the click listener for the action on the Snackbar.
    *
    * @param actionClickListener Click listener for the action.
    * @return This instance.
@@ -286,7 +284,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the colour to make the background of the {@link Snackbar}.
+   * Set the colour to make the background of the Snackbar.
    *
    * @param backgroundColor The background colour.
    * @return This instance.
@@ -297,7 +295,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the colour to make the background of the {@link Snackbar}.
+   * Set the colour to make the background of the Snackbar.
    *
    * @param backgroundColorResId The resource of the background colour.
    * @return This instance.
@@ -308,8 +306,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the standard callback for being informed of the {@link Snackbar} being shown or
-   * dismissed.
+   * Set the standard callback for being informed of the Snackbar being shown or dismissed.
    *
    * @param callback The callback.
    * @return This instance.
@@ -320,8 +317,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the enhanced callback for being informed of the {@link Snackbar} being shown or dismissed, through individual
-   * callback methods.
+   * Set the enhanced callback for being informed of the Snackbar being shown or dismissed, through individual callback
+   * methods.
    *
    * @param snackbarCallback The callback.
    * @return This instance.
@@ -332,7 +329,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being shown.
+   * Set the callback to be informed of the Snackbar being shown.
    *
    * @param callback The callback.
    * @return This instance.
@@ -343,7 +340,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed through some means.
+   * Set the callback to be informed of the Snackbar being dismissed through some means.
    *
    * @param callback The callback.
    * @return This instance.
@@ -354,7 +351,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action being pressed.
+   * Set the callback to be informed of the Snackbar being dismissed due to the action being pressed.
    *
    * @param callback The callback.
    * @return This instance.
@@ -365,7 +362,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed due to being swiped away.
+   * Set the callback to be informed of the Snackbar being dismissed due to being swiped away.
    *
    * @param callback The callback.
    * @return This instance.
@@ -376,7 +373,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed due to a timeout.
+   * Set the callback to be informed of the Snackbar being dismissed due to a timeout.
    *
    * @param callback The callback.
    * @return This instance.
@@ -387,7 +384,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a call to dismiss().
+   * Set the callback to be informed of the Snackbar being dismissed manually, due to a call to dismiss().
    *
    * @param callback The callback.
    * @return This instance.
@@ -398,7 +395,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the callback to be informed of the {@link Snackbar} being dismissed due to another Snackbar being shown.
+   * Set the callback to be informed of the Snackbar being dismissed due to another Snackbar being shown.
    *
    * @param callback The callback.
    * @return This instance.
@@ -421,7 +418,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set an icon to display on the {@link Snackbar} next to the message.
+   * Set an icon to display on the Snackbar next to the message.
    *
    * @param icon The drawable of the icon.
    * @return This instance.
@@ -432,7 +429,7 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set an icon to display on the {@link Snackbar} next to the message.
+   * Set an icon to display on the Snackbar next to the message.
    *
    * @param iconResId The drawable resource of the icon.
    * @return This instance.

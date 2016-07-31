@@ -51,7 +51,7 @@ public class ToastBuilder {
   int gravityOffsetY;
 
   /**
-   * Create a builder to setup and then create a {@link Toast}.
+   * Create a builder to setup and then create a Toast.
    *
    * @param context The context to use for creating the Toast.
    */
@@ -61,7 +61,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set a custom view to apply to the {@link Toast} message.
+   * Set a custom view to apply to the Toast message.
    *
    * @param customView The custom view.
    * @return This instance.
@@ -83,7 +83,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the message to display on the {@link Toast}.
+   * Set the message to display on the Toast.
    *
    * @param message The text to display.
    * @return This instance.
@@ -94,7 +94,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the message to display on the {@link Toast}.
+   * Set the message to display on the Toast.
    *
    * @param messageResId The string resource of the text to display.
    * @return This instance.
@@ -105,7 +105,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the color to display the message on the {@link Toast}.
+   * Set the color to display the message on the Toast.
    *
    * @param messageTextColor The color to display the message.
    * @return This instance.
@@ -116,7 +116,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the color to display the message on the {@link Toast}.
+   * Set the color to display the message on the Toast.
    *
    * @param messageTextColorResId The resource of the color to display the message.
    * @return This instance.
@@ -127,7 +127,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the duration to display the {@link Toast} for.
+   * Set the duration to display the Toast for.
    *
    * @param duration Duration which can be either LENGTH_SHORT or LENGTH_LONG.
    * @return This instance.
@@ -138,8 +138,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the location the {@link Toast} appears on the screen. The gravity specifies which edge of the screen it is
-   * attached to.
+   * Set the location the Toast appears on the screen. The gravity specifies which edge of the screen it is attached to.
    *
    * @param gravity The location to display the Toast.
    * @return This instance.
@@ -150,7 +149,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the horizontal offset in pixels to apply to the {@link Toast} location.
+   * Set the horizontal offset in pixels to apply to the Toast location.
    *
    * @param gravityOffsetX The horizontal offset in pixels.
    * @return This instance.
@@ -161,7 +160,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Set the vertical offset in pixels to apply to the {@link Toast} location.
+   * Set the vertical offset in pixels to apply to the Toast location.
    *
    * @param gravityOffsetY The vertical offset in pixels.
    * @return This instance.
@@ -172,7 +171,7 @@ public class ToastBuilder {
   }
 
   /**
-   * Build a {@link Toast} using the options specified in the builder.
+   * Build a Toast using the options specified in the builder.
    *
    * @return The constructed Toast.
    */
