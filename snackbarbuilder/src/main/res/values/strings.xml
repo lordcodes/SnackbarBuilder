@@ -16,6 +16,8 @@
   ~ See the License for the specific language governing permissions and limitations under the License.
   -->
 
-<resources>
-  <string name="snackbarbuilder_action_undo">Undo</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <string name="snackbarbuilder_action_undo" tools:ignore="UnusedResources">Undo</string>
+
 </resources>

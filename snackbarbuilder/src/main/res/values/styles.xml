@@ -16,7 +16,7 @@
   ~ See the License for the specific language governing permissions and limitations under the License.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <style name="SnackbarBuilder">
     <item name="snackbarBuilder_actionTextColor">?colorAccent</item>
@@ -28,18 +28,23 @@
     <item name="toastBuilder_duration">longTime</item>
   </style>
 
-  <style name="TestSnackbarBuilder_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="TestSnackbarBuilder_AppTheme"
+         parent="Theme.AppCompat.Light.DarkActionBar"
+         tools:ignore="UnusedResources">
     <item name="colorPrimary">#3F51B5</item>
     <item name="colorPrimaryDark">#303F9F</item>
     <item name="colorAccent">#FF4081</item>
   </style>
 
-  <style name="TestSnackbarBuilder_CustomTheme">
+  <style name="TestSnackbarBuilder_CustomTheme"
+         tools:ignore="UnusedResources">
     <item name="snackbarBuilderStyle">@style/TestSnackbarBuilderStyle</item>
     <item name="toastBuilderStyle">@style/TestToastBuilderStyle</item>
   </style>
 
-  <style name="TestSnackbarBuilderStyle" parent="SnackbarBuilder">
+  <style name="TestSnackbarBuilderStyle"
+         parent="SnackbarBuilder"
+         tools:ignore="UnusedResources">
     <item name="snackbarBuilder_actionTextColor">#454545</item>
     <item name="snackbarBuilder_messageTextColor">#987654</item>
     <item name="snackbarBuilder_parentViewId">@id/snackbarbuilder_icon</item>
@@ -47,12 +52,15 @@
     <item name="snackbarBuilder_backgroundColor">#999999</item>
   </style>
 
-  <style name="TestToastBuilderStyle" parent="ToastBuilder">
+  <style name="TestToastBuilderStyle"
+         parent="ToastBuilder"
+         tools:ignore="UnusedResources">
     <item name="toastBuilder_messageTextColor">#123456</item>
     <item name="toastBuilder_duration">shortTime</item>
   </style>
 
-  <style name="TestSnackbarBuilder_FallbackTheme">
+  <style name="TestSnackbarBuilder_FallbackTheme"
+         tools:ignore="UnusedResources">
     <item name="colorAccent">#232323</item>
   </style>
 

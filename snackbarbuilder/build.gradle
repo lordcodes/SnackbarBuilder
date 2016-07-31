@@ -12,6 +12,10 @@ android {
     versionCode rootProject.ext.generateVersionCode()
     versionName rootProject.ext.generateVersionName()
   }
+
+  lintOptions {
+    warningsAsErrors true
+  }
 }
 
 dependencies {

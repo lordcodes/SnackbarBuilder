@@ -17,6 +17,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.github.andrewlord1990.snackbarbuildersample">
 
   <application
@@ -24,7 +25,8 @@
       android:label="@string/app_name"
       android:allowBackup="false"
       android:supportsRtl="true"
-      android:theme="@style/TestSnackbarBuilder_AppTheme">
+      android:theme="@style/TestSnackbarBuilder_AppTheme"
+      tools:ignore="GoogleAppIndexingWarning">
 
     <activity
         android:name=".SampleActivity"
