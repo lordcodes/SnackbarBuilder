@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.6.0 (TBC)
+## v0.6.0 (31/07/16)
 
 ### Features
 
