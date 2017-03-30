@@ -16,7 +16,7 @@ One of the main annoyances with the `Snackbar` is that it has a dark background,
 
 Download via Gradle:
 ```groovy
-compile 'com.github.andrewlord1990:snackbarbuilder:0.7.0'
+compile 'com.github.andrewlord1990:snackbarbuilder:0.8.0'
 ```
 
 The library is available on Bintray (JCenter).
@@ -78,7 +78,7 @@ Simply implement the interface for the callback you are interested in and call t
       .show();
 ```
 
-Alternatively, if you would rather handle all the callbacks with a single class, then you can do that too. Simply extend the `SnackbarCallback` class and override only the methods you are interested in. Rather than needing to check the `dismissEvent` integer in the `Snackbar.Callback` class, there is a separate method to override for each dismiss type.
+Alternatively, if you would rather handle all the callbacks with a single class, then you can do that too. Simply extend the `SnackbarCallback` class and override only the methods you are interested in. Rather than needing to check the `dismissEvent` integer in the `Snackbar.Callback` class, there is a separate method to override for each dismiss type. There is also a method that accepts the standard `Snackbar.Callback`.
 
 
 ### ToastBuilder
@@ -114,6 +114,8 @@ You can provide defaults to the `SnackbarBuilder` and the `ToastBuilder` through
     <item name="snackbarBuilder_duration">shortTime</item>
     <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
     <item name="snackbarBuilder_actionTextColor">@color/colorAccent</item>
+    <item name="snackbarBuilder_iconMargin">8dp</item>
+    <item name="snackbarBuilder_actionAllCaps">false</item>
 </style>
 
 <style name="SampleToastStyle" parent="ToastBuilder">
