@@ -187,7 +187,18 @@ public class SampleActivity extends AppCompatActivity {
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .icon(R.drawable.ic_android_24dp)
-            .iconMarginRes(R.dimen.snackbar_icon_margin)
+            .message("This has an icon on it")
+            .duration(Snackbar.LENGTH_LONG)
+            .build()
+            .show();
+      }
+    });
+    samples.put("Icon with margin", new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        new SnackbarBuilder(SampleActivity.this)
+            .icon(R.drawable.ic_android_24dp)
+            .iconMarginRes(R.dimen.snackbar_icon_margin_large)
             .message("This has an icon on it")
             .duration(Snackbar.LENGTH_LONG)
             .build()
