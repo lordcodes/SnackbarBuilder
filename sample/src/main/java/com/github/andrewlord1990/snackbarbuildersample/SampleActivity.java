@@ -161,13 +161,13 @@ public class SampleActivity extends AppCompatActivity {
             .show();
       }
     });
-    samples.put("Lowercase action", new OnClickListener() {
+    samples.put("Action not forced all uppercase", new OnClickListener() {
       @Override
       public void onClick(View view) {
         new SnackbarBuilder(SampleActivity.this)
             .message(MESSAGE)
             .actionText(ACTION)
-            .actionNotAllCaps()
+            .actionAllCaps(false)
             .build()
             .show();
       }
