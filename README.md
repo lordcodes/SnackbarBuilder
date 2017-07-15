@@ -16,7 +16,7 @@ One of the main annoyances with the `Snackbar` is that it has a dark background,
 
 Download via Gradle:
 ```groovy
-compile 'com.github.andrewlord1990:snackbarbuilder:0.8.0'
+compile 'com.github.andrewlord1990:snackbarbuilder:0.9.0'
 ```
 
 The library is available on Bintray (JCenter).
