@@ -626,10 +626,44 @@ public class SnackbarBuilderTest {
   }
 
   @Test
+  public void givenActionTextNoClickListener_whenBuildWrapper_thenActionTextSet() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+
+    SnackbarWrapper wrapper = new SnackbarBuilder(parent)
+        .actionText("action")
+        .buildWrapper();
+
+    assertThat(wrapper.getActionText()).isEqualTo("action");
+  }
+
+  @Test
+  public void givenActionTextAndClickListener_whenBuildWrapper_thenActionTextAndClickListenerSet() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+
+    SnackbarWrapper wrapper = new SnackbarBuilder(parent)
+        .actionText("action")
+        .actionClickListener(new OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            view.setBackgroundColor(Color.RED);
+          }
+        })
+        .buildWrapper();
+
+    assertThat(wrapper.getActionText()).isEqualTo("action");
+    View actionView = wrapper.getView().findViewById(R.id.snackbar_action);
+    actionView.performClick();
+    Assertions.assertThat((ColorDrawable) actionView.getBackground()).hasColor(Color.RED);
+  }
+
+  @Test
   @TargetApi(11)
   public void whenBuild_thenSnackbarSetup() {
     int messageTextColor = 0xFF111111;
     int actionTextColor = 0xFF999999;
+    int backgroundCOlor = 0xFF777777;
     String message = "message";
     String action = "action";
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
@@ -641,7 +675,7 @@ public class SnackbarBuilderTest {
         .message(message)
         .actionText(action)
         .duration(Snackbar.LENGTH_INDEFINITE)
-        .backgroundColor(0xFF777777)
+        .backgroundColor(backgroundCOlor)
         .lowercaseAction()
         .build();
 
@@ -652,7 +686,7 @@ public class SnackbarBuilderTest {
         .hasText(message);
 
     Assertions.assertThat((ColorDrawable) snackbar.getView().getBackground())
-        .hasColor(0xFF777777);
+        .hasColor(backgroundCOlor);
 
     Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
     Assertions.assertThat(button).hasCurrentTextColor(actionTextColor);

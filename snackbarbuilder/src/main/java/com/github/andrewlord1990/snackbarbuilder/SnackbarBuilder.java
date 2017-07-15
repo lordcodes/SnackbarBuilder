@@ -509,7 +509,36 @@ public final class SnackbarBuilder {
    * @return A SnackbarWrapper, a class which wraps a Snackbar for further customisation.
    */
   public SnackbarWrapper buildWrapper() {
-    return new SnackbarWrapper(build());
+    Snackbar snackbar = Snackbar.make(parentView, message, duration);
+    SnackbarWrapper wrapper = new SnackbarWrapper(snackbar)
+        .setAction(actionText, sanitisedActionClickListener())
+        .setActionTextColor(actionTextColor)
+        .setAllCapsActionText(actionAllCaps)
+        .setTextColor(messageTextColor)
+        .addCallbacks(callbacks)
+        .setIconMargin(iconMargin);
+    if (appendMessages != null) {
+      wrapper.appendMessage(appendMessages);
+    }
+    if (backgroundColor != 0) {
+      wrapper.setBackgroundColor(backgroundColor);
+    }
+    if (icon != null) {
+      wrapper.setIcon(icon);
+    }
+    return wrapper;
+  }
+
+  private OnClickListener sanitisedActionClickListener() {
+    if (actionClickListener == null) {
+      return new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          // Not needed
+        }
+      };
+    }
+    return actionClickListener;
   }
 
   /**
@@ -518,18 +547,7 @@ public final class SnackbarBuilder {
    * @return A Snackbar.
    */
   public Snackbar build() {
-    Snackbar snackbar = Snackbar.make(parentView, message, duration);
-
-    new SnackbarCustomiser(snackbar)
-        .customiseMessage(messageTextColor, appendMessages)
-        .setBackgroundColor(backgroundColor)
-        .setAction(actionText, actionClickListener)
-        .setActionTextColor(actionTextColor)
-        .setActionAllCaps(actionAllCaps)
-        .setCallbacks(callbacks)
-        .setIcon(icon, iconMargin);
-
-    return snackbar;
+    return buildWrapper().getSnackbar();
   }
 
   private void initialiseAppendMessages() {
@@ -599,7 +617,8 @@ public final class SnackbarBuilder {
       messageTextColor = getColor(R.color.snackbarbuilder_default_message);
     }
     if (actionTextColor == 0) {
-      actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
+      actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent,
+          getColor(R.color.snackbarbuilder_default_message));
     }
   }
 
