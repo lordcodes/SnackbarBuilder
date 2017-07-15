@@ -109,7 +109,7 @@ You can provide defaults to the `SnackbarBuilder` and the `ToastBuilder` through
     <item name="toastBuilderStyle">@style/SampleToastStyle</item>
 </style>
 
-<style name="SampleSnackbarStyle" parent="SnackbarBuilder">
+<style name="SampleSnackbarStyle">
     <item name="snackbarBuilder_parentViewId">@id/coordinator</item>
     <item name="snackbarBuilder_duration">shortTime</item>
     <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
@@ -118,9 +118,21 @@ You can provide defaults to the `SnackbarBuilder` and the `ToastBuilder` through
     <item name="snackbarBuilder_actionAllCaps">false</item>
 </style>
 
-<style name="SampleToastStyle" parent="ToastBuilder">
+<style name="SampleToastStyle">
     <item name="toastBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
     <item name="toastBuilder_duration">shortTime</item>
+</style>
+```
+
+There are some base SnackbarBuilder and ToastBuilder styles included in the library. You can use these as a parent style if you would like to. These styles can be useful to se all the theme attributes you have access to.
+
+```xml
+<style name="SampleSnackbarStyle" parent="SnackbarBuilder">
+    ...
+</style>
+
+<style name="SampleToastStyle" parent="ToastBuilder">
+    ...
 </style>
 ```
 
