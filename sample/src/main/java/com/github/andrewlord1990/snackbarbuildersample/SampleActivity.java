@@ -167,7 +167,7 @@ public class SampleActivity extends AppCompatActivity {
         new SnackbarBuilder(SampleActivity.this)
             .message(MESSAGE)
             .actionText(ACTION)
-            .lowercaseAction()
+            .actionNotAllCaps()
             .build()
             .show();
       }

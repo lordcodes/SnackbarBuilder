@@ -250,40 +250,14 @@ public final class SnackbarWrapper {
   }
 
   /**
-   * Set whether the action text on the Snackbar is all uppercase or in sentence case.
+   * Set whether the action text on the Snackbar is all uppercase or matches the case of the original text string.
    *
    * @return This instance.
    */
   @NonNull
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setAllCapsActionText(boolean allCaps) {
+  public SnackbarWrapper setActionTextAllCaps(boolean allCaps) {
     actionViewExtension.setAllCaps(allCaps);
-    return this;
-  }
-
-  /**
-   * Set the action text on the Snackbar to be in sentence case (starts with uppercase letter and remaining letters in
-   * lowercase). By default on API 14 and above the action will be displayed all uppercase, this allows you to customise
-   * that.
-   *
-   * @return This instance.
-   */
-  @NonNull
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setLowercaseActionText() {
-    actionViewExtension.setAllCaps(false);
-    return this;
-  }
-
-  /**
-   * Make the action text on the Snackbar all uppercase.
-   *
-   * @return This instance.
-   */
-  @NonNull
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setUppercaseActionText() {
-    actionViewExtension.setAllCaps(true);
     return this;
   }
 

@@ -557,10 +557,19 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void whenLowercaseAction_thenActionAllCapsFalse() {
+  public void givenTrue_whenActionAllCaps_thenActionAllCapsTrue() {
     SnackbarBuilder builder = createBuilder();
 
-    builder.lowercaseAction();
+    builder.actionAllCaps(true);
+
+    assertThat(builder.actionAllCaps).isTrue();
+  }
+
+  @Test
+  public void givenFalse_whenActionAllCaps_thenActionAllCapsFalse() {
+    SnackbarBuilder builder = createBuilder();
+
+    builder.actionAllCaps(false);
 
     assertThat(builder.actionAllCaps).isFalse();
   }
@@ -676,7 +685,7 @@ public class SnackbarBuilderTest {
         .actionText(action)
         .duration(Snackbar.LENGTH_INDEFINITE)
         .backgroundColor(backgroundCOlor)
-        .lowercaseAction()
+        .actionAllCaps(false)
         .build();
 
     assertThat(snackbar.getDuration()).isEqualTo(Snackbar.LENGTH_INDEFINITE);
@@ -729,7 +738,7 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void givenNotLowercaseAction_whenBuild_thenActionAllCaps() {
+  public void givenNotCalledActionAllCaps_whenBuild_thenActionAllCaps() {
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
     CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 

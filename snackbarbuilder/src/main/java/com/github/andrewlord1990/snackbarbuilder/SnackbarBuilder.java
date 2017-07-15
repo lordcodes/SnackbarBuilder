@@ -444,13 +444,13 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Make the action be displayed with the first letter uppercase and the rest lowercase. This is useful due to the
-   * action being displayed all uppercase by default on API 14 and above.
+   * Force the action text to be displayed with case matching that of the original text string. This is useful as on
+   * API 14 and above the action text is all uppercase by default.
    *
    * @return This instance.
    */
-  public SnackbarBuilder lowercaseAction() {
-    actionAllCaps = false;
+  public SnackbarBuilder actionAllCaps(boolean actionAllCaps) {
+    this.actionAllCaps = actionAllCaps;
     return this;
   }
 
@@ -513,7 +513,7 @@ public final class SnackbarBuilder {
     SnackbarWrapper wrapper = new SnackbarWrapper(snackbar)
         .setAction(actionText, sanitisedActionClickListener())
         .setActionTextColor(actionTextColor)
-        .setAllCapsActionText(actionAllCaps)
+        .setActionTextAllCaps(actionAllCaps)
         .setTextColor(messageTextColor)
         .addCallbacks(callbacks)
         .setIconMargin(iconMargin);

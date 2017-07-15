@@ -193,39 +193,21 @@ public class SnackbarWrapperTest {
   }
 
   @Test
-  public void givenTrue_whenSetAllCapsActionText_thenActionAllCaps() {
+  public void givenTrue_whenSetActionTextAllCaps_thenActionAllCaps() {
     TextViewExtension.from(getActionView()).setAllCaps(false);
 
-    wrapper.setAllCapsActionText(true);
+    wrapper.setActionTextAllCaps(true);
 
     assertThat(getActionView().getTransformationMethod()).isNotNull();
   }
 
   @Test
-  public void givenFalse_whenSetAllCapsActionText_thenActionNotAllCaps() {
+  public void givenFalse_whenSetActionTextAllCaps_thenActionNotAllCaps() {
     TextViewExtension.from(getActionView()).setAllCaps(true);
 
-    wrapper.setAllCapsActionText(false);
+    wrapper.setActionTextAllCaps(false);
 
     assertThat(getActionView().getTransformationMethod()).isNull();
-  }
-
-  @Test
-  public void whenSetLowercaseActionText_thenActionNotAllCaps() {
-    TextViewExtension.from(getActionView()).setAllCaps(true);
-
-    wrapper.setLowercaseActionText();
-
-    assertThat(getActionView().getTransformationMethod()).isNull();
-  }
-
-  @Test
-  public void whenSetUppercaseActionText_thenActionAllCaps() {
-    TextViewExtension.from(getActionView()).setAllCaps(false);
-
-    wrapper.setUppercaseActionText();
-
-    assertThat(getActionView().getTransformationMethod()).isNotNull();
   }
 
   @Test
