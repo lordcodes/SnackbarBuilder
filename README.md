@@ -1,26 +1,10 @@
 # SnackbarBuilder
 
-NOTE - No longer actively developed. The library was useful on Android for a while, however, it is not really needed anymore and as such is no longer supported or maintained.
+NOTE - Deprecated and no longer actively developed. The library was useful on Android for a while, however, it is not really needed anymore and as such is no longer supported or maintained.
 
 The Android Design Support library introduced the `Snackbar`. SnackbarBuilder provides a builder pattern that not only makes Snackbars easier to create, but it also provides some extra customisations.
 
 One of the main annoyances with the `Snackbar` is that it has a dark background, but takes the default text color from your theme, which is often dark as well. This makes the messages hard to read and requires you to retrieve the `TextView` yourself and change the text color. `SnackbarBuilder` defaults the text color to white and then allows you to choose your own colour if you wish.
-
-
-## Download
-
-Download via Gradle:
-```groovy
-compile 'com.github.andrewlord1990:snackbarbuilder:0.9.0'
-```
-
-The library is available on Bintray (JCenter).
-
-```groovy
-repositories {
-  jcenter()
-}
-```
 
 ## Main Features
 
